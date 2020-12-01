@@ -1,13 +1,8 @@
-# Yearn Vaults Subgraph
-
-![License](https://img.shields.io/badge/license-MIT-green)
-![Build](https://github.com/iearn-finance/yearn-subgraph/workflows/Build/badge.svg)
-![Lint](https://github.com/iearn-finance/yearn-subgraph/workflows/Lint/badge.svg)
-
-Subgraph to track yearn vaults metrics on Mainnet.
+# Badger Subgraph
+Subgraph to track Sett metrics on Mainnet.
+Sett data based on [Yearn Vaults subgraph](https://github.com/iearn-finance/yearn-subgraph)
 
 ## Setup
-
 - Copy `.envrc.example` to `.envrc`.
 - Set `ACCESS_TOKEN` to your The Graph [access token](https://thegraph.com/docs/deploy-a-subgraph#store-the-access-token).
 - Set `GRAPH_PATH` to `<github-username>/<subgraph-name>`.
@@ -19,6 +14,14 @@ Subgraph to track yearn vaults metrics on Mainnet.
 - `yarn codegen` – generate code
 - `yarn create` – allocate subgraph name in Graph Node
 - `yarn deploy` - deploy supgraph to Graph Node
+- `yarn publish-graph` – run all steps in one command
+
+## Staging
+
+- `yarn` – install dependencies
+- `yarn codegen` – generate code
+- `yarn create-staging` – allocate subgraph name in Graph Node
+- `yarn deploy-staging` - deploy supgraph to Graph Node
 - `yarn publish-graph` – run all steps in one command
 
 See `package.json` for local deployment.
