@@ -1,0 +1,391 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+# ===== Setts =====
+  - kind: ethereum/contract
+    name: nativeBadgerSett
+    network: mainnet
+    source:
+      address: "0xe091579Bf30c160945D79A32927c33b14a4ceDC3"
+      abi: V1Contract
+      startBlock: 11368044
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Deposit
+        - Withdraw
+        - Harvest
+        - Transfer
+        - AccountVaultBalance
+        - Account
+        - Token
+      abis:
+        - name: V1Contract
+          file: ./abis/V1Contract.json
+        - name: Controller
+          file: ./abis/Controller.json
+        - name: Strategy
+          file: ./abis/Strategy.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleShareTransfer
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: nativeRenCrvSett
+    network:  mainnet
+    source:
+      address: "0x8817F2af1c5564ca51367f7df288deB2A446FE92"
+      abi: V1Contract
+      startBlock: 11368044
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Deposit
+        - Withdraw
+        - Harvest
+        - Transfer
+        - AccountVaultBalance
+        - Account
+        - Token
+      abis:
+        - name: V1Contract
+          file: ./abis/V1Contract.json
+        - name: Controller
+          file: ./abis/Controller.json
+        - name: Strategy
+          file: ./abis/Strategy.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleShareTransfer
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: nativeSbtcCrvSett
+    network: mainnet
+    source:
+      address: "0x087735B6ff9bdBB327E18D378BB64A6e71Ab0409"
+      abi: V1Contract
+      startBlock: 11368044
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Deposit
+        - Withdraw
+        - Harvest
+        - Transfer
+        - AccountVaultBalance
+        - Account
+        - Token
+      abis:
+        - name: V1Contract
+          file: ./abis/V1Contract.json
+        - name: Controller
+          file: ./abis/Controller.json
+        - name: Strategy
+          file: ./abis/Strategy.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleShareTransfer
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: nativeTbtcCrvSett
+    network: mainnet
+    source:
+      address: "0x8e79264af0EfE8D16248882451D840acd1E1E8b7"
+      abi: V1Contract
+      startBlock: 11368044
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Deposit
+        - Withdraw
+        - Harvest
+        - Transfer
+        - AccountVaultBalance
+        - Account
+        - Token
+      abis:
+        - name: V1Contract
+          file: ./abis/V1Contract.json
+        - name: Controller
+          file: ./abis/Controller.json
+        - name: Strategy
+          file: ./abis/Strategy.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleShareTransfer
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: nativeUniBadgerWbtcLpSett
+    network: mainnet
+    source:
+      address: "0xA1fC7b287813399F49DBD2dcc3579BEfB0a0A27a"
+      abi: V1Contract
+      startBlock: 11368044
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Deposit
+        - Withdraw
+        - Harvest
+        - Transfer
+        - AccountVaultBalance
+        - Account
+        - Token
+      abis:
+        - name: V1Contract
+          file: ./abis/V1Contract.json
+        - name: Controller
+          file: ./abis/Controller.json
+        - name: Strategy
+          file: ./abis/Strategy.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleShareTransfer
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: harvestRenCrvSett
+    network: mainnet
+    source:
+      address: "0xd7eF2D05C73e3A726b04DE7BAe940a8502f1D013"
+      abi: V1Contract
+      startBlock: 11368044
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Deposit
+        - Withdraw
+        - Harvest
+        - Transfer
+        - AccountVaultBalance
+        - Account
+        - Token
+      abis:
+        - name: V1Contract
+          file: ./abis/V1Contract.json
+        - name: Controller
+          file: ./abis/Controller.json
+        - name: Strategy
+          file: ./abis/Strategy.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleShareTransfer
+      file: ./src/mapping.ts
+# ===== Geysers =====
+  - kind: ethereum/contract
+    name: nativeBadgerGeyser
+    network: mainnet
+    source:
+      address: "0xE679a9935D60601a76F93A0C378ba736758465Dd"
+      abi: BadgerGeyser
+      startBlock: 11368044
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Geyser
+        - StakedEvent
+        - UnstakedEvent
+      abis:
+        - name: BadgerGeyser
+          file: ./abis/BadgerGeyser.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Staked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
+          handler: handleStaked
+        - event: Unstaked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
+          handler: handleUnstaked
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: nativeRenCrvGeyser
+    network: mainnet
+    source:
+      address: "0xDe01Fc9EA32066d2F4C9769f8d0836dA2b99Db8C"
+      abi: BadgerGeyser
+      startBlock: 11368044
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Geyser
+        - StakedEvent
+        - UnstakedEvent
+      abis:
+        - name: BadgerGeyser
+          file: ./abis/BadgerGeyser.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Staked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
+          handler: handleStaked
+        - event: Unstaked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
+          handler: handleUnstaked
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: nativeSbtcCrvGeyser
+    network: mainnet
+    source:
+      address: "0x1d77828BCe2711844c64159fd2689c1e9C3f0312"
+      abi: BadgerGeyser
+      startBlock: 11368044
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Geyser
+        - StakedEvent
+        - UnstakedEvent
+      abis:
+        - name: BadgerGeyser
+          file: ./abis/BadgerGeyser.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Staked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
+          handler: handleStaked
+        - event: Unstaked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
+          handler: handleUnstaked
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: nativeTbtcCrvGeyser
+    network: mainnet
+    source:
+      address: "0x704C01A3697207789320368d939FAe8DB23fe058"
+      abi: BadgerGeyser
+      startBlock: 11368044
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Geyser
+        - StakedEvent
+        - UnstakedEvent
+      abis:
+        - name: BadgerGeyser
+          file: ./abis/BadgerGeyser.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Staked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
+          handler: handleStaked
+        - event: Unstaked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
+          handler: handleUnstaked
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: nativeUniBadgerWbtcGeyser
+    network: mainnet
+    source:
+      address: "0xa9540af933406183803170Cb496452E849cA3A0f"
+      abi: BadgerGeyser
+      startBlock: 11368044
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Geyser
+        - StakedEvent
+        - UnstakedEvent
+      abis:
+        - name: BadgerGeyser
+          file: ./abis/BadgerGeyser.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Staked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
+          handler: handleStaked
+        - event: Unstaked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
+          handler: handleUnstaked
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: harvestRenCrvGeyser
+    network: mainnet
+    source:
+      address: "0x1C19D67B078625b25a99E1128152CeD367D48608"
+      abi: BadgerGeyser
+      startBlock: 11368044
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Geyser
+        - StakedEvent
+        - UnstakedEvent
+      abis:
+        - name: BadgerGeyser
+          file: ./abis/BadgerGeyser.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Staked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
+          handler: handleStaked
+        - event: Unstaked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
+          handler: handleUnstaked
+      file: ./src/mapping.ts
+# ===== Strategy Template =====
+templates:
+  - name: Strategy
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: Strategy
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mapping.ts
+      entities:
+        - Vault
+        - Deposit
+        - Withdraw
+        - Harvest
+        - Transfer
+        - AccountVaultBalance
+        - Account
+        - Token
+      abis:
+        - name: Strategy
+          file: ./abis/Strategy.json
+        - name: V1Contract
+          file: ./abis/V1Contract.json
+        - name: Controller
+          file: ./abis/Controller.json
+      eventHandlers:
+        - event: Harvest(uint256,indexed uint256)
+          handler: handleHarvest
