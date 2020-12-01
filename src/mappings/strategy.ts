@@ -1,7 +1,6 @@
 import { Address } from '@graphprotocol/graph-ts';
 import { Harvest } from '../../generated/nativeBadgerSett/Strategy';
 
-import { HarvestCall } from '../../generated/yUSDVault/V1Contract';
 import { BIGINT_ONE } from '../utils/constants';
 import { toDecimal } from '../utils/decimals';
 import {

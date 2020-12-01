@@ -1,4 +1,3 @@
-import { StakedEvent, UnstakedEvent } from '../../generated/schema';
 import { Staked, Unstaked } from '../../generated/nativeBadgerGeyser/BadgerGeyser';
 import {
   getOrCreateGeyser,
