@@ -2,14 +2,14 @@ specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
-# ===== Setts =====
+  # ===== Setts =====
   - kind: ethereum/contract
     name: nativeBadgerSett
     network: mainnet
     source:
-      address: "0xe091579Bf30c160945D79A32927c33b14a4ceDC3"
+      address: '0x19D97D8fA813EE2f51aD4B4e04EA08bAf4DFfC28'
       abi: V1Contract
-      startBlock: 11368044
+      startBlock: 11376266
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -38,11 +38,11 @@ dataSources:
       file: ./src/mapping.ts
   - kind: ethereum/contract
     name: nativeRenCrvSett
-    network:  mainnet
+    network: mainnet
     source:
-      address: "0x8817F2af1c5564ca51367f7df288deB2A446FE92"
+      address: '0x6dEf55d2e18486B9dDfaA075bc4e4EE0B28c1545'
       abi: V1Contract
-      startBlock: 11368044
+      startBlock: 11376266
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -73,9 +73,9 @@ dataSources:
     name: nativeSbtcCrvSett
     network: mainnet
     source:
-      address: "0x087735B6ff9bdBB327E18D378BB64A6e71Ab0409"
+      address: '0xd04c48A53c111300aD41190D63681ed3dAd998eC'
       abi: V1Contract
-      startBlock: 11368044
+      startBlock: 11376266
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -106,9 +106,9 @@ dataSources:
     name: nativeTbtcCrvSett
     network: mainnet
     source:
-      address: "0x8e79264af0EfE8D16248882451D840acd1E1E8b7"
+      address: '0xb9D076fDe463dbc9f915E5392F807315Bf940334'
       abi: V1Contract
-      startBlock: 11368044
+      startBlock: 11376266
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -139,9 +139,9 @@ dataSources:
     name: nativeUniBadgerWbtcLpSett
     network: mainnet
     source:
-      address: "0xA1fC7b287813399F49DBD2dcc3579BEfB0a0A27a"
+      address: '0x235c9e24D3FB2FAFd58a2E49D454Fdcd2DBf7FF1'
       abi: V1Contract
-      startBlock: 11368044
+      startBlock: 11376266
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -172,9 +172,9 @@ dataSources:
     name: harvestRenCrvSett
     network: mainnet
     source:
-      address: "0xd7eF2D05C73e3A726b04DE7BAe940a8502f1D013"
+      address: '0xAf5A1DECfa95BAF63E0084a35c62592B774A2A87'
       abi: V1Contract
-      startBlock: 11368044
+      startBlock: 11376266
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -201,14 +201,14 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleShareTransfer
       file: ./src/mapping.ts
-# ===== Geysers =====
+  # ===== Geysers =====
   - kind: ethereum/contract
     name: nativeBadgerGeyser
     network: mainnet
     source:
-      address: "0xE679a9935D60601a76F93A0C378ba736758465Dd"
+      address: '0xa9429271a28F8543eFFfa136994c0839E7d7bF77'
       abi: BadgerGeyser
-      startBlock: 11368044
+      startBlock: 11376266
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -232,9 +232,9 @@ dataSources:
     name: nativeRenCrvGeyser
     network: mainnet
     source:
-      address: "0xDe01Fc9EA32066d2F4C9769f8d0836dA2b99Db8C"
+      address: '0x2296f174374508278DC12b806A7f27c87D53Ca15'
       abi: BadgerGeyser
-      startBlock: 11368044
+      startBlock: 11376266
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -258,9 +258,9 @@ dataSources:
     name: nativeSbtcCrvGeyser
     network: mainnet
     source:
-      address: "0x1d77828BCe2711844c64159fd2689c1e9C3f0312"
+      address: '0x10fC82867013fCe1bD624FafC719Bb92Df3172FC'
       abi: BadgerGeyser
-      startBlock: 11368044
+      startBlock: 11376266
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -284,9 +284,9 @@ dataSources:
     name: nativeTbtcCrvGeyser
     network: mainnet
     source:
-      address: "0x704C01A3697207789320368d939FAe8DB23fe058"
+      address: '0x085A9340ff7692Ab6703F17aB5FfC917B580a6FD'
       abi: BadgerGeyser
-      startBlock: 11368044
+      startBlock: 11376266
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -310,9 +310,9 @@ dataSources:
     name: nativeUniBadgerWbtcGeyser
     network: mainnet
     source:
-      address: "0xa9540af933406183803170Cb496452E849cA3A0f"
+      address: '0xA207D69Ea6Fb967E54baA8639c408c31767Ba62D'
       abi: BadgerGeyser
-      startBlock: 11368044
+      startBlock: 11376266
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -336,9 +336,9 @@ dataSources:
     name: harvestRenCrvGeyser
     network: mainnet
     source:
-      address: "0x1C19D67B078625b25a99E1128152CeD367D48608"
+      address: '0xeD0B7f5d9F6286d00763b0FFCbA886D8f9d56d5e'
       abi: BadgerGeyser
-      startBlock: 11368044
+      startBlock: 11376266
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
