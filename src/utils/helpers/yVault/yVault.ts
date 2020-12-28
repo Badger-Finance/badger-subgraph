@@ -1,5 +1,8 @@
 import { Address, log } from '@graphprotocol/graph-ts';
 
+import { Controller as ControllerContract } from '../../../../generated/nativeBadgerSett/Controller';
+import { Strategy as StrategyContract } from '../../../../generated/nativeBadgerSett/Strategy';
+import { V1Contract } from '../../../../generated/nativeBadgerSett/V1Contract';
 import {
   Controller,
   Deposit,
@@ -11,9 +14,6 @@ import {
   Withdrawal,
 } from '../../../../generated/schema';
 import { Strategy as StrategyABI } from '../../../../generated/templates';
-import { Controller as ControllerContract } from '../../../../generated/nativeBadgerSett/Controller';
-import { Strategy as StrategyContract } from '../../../../generated/nativeBadgerSett/Strategy';
-import { V1Contract } from '../../../../generated/nativeBadgerSett/V1Contract';
 import { BIGDECIMAL_ZERO, BIGINT_ZERO } from '../../constants';
 import { toDecimal } from '../../decimals';
 import { getOrCreateToken } from './token';

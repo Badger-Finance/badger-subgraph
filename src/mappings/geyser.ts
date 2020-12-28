@@ -30,8 +30,8 @@ export function handleUnstaked(event: Unstaked): void {
     .concat('-')
     .concat(event.logIndex.toString());
 
-    let geyser = getOrCreateGeyser(event.address);
-    geyser.save();
+  let geyser = getOrCreateGeyser(event.address);
+  geyser.save();
 
   // Update accounting, processing unstake according to LIFO rules
   // geyser.accounts

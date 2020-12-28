@@ -1,17 +1,17 @@
-import { Address, BigInt, log } from '@graphprotocol/graph-ts';
+import { Address, BigInt } from '@graphprotocol/graph-ts';
 
+import {
+  BadgerGeyser,
+  Staked,
+  Unstaked,
+} from '../../../../generated/nativeBadgerGeyser/BadgerGeyser';
 import {
   Geyser,
   StakedEvent,
   Transaction,
   UnstakedEvent,
 } from '../../../../generated/schema';
-import {
-  BadgerGeyser,
-  Staked,
-  Unstaked,
-} from '../../../../generated/nativeBadgerGeyser/BadgerGeyser';
-import { BIGDECIMAL_ZERO, BIGINT_ZERO } from '../../constants';
+import { BIGINT_ZERO } from '../../constants';
 
 export function getOrCreateTransaction(
   id: String,
