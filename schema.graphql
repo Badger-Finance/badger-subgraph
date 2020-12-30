@@ -280,10 +280,12 @@ type HarvestEvent @entity {
   sourceId: String!
 }
 
-type HarvestFarmEvent @entity {
+type FarmHarvestEvent @entity {
   id: ID!
-  sourceAddress: Bytes!
-  sourceId: String!
-  displayName: String!
-  imageUrl: String!
+  totalFarmHarvested: BigInt!
+  farmToRewards: BigInt!
+  governancePerformanceFee: BigInt!
+  strategistPerformanceFee: BigInt!
+  timestamp: BigInt!
+  blockNumber: BigInt!
 }
