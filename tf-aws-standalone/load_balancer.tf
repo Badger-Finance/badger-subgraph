@@ -1,8 +1,24 @@
+resource "aws_security_group" "allow_http_internet" {
+  name_prefix = "internet_http"
+  vpc_id      = local.vpc_id
+  egress {
+    from_port   = 0
+    protocol    = "-1" # all
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port   = 80
+    protocol    = "TCP"
+    to_port     = 80
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
 resource "aws_lb" "alb" {
   name               = "alb"
   load_balancer_type = "application"
   subnets            = local.subnets
-  security_groups    = [aws_security_group.graph-node.id]
+  security_groups    = [aws_security_group.allow_http_internet.id]
   internal           = false
   tags = {
     Name = "alb"
@@ -10,7 +26,7 @@ resource "aws_lb" "alb" {
 }
 
 resource "aws_lb_target_group" "graphnode-graphql" {
-  name     = "alb-target-group"
+  name     = "graphnode-graphql"
   port     = "8000"
   protocol = "HTTP"
   vpc_id   = local.vpc_id

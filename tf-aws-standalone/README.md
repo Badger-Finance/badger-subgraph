@@ -95,7 +95,7 @@ In most other cases, the inputs/defaults are clear. You don't need to mess with 
 Input variables can be set easily set in the following ways:
 
 - You can create a file that ends in .tfvars in the same directory as the terraform code and set variables with syntax
-  `this = that` and then use --var-file="filename" when running terraform
+  `this = that` and then use --var-file="filename" when running terraform. Note that if you call the file terraform.tfvars it will be read in by default. There is an example file.
 - You can create environment variables named TF_ENV_variable_name and set them = to the values
 
 You can mix and match based on requirements. Keys and senstive data are best passed as environment variables, everything else can go in a var file.
@@ -146,7 +146,7 @@ Outputs:
 access_url = "http://graphql.badger.vlk.berlin"
 ```
 
-You should be able to click on the URL and get to the graphnode. You can reach the graphql interface for the badger subgraph by adding `/name/badger-subgraph` to the end of the stated url.
+You should be able to click on the URL and get to the graphnode. You can reach the graphql interface for the badger subgraph by adding `/subgraphs/name/badger-subgraph` to the end of the stated url.
 
 ## Final Notes
 

@@ -36,7 +36,7 @@ data "aws_iam_policy_document" "graphnode-ssm-parmas" {
     actions = [
       "ssm:GetParameters",
     ]
-    resources = ["arn:aws:ssm:${local.region}:${data.aws_caller_identity.this.account_id}:parameter/${local.eth_node_ssm_name}"]
+    resources = ["arn:aws:ssm:${local.region}:${data.aws_caller_identity.this.account_id}:parameter/${trim(local.eth_node_ssm_name, "/")}"]
   }
 }
 
@@ -102,6 +102,7 @@ data "template_file" "userdata" {
   template = file("templates/userdata.sh.template")
   vars = {
     graphnode_url_ssm_arn = local.eth_node_ssm_name
+    region                = var.region
   }
 }
 
@@ -183,7 +184,8 @@ resource "aws_autoscaling_group" "autopilot_worker" {
   launch_configuration = aws_launch_configuration.graphnode.id
 
   lifecycle {
-    ignore_changes = [desired_capacity]
+    ignore_changes        = [desired_capacity]
+    create_before_destroy = true
   }
 }
 

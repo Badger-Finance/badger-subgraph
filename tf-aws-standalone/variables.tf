@@ -36,7 +36,7 @@ variable "vpc_id" {
 variable "asg_details" {
   type = object({ instance_type = string, min_nodes = number, desired_nodes = number, max_nodes = number, storage_size_gb = number })
   default = {
-    instance_type   = "t2.medium"
+    instance_type   = "t2.micro"
     min_nodes       = 1
     max_nodes       = 1
     desired_nodes   = 1
