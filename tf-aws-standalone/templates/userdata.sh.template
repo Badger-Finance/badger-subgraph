@@ -1,12 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 ## a userdata script to bring an amazon linux 2 instanec up and running as a local graph node with badger subgraph
 
-### Set ethnode_url to the url of a eth node that will be used
-export ETHNODE_URL="mainnet:https://mainnet.infura.io/v3/7bac10a8120d4fce81f9429914ac72c5"
-
+yum install -y jq # JSON parser for sh/bash
 yum install -y git
 yum install -y docker
 /bin/systemctl start docker.service
+### Set ethnode_url to the url of a eth node that will be used based on an ssm parameter
+graphnode_url_ssm_arn=${graphnode_url_ssm_arn}
+export ETHNODE_URL=`aws ssm get-parameters --name $graphnode_url_ssm_arn | jq '.Parameters | .[] | .Value'`
 ## Install Node and yarn
 curl --silent --location https://rpm.nodesource.com/setup_14.x | bash -
 yum -y install nodejs

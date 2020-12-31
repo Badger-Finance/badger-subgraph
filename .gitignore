@@ -4,3 +4,7 @@ node_modules/
 
 .envrc
 .idea
+
+**/.terraform/*
+*.tfstate
+*.tfstate.*
