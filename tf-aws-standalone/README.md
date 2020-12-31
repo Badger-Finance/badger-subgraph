@@ -50,10 +50,6 @@ dynamodb
 S3 can be slow to launch new buckets 100%. Go get a coffee and come back in 5-10 minutes to continue
 **TODO: figure out CLI commands for these**
 
-In the same directory as this readme, run terraform init. If all went well you should see
-
-"Terraform has been successfully initialized!"
-
 ## Setting an ssm parameter for the eth node URL
 
 The ethnode URL is something we might not want to share with the world, and can not be part of a public repo. In order
@@ -65,8 +61,8 @@ To set the parameter:
 - Click create parameter
 - Enter a name (can have a path) for example /secrets/graphnode/ethnode_url
 - Select standard tier and type string
-- Set Date type to String
-- enter the full url including the http:// or https:// of the eth node in the value box with no leading/trailing whitespace
+- Set Data type to String
+- Enter the full url including the http:// or https:// of the eth node in the value box with no leading/trailing whitespace
 - Create the parameter
 
 ## Setting input variables
