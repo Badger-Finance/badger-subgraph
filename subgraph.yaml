@@ -476,6 +476,27 @@ dataSources:
         - event: Unstaked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
           handler: handleUnstaked
       file: ./src/mapping.ts
+  # ===== Farm Harvest =====
+  - kind: ethereum/contract
+    name: harvestFarm
+    network: mainnet
+    source:
+      address: '0xaaE82E3c89e15E6F26F60724f115d5012363e030'
+      abi: StrategyHarvestMetaFarm
+      startBlock: 11376266
+    mapping: 
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - FarmHarvestEvent
+      abis:
+        - name: StrategyHarvestMetaFarm
+          file: ./abis/StrategyHarvestMetaFarm.json
+      eventHandlers:
+        - event: FarmHarvest(uint256,uint256,uint256,uint256,uint256,uint256) 
+          handler: handleFarmHarvest
+      file: ./src/mapping.ts
 # ===== Strategy Template =====
 templates:
   - name: Strategy
