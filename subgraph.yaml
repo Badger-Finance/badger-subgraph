@@ -2,7 +2,51 @@ specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
+
+  # ===== Tokens =====
+  - kind: ethereum/contract
+    name: Badger
+    network: mainnet
+    source:
+      address: '0x3472A5A71965499acd81997a54BBA8D852C6E53d'
+      abi: MiniMeToken
+      startBlock: 11348423
+    mapping:
+      kind: ethereum/events
+      language: wasm/assemblyscript
+      apiVersion: 0.0.4
+      entities:
+        - BadgerBalance
+      abis:
+        - name: MiniMeToken
+          file: ./abis/MiniMeToken.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleBadgerTransfer
+      file: ./src/mapping.ts
+
+  - kind: ethereum/contract
+    name: Digg
+    network: mainnet
+    source:
+      address: '0xFaBec03B04279c6E73F27AaF25866ACc844448Ae'
+      abi: UFragments
+      startBlock: 11668293 
+    mapping:
+      kind: ethereum/events
+      language: wasm/assemblyscript
+      apiVersion: 0.0.4
+      entities:
+        - DiggBalance
+      abis:
+        - name: UFragments
+          file: ./abis/UFragments.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleDiggTransfer
+      file: ./src/mapping.ts
   # ===== Setts =====
+
   - kind: ethereum/contract
     name: nativeBadgerSett
     network: mainnet
@@ -648,7 +692,67 @@ dataSources:
         - event: FarmHarvest(uint256,uint256,uint256,uint256,uint256,uint256) 
           handler: handleFarmHarvest
       file: ./src/mapping.ts
-    
+
+  - kind: ethereum/contract
+    name: harvestSushiWbtcBadger
+    network: mainnet
+    source:
+      address: '0x3a494D79AA78118795daad8AeFF5825C6c8dF7F1'
+      abi: StrategySushiBadgerWbtc
+      startBlock: 11539000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities: 
+        - SushiHarvestEvent
+      abis:
+        - name: StrategySushiBadgerWbtc
+          file: ./abis/StrategySushiBadgerWbtc.json
+      eventHandlers:
+        - event: HarvestState(uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleSushiHarvest
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: harvestSushiWbtcEth
+    network: mainnet
+    source:
+      address: '0x7a56d65254705b4def63c68488c0182968c452ce'
+      abi: StrategySushiLpOptimizer
+      startBlock: 11537600 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities: 
+        - SushiHarvestEvent
+      abis:
+        - name: StrategySushiLpOptimizer
+          file: ./abis/StrategySushiLpOptimizer.json
+      eventHandlers:
+        - event: HarvestState(uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleSushiHarvest
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: harvestSushiWbtcDigg
+    network: mainnet
+    source:
+      address: '0x16626fd20b8e1541fdb85d9e63def368b374fa75'
+      abi: StrategySushiDiggWbtcLpOptimizer
+      startBlock: 11676338 
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities: 
+        - SushiHarvestEvent
+      abis:
+        - name: StrategySushiDiggWbtcLpOptimizer
+          file: ./abis/StrategySushiDiggWbtcLpOptimizer.json
+      eventHandlers:
+        - event: HarvestState(uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleSushiHarvest
+      file: ./src/mapping.ts
     
 # ===== Strategy Template =====
 templates:
