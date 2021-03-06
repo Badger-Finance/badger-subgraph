@@ -1,5 +1,5 @@
 import { HarvestState } from '../../generated/harvestSushiWbtcEth/StrategySushiLpOptimizer';
-import { getOrCreateSushiHarvestEvent } from '../utils/helpers/sushi/harvest'
+import { getOrCreateSushiHarvestEvent } from '../utils/helpers/sushi/harvest';
 export function handleSushiHarvest(event: HarvestState): void {
   let sushiHarvestID = event.address
     .toHexString()

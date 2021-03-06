@@ -289,6 +289,7 @@ type FarmHarvestEvent @entity {
   timestamp: BigInt!
   blockNumber: BigInt!
 }
+
 type SushiHarvestEvent @entity {
   id: ID!
   xSushiHarvested: BigInt!
@@ -298,4 +299,13 @@ type SushiHarvestEvent @entity {
   toBadgerTree: BigInt!
   timestamp: BigInt!
   blockNumber: BigInt!
+}
+
+type BadgerBalance @entity {
+  id: ID!
+  balanceRaw: BigInt!
+}
+type DiggBalance @entity {
+  id: ID!
+  balanceRaw: BigInt
 }
