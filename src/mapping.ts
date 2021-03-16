@@ -4,5 +4,4 @@ export { handleStaked, handleUnstaked } from './mappings/geyser';
 export { handleFarmHarvest } from './mappings/farm';
 export { handleSushiHarvest } from './mappings/sushi';
 export { handleBadgerTransfer } from './mappings/badger';
-export { handleDiggTransfer } from './mappings/digg' 
-
+export { handleDiggTransfer } from './mappings/digg';

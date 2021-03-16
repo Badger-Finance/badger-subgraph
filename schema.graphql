@@ -301,11 +301,8 @@ type SushiHarvestEvent @entity {
   blockNumber: BigInt!
 }
 
-type BadgerBalance @entity {
+type TokenBalance @entity {
   id: ID!
-  balanceRaw: BigInt!
-}
-type DiggBalance @entity {
-  id: ID!
-  balanceRaw: BigInt
+  balance: BigInt!
+  token: Token!
 }
