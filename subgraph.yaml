@@ -753,7 +753,42 @@ dataSources:
         - event: HarvestState(uint256,uint256,uint256,uint256,uint256,uint256,uint256)
           handler: handleSushiHarvest
       file: ./src/mapping.ts
-    
+
+  # ===== Wrappers =====
+  - kind: ethereum/contract
+    name: AffiliateTokenGatedUpgradeable
+    network: mainnet
+    source:
+      # address: '0x50b20a12Acb15a413FE76FB82f9E524D3b0E8a69' # bsc address
+      abi: AffiliateTokenGatedUpgradeable
+      startBlock: 11676338
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Deposit
+        - Withdraw
+        - Harvest
+        - Transfer
+        - AccountVaultBalance
+        - Account
+        - Token
+      abis:
+        - name: AffiliateTokenGatedUpgradeable
+          file: ./abis/AffiliateTokenGatedUpgradeable.json
+        - name: Controller
+          file: ./abis/Controller.json
+        - name: Strategy
+          file: ./abis/Strategy.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleShareTransfer
+      file: ./src/mapping.ts
+
 # ===== Strategy Template =====
 templates:
   - name: Strategy
