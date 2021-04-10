@@ -1,8 +1,7 @@
-specVersion: 0.0.2
+specVersion: 0.0.3
 schema:
   file: ./schema.graphql
 dataSources:
-
   # ===== Tokens =====
   - kind: ethereum/contract
     name: Badger
@@ -16,10 +15,13 @@ dataSources:
       language: wasm/assemblyscript
       apiVersion: 0.0.4
       entities:
-        - BadgerBalance
+        - TokenBalance
+        - Token
       abis:
         - name: MiniMeToken
           file: ./abis/MiniMeToken.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleBadgerTransfer
@@ -29,18 +31,21 @@ dataSources:
     name: Digg
     network: mainnet
     source:
-      address: '0xFaBec03B04279c6E73F27AaF25866ACc844448Ae'
+      address: '0x798D1bE841a82a273720CE31c822C61a67a601C3'
       abi: UFragments
-      startBlock: 11668293 
+      startBlock: 11668293
     mapping:
       kind: ethereum/events
       language: wasm/assemblyscript
       apiVersion: 0.0.4
       entities:
-        - DiggBalance
+        - TokenBalance
+        - Token
       abis:
         - name: UFragments
           file: ./abis/UFragments.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleDiggTransfer
@@ -679,7 +684,7 @@ dataSources:
       address: '0xaaE82E3c89e15E6F26F60724f115d5012363e030'
       abi: StrategyHarvestMetaFarm
       startBlock: 11376266
-    mapping: 
+    mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
@@ -689,7 +694,7 @@ dataSources:
         - name: StrategyHarvestMetaFarm
           file: ./abis/StrategyHarvestMetaFarm.json
       eventHandlers:
-        - event: FarmHarvest(uint256,uint256,uint256,uint256,uint256,uint256) 
+        - event: FarmHarvest(uint256,uint256,uint256,uint256,uint256,uint256)
           handler: handleFarmHarvest
       file: ./src/mapping.ts
 
@@ -704,7 +709,7 @@ dataSources:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
-      entities: 
+      entities:
         - SushiHarvestEvent
       abis:
         - name: StrategySushiBadgerWbtc
@@ -719,12 +724,12 @@ dataSources:
     source:
       address: '0x7a56d65254705b4def63c68488c0182968c452ce'
       abi: StrategySushiLpOptimizer
-      startBlock: 11537600 
+      startBlock: 11537600
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
-      entities: 
+      entities:
         - SushiHarvestEvent
       abis:
         - name: StrategySushiLpOptimizer
@@ -739,12 +744,12 @@ dataSources:
     source:
       address: '0x16626fd20b8e1541fdb85d9e63def368b374fa75'
       abi: StrategySushiDiggWbtcLpOptimizer
-      startBlock: 11676338 
+      startBlock: 11676338
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
-      entities: 
+      entities:
         - SushiHarvestEvent
       abis:
         - name: StrategySushiDiggWbtcLpOptimizer
@@ -753,7 +758,7 @@ dataSources:
         - event: HarvestState(uint256,uint256,uint256,uint256,uint256,uint256,uint256)
           handler: handleSushiHarvest
       file: ./src/mapping.ts
-    
+
 # ===== Strategy Template =====
 templates:
   - name: Strategy
