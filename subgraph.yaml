@@ -7,7 +7,7 @@ dataSources:
     name: Badger
     network: mainnet
     source:
-      address: '0x3472A5A71965499acd81997a54BBA8D852C6E53d'
+      address: "0x3472A5A71965499acd81997a54BBA8D852C6E53d"
       abi: MiniMeToken
       startBlock: 11348423
     mapping:
@@ -31,7 +31,7 @@ dataSources:
     name: Digg
     network: mainnet
     source:
-      address: '0x798D1bE841a82a273720CE31c822C61a67a601C3'
+      address: "0x798D1bE841a82a273720CE31c822C61a67a601C3"
       abi: UFragments
       startBlock: 11668293
     mapping:
@@ -56,7 +56,7 @@ dataSources:
     name: nativeBadgerSett
     network: mainnet
     source:
-      address: '0x19D97D8fA813EE2f51aD4B4e04EA08bAf4DFfC28'
+      address: "0x19D97D8fA813EE2f51aD4B4e04EA08bAf4DFfC28"
       abi: V1Contract
       startBlock: 11376266
     mapping:
@@ -89,7 +89,7 @@ dataSources:
     name: nativeRenCrvSett
     network: mainnet
     source:
-      address: '0x6dEf55d2e18486B9dDfaA075bc4e4EE0B28c1545'
+      address: "0x6dEf55d2e18486B9dDfaA075bc4e4EE0B28c1545"
       abi: V1Contract
       startBlock: 11376266
     mapping:
@@ -122,7 +122,7 @@ dataSources:
     name: nativeSbtcCrvSett
     network: mainnet
     source:
-      address: '0xd04c48A53c111300aD41190D63681ed3dAd998eC'
+      address: "0xd04c48A53c111300aD41190D63681ed3dAd998eC"
       abi: V1Contract
       startBlock: 11376266
     mapping:
@@ -155,7 +155,7 @@ dataSources:
     name: nativeTbtcCrvSett
     network: mainnet
     source:
-      address: '0xb9D076fDe463dbc9f915E5392F807315Bf940334'
+      address: "0xb9D076fDe463dbc9f915E5392F807315Bf940334"
       abi: V1Contract
       startBlock: 11376266
     mapping:
@@ -188,7 +188,7 @@ dataSources:
     name: nativeUniBadgerWbtcLpSett
     network: mainnet
     source:
-      address: '0x235c9e24D3FB2FAFd58a2E49D454Fdcd2DBf7FF1'
+      address: "0x235c9e24D3FB2FAFd58a2E49D454Fdcd2DBf7FF1"
       abi: V1Contract
       startBlock: 11376266
     mapping:
@@ -221,7 +221,7 @@ dataSources:
     name: harvestRenCrvSett
     network: mainnet
     source:
-      address: '0xAf5A1DECfa95BAF63E0084a35c62592B774A2A87'
+      address: "0xAf5A1DECfa95BAF63E0084a35c62592B774A2A87"
       abi: V1Contract
       startBlock: 11376266
     mapping:
@@ -254,7 +254,7 @@ dataSources:
     name: nativeSushiBadgerWbtcLpSett
     network: mainnet
     source:
-      address: '0x1862A18181346EBd9EdAf800804f89190DeF24a5'
+      address: "0x1862A18181346EBd9EdAf800804f89190DeF24a5"
       abi: V1Contract
       startBlock: 11539529
     mapping:
@@ -287,7 +287,7 @@ dataSources:
     name: nativeSushiWbtcEthLpSett
     network: mainnet
     source:
-      address: '0x758a43ee2bff8230eeb784879cdcff4828f2544d'
+      address: "0x758a43ee2bff8230eeb784879cdcff4828f2544d"
       abi: V1Contract
       startBlock: 11537600
     mapping:
@@ -320,7 +320,7 @@ dataSources:
     name: nativeUniDiggWbtcLpSett
     network: mainnet
     source:
-      address: '0xC17078FDd324CC473F8175Dc5290fae5f2E84714'
+      address: "0xC17078FDd324CC473F8175Dc5290fae5f2E84714"
       abi: V1Contract
       startBlock: 11537600
     mapping:
@@ -353,7 +353,7 @@ dataSources:
     name: nativeSushiDiggWbtcLpSett
     network: mainnet
     source:
-      address: '0x88128580ACdD9c04Ce47AFcE196875747bF2A9f6'
+      address: "0x88128580ACdD9c04Ce47AFcE196875747bF2A9f6"
       abi: V1Contract
       startBlock: 11537600
     mapping:
@@ -386,7 +386,7 @@ dataSources:
     name: nativeDiggSett
     network: mainnet
     source:
-      address: '0x7e7E112A68d8D2E221E11047a72fFC1065c38e1a'
+      address: "0x7e7E112A68d8D2E221E11047a72fFC1065c38e1a"
       abi: V1Contract
       startBlock: 11537600
     mapping:
@@ -420,7 +420,7 @@ dataSources:
     name: nativeBadgerGeyser
     network: mainnet
     source:
-      address: '0xa9429271a28F8543eFFfa136994c0839E7d7bF77'
+      address: "0xa9429271a28F8543eFFfa136994c0839E7d7bF77"
       abi: BadgerGeyser
       startBlock: 11376266
     mapping:
@@ -446,7 +446,7 @@ dataSources:
     name: nativeRenCrvGeyser
     network: mainnet
     source:
-      address: '0x2296f174374508278DC12b806A7f27c87D53Ca15'
+      address: "0x2296f174374508278DC12b806A7f27c87D53Ca15"
       abi: BadgerGeyser
       startBlock: 11376266
     mapping:
@@ -472,7 +472,7 @@ dataSources:
     name: nativeSbtcCrvGeyser
     network: mainnet
     source:
-      address: '0x10fC82867013fCe1bD624FafC719Bb92Df3172FC'
+      address: "0x10fC82867013fCe1bD624FafC719Bb92Df3172FC"
       abi: BadgerGeyser
       startBlock: 11376266
     mapping:
@@ -498,7 +498,7 @@ dataSources:
     name: nativeTbtcCrvGeyser
     network: mainnet
     source:
-      address: '0x085A9340ff7692Ab6703F17aB5FfC917B580a6FD'
+      address: "0x085A9340ff7692Ab6703F17aB5FfC917B580a6FD"
       abi: BadgerGeyser
       startBlock: 11376266
     mapping:
@@ -524,7 +524,7 @@ dataSources:
     name: nativeUniBadgerWbtcGeyser
     network: mainnet
     source:
-      address: '0xA207D69Ea6Fb967E54baA8639c408c31767Ba62D'
+      address: "0xA207D69Ea6Fb967E54baA8639c408c31767Ba62D"
       abi: BadgerGeyser
       startBlock: 11376266
     mapping:
@@ -550,7 +550,7 @@ dataSources:
     name: harvestRenCrvGeyser
     network: mainnet
     source:
-      address: '0xeD0B7f5d9F6286d00763b0FFCbA886D8f9d56d5e'
+      address: "0xeD0B7f5d9F6286d00763b0FFCbA886D8f9d56d5e"
       abi: BadgerGeyser
       startBlock: 11376266
     mapping:
@@ -576,7 +576,7 @@ dataSources:
     name: nativeSushiBadgerWbtcLpGeyser
     network: mainnet
     source:
-      address: '0xB5b654efBA23596Ed49FAdE44F7e67E23D6712e7'
+      address: "0xB5b654efBA23596Ed49FAdE44F7e67E23D6712e7"
       abi: BadgerGeyser
       startBlock: 11539649
     mapping:
@@ -602,7 +602,7 @@ dataSources:
     name: nativeSushiWbtcEthLpGeyser
     network: mainnet
     source:
-      address: '0x612f681BCd12A0b284518D42D2DBcC73B146eb65'
+      address: "0x612f681BCd12A0b284518D42D2DBcC73B146eb65"
       abi: BadgerGeyser
       startBlock: 11539829
     mapping:
@@ -628,7 +628,7 @@ dataSources:
     name: nativeUniDiggWbtcLpGeyser
     network: mainnet
     source:
-      address: '0x0194B5fe9aB7e0C43a08aCbb771516fc057402e7'
+      address: "0x0194B5fe9aB7e0C43a08aCbb771516fc057402e7"
       abi: BadgerGeyser
       startBlock: 11707436
     mapping:
@@ -654,9 +654,35 @@ dataSources:
     name: nativeSushiDiggWbtcLpGeyser
     network: mainnet
     source:
-      address: '0x7f6fe274e172ac7d096a7b214c78584d99ca988b'
+      address: "0x7f6fe274e172ac7d096a7b214c78584d99ca988b"
       abi: BadgerGeyser
       startBlock: 11707436
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Geyser
+        - StakedEvent
+        - UnstakedEvent
+      abis:
+        - name: BadgerGeyser
+          file: ./abis/BadgerGeyser.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Staked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
+          handler: handleStaked
+        - event: Unstaked(indexed address,uint256,uint256,indexed uint256,indexed uint256,bytes)
+          handler: handleUnstaked
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: nativeWbtcGeyser
+    network: mainnet
+    source:
+      address: "0x155482D1e2cB0909333326504f0eA4350760c927"
+      abi: BadgerGeyser
+      startBlock: 12246819 
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -681,7 +707,7 @@ dataSources:
     name: harvestFarm
     network: mainnet
     source:
-      address: '0xaaE82E3c89e15E6F26F60724f115d5012363e030'
+      address: "0xaaE82E3c89e15E6F26F60724f115d5012363e030"
       abi: StrategyHarvestMetaFarm
       startBlock: 11376266
     mapping:
@@ -702,7 +728,7 @@ dataSources:
     name: harvestSushiWbtcBadger
     network: mainnet
     source:
-      address: '0x3a494D79AA78118795daad8AeFF5825C6c8dF7F1'
+      address: "0x3a494D79AA78118795daad8AeFF5825C6c8dF7F1"
       abi: StrategySushiBadgerWbtc
       startBlock: 11539000
     mapping:
@@ -722,7 +748,7 @@ dataSources:
     name: harvestSushiWbtcEth
     network: mainnet
     source:
-      address: '0x7a56d65254705b4def63c68488c0182968c452ce'
+      address: "0x7a56d65254705b4def63c68488c0182968c452ce"
       abi: StrategySushiLpOptimizer
       startBlock: 11537600
     mapping:
@@ -742,7 +768,7 @@ dataSources:
     name: harvestSushiWbtcDigg
     network: mainnet
     source:
-      address: '0x16626fd20b8e1541fdb85d9e63def368b374fa75'
+      address: "0x16626fd20b8e1541fdb85d9e63def368b374fa75"
       abi: StrategySushiDiggWbtcLpOptimizer
       startBlock: 11676338
     mapping:
@@ -764,9 +790,9 @@ dataSources:
     name: AffiliateTokenGatedUpgradeable
     network: mainnet
     source:
-      address: '0xf9512aAa68eE8EA73c2244E9f75202ff022D0EF1'
+      address: "0x4b92d19c11435614CD49Af1b589001b7c08cD4D5"
       abi: AffiliateTokenGatedUpgradeable
-      startBlock: 12207041
+      startBlock: 12246700
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
