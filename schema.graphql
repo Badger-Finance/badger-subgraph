@@ -14,8 +14,8 @@ type Vault @entity {
   "Deposit token"
   underlyingToken: Token!
   shareToken: Token!
-  currentController: Controller!
-  currentStrategy: Strategy!
+  currentController: Controller
+  currentStrategy: Strategy
   "Transaction metadata for the last update"
   transaction: Transaction!
   # TODO:
@@ -54,8 +54,8 @@ type Vault @entity {
   withdrawals: [Withdrawal!]! @derivedFrom(field: "vault")
   harvests: [Harvest!]! @derivedFrom(field: "vault")
   balances: [AccountVaultBalance!]! @derivedFrom(field: "vault")
-  strategies: [Strategy!]! @derivedFrom(field: "vault")
-  controllers: [Controller!]! @derivedFrom(field: "vault")
+  strategies: [Strategy!] @derivedFrom(field: "vault")
+  controllers: [Controller!] @derivedFrom(field: "vault")
 }
 
 type Account @entity {

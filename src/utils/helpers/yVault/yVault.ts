@@ -13,6 +13,7 @@ import {
   Vault,
   Withdrawal,
 } from '../../../../generated/schema';
+import { SimpleWrapperGatedUpgradeable } from '../../../../generated/SimpleWrapperGatedUpgradeable/SimpleWrapperGatedUpgradeable';
 import { Strategy as StrategyABI } from '../../../../generated/templates';
 import { BIGDECIMAL_ZERO, BIGINT_ZERO } from '../../constants';
 import { toDecimal } from '../../decimals';
@@ -233,6 +234,84 @@ export function getOrCreateVault(vaultAddress: Address, update: boolean = true):
       : vault.strategyBalanceRaw;
 
     vault.strategyBalance = toDecimal(vault.strategyBalanceRaw, underlyingToken.decimals);
+    vault.vaultBalance = toDecimal(vault.vaultBalanceRaw, underlyingToken.decimals);
+    vault.totalSupply = toDecimal(vault.totalSupplyRaw, underlyingToken.decimals);
+    // Uses the default decimals since it's a floating point representation
+    vault.pricePerFullShare = toDecimal(vault.pricePerFullShareRaw);
+    vault.available = toDecimal(vault.availableRaw, underlyingToken.decimals);
+  }
+
+  return vault as Vault;
+}
+
+export function getOrCreateAffiliateVault(
+  vaultAddress: Address,
+  update: boolean = true,
+): Vault {
+  let vault = Vault.load(vaultAddress.toHexString());
+  let vaultContract = SimpleWrapperGatedUpgradeable.bind(vaultAddress);
+  if (vault == null) {
+    vault = new Vault(vaultAddress.toHexString());
+
+    // Initialize parsed values as BigDecimal 0
+    vault.pricePerFullShare = BIGDECIMAL_ZERO;
+    vault.netDeposits = BIGDECIMAL_ZERO;
+    vault.totalDeposited = BIGDECIMAL_ZERO;
+    vault.totalWithdrawn = BIGDECIMAL_ZERO;
+    vault.totalActiveShares = BIGDECIMAL_ZERO;
+    vault.totalSharesMinted = BIGDECIMAL_ZERO;
+    vault.totalSharesBurned = BIGDECIMAL_ZERO;
+    vault.vaultBalance = BIGDECIMAL_ZERO;
+    vault.strategyBalance = BIGDECIMAL_ZERO;
+    vault.totalSupply = BIGDECIMAL_ZERO;
+    vault.available = BIGDECIMAL_ZERO;
+    vault.totalEarnings = BIGDECIMAL_ZERO;
+
+    // Initialize raw values as BigInt 0
+    vault.pricePerFullShareRaw = BIGINT_ZERO;
+    vault.netDepositsRaw = BIGINT_ZERO;
+    vault.totalDepositedRaw = BIGINT_ZERO;
+    vault.totalWithdrawnRaw = BIGINT_ZERO;
+    vault.totalActiveSharesRaw = BIGINT_ZERO;
+    vault.totalSharesMintedRaw = BIGINT_ZERO;
+    vault.totalSharesBurnedRaw = BIGINT_ZERO;
+    vault.vaultBalanceRaw = BIGINT_ZERO;
+    vault.strategyBalanceRaw = BIGINT_ZERO;
+    vault.totalSupplyRaw = BIGINT_ZERO;
+    vault.availableRaw = BIGINT_ZERO;
+    vault.totalEarningsRaw = BIGINT_ZERO;
+    vault.totalHarvestCalls = BIGINT_ZERO;
+  }
+
+  if (update) {
+    // Might be worth using the "try_" version of these calls in the future.
+    let underlyingTokenAddress = vaultContract.token();
+    let underlyingToken = getOrCreateToken(underlyingTokenAddress);
+    // The vault itself is an ERC20
+    let shareToken = getOrCreateToken(vaultAddress);
+
+    let balance = vaultContract.try_totalVaultBalance(
+      Address.fromString(vaultAddress.toHexString()),
+    );
+    let pricePerFullShare = vaultContract.try_pricePerShare();
+    let totalSupply = vaultContract.try_totalSupply();
+    let available = balance;
+
+    vault.vaultBalanceRaw = !balance.reverted ? balance.value : vault.vaultBalanceRaw;
+    vault.pricePerFullShareRaw = !pricePerFullShare.reverted
+      ? pricePerFullShare.value
+      : vault.pricePerFullShareRaw;
+    vault.totalSupplyRaw = !totalSupply.reverted
+      ? totalSupply.value
+      : vault.totalSupplyRaw;
+    vault.availableRaw = !available.reverted ? available.value : vault.availableRaw;
+    vault.underlyingToken = underlyingToken.id;
+    vault.shareToken = shareToken.id;
+
+    // Saving controller and strategy as entities to have a historical list of
+    // all controllers and entities the vault has. Also allows for dynamic
+    // indexing of the Strategy ABI
+
     vault.vaultBalance = toDecimal(vault.vaultBalanceRaw, underlyingToken.decimals);
     vault.totalSupply = toDecimal(vault.totalSupplyRaw, underlyingToken.decimals);
     // Uses the default decimals since it's a floating point representation

@@ -26,7 +26,10 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleBadgerTransfer
       file: ./src/mapping.ts
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
   - kind: ethereum/contract
     name: Digg
     network: mainnet
