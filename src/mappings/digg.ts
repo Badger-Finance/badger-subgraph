@@ -1,4 +1,5 @@
 import { Address } from '@graphprotocol/graph-ts';
+
 import { Transfer, UFragments } from '../../generated/Digg/UFragments';
 import { getOrCreateTokenBalance } from '../utils/helpers/token/balance';
 export function handleDiggTransfer(event: Transfer): void {
