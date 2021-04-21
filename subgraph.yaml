@@ -786,11 +786,11 @@ dataSources:
 
   # ===== Wrappers =====
   - kind: ethereum/contract
-    name: AffiliateTokenGatedUpgradeable
+    name: SimpleWrapperGatedUpgradeable
     network: mainnet
     source:
       address: "0x4b92d19c11435614CD49Af1b589001b7c08cD4D5"
-      abi: AffiliateTokenGatedUpgradeable
+      abi: SimpleWrapperGatedUpgradeable
       startBlock: 12246700
     mapping:
       kind: ethereum/events
@@ -806,8 +806,8 @@ dataSources:
         - Account
         - Token
       abis:
-        - name: AffiliateTokenGatedUpgradeable
-          file: ./abis/AffiliateTokenGatedUpgradeable.json
+        - name: SimpleWrapperGatedUpgradeable
+          file: ./abis/SimpleWrapperGatedUpgradeable.json
         - name: Controller
           file: ./abis/Controller.json
         - name: Strategy
