@@ -65,7 +65,7 @@ type Account @entity {
   "Account deposits"
   deposits: [Deposit!]! @derivedFrom(field: "account")
   "Account withdrawals"
-  withdrawals: [Deposit!]! @derivedFrom(field: "account")
+  withdrawals: [Withdrawal!]! @derivedFrom(field: "account")
   "Incoming transfers"
   receivedTransfers: [Transfer!]! @derivedFrom(field: "to")
   "Outgoing transfers"
