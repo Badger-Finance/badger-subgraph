@@ -414,6 +414,39 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleShareTransfer
       file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: nativeSushiIBtcWbtcLpSett
+    network: mainnet
+    source:
+      address: "0x8a8ffec8f4a0c8c9585da95d9d97e8cd6de273de"
+      abi: V1Contract
+      startBlock: 12383984
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Deposit
+        - Withdraw
+        - Harvest
+        - Transfer
+        - AccountVaultBalance
+        - Account
+        - Token
+      abis:
+        - name: V1Contract
+          file: ./abis/V1Contract.json
+        - name: Controller
+          file: ./abis/Controller.json
+        - name: Strategy
+          file: ./abis/Strategy.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleShareTransfer
+      file: ./src/mapping.ts
   # ===== Geysers =====
   - kind: ethereum/contract
     name: nativeBadgerGeyser
@@ -816,7 +849,7 @@ dataSources:
           file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleShareTransfer
+          handler: handleAffiliateShareTransfer
       file: ./src/mapping.ts
 
 # ===== Strategy Template =====
