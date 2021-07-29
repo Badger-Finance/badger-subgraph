@@ -1,0 +1,16 @@
+
+type TokenBalance @entity {
+  id: ID!
+  token: Token!
+  amount: BigInt!
+  owner: User
+}
+type Token @entity {
+  id: ID!
+  tokenId: BigInt!
+}
+
+type User @entity {
+  id: ID!
+  tokens:[TokenBalance!] @derivedFrom(field:"owner")
+}

@@ -1,0 +1,230 @@
+specVersion: 0.0.2
+description: $BADGER Token Contracts
+repository: https://github.com/axejintao/badger-dao
+schema:
+  file: ./schema.graphql
+dataSources:
+  {{#registry}}
+  - kind: ethereum/contract
+    name: VaultRegistry
+    network: {{ chain }}
+    source:
+      address: "{{ address }}"
+      abi: VaultRegistry
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Sett
+        - Token
+      abis:
+        - name: VaultRegistry
+          file: ./abis/VaultRegistry.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: BadgerSettV2
+          file: ./abis/BadgerSettV2.json
+      eventHandlers:
+        - event: NewVault(address,address)
+          handler: handleNewVault
+        - event: PromoteVault(address,address)
+          handler: handlePromoteVault
+        - event: RemoveVault(address,address)
+          handler: handleRemoveVault
+      file: ./src/handlers/registry-handler.ts
+  {{/registry}}
+  {{#setts}}
+  - kind: ethereum/contract
+    name: {{ name }}
+    network: {{ chain }}
+    source:
+      address: "{{ address }}"
+      abi: BadgerSett
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Sett
+        - User
+        - Token
+        - UserSettBalance
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: BadgerSett
+          file: ./abis/BadgerSett.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/handlers/sett-handler.ts
+  {{/setts}}
+  {{#affiliateSetts}}
+  - kind: ethereum/contract
+    name: {{ name }}
+    network: {{ chain }}
+    source:
+      address: "{{ address }}"
+      abi: BadgerAffiliateSett
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Sett
+        - User
+        - Token
+        - UserSettBalance
+      abis:
+        - name: BadgerAffiliateSett
+          file: ./abis/BadgerAffiliateSett.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: BadgerSett
+          file: ./abis/BadgerSett.json
+      eventHandlers:
+        - event: Burn(indexed address,uint256)
+          handler: handleBurn
+        - event: Deposit(indexed address,uint256)
+          handler: handleDeposit
+        - event: Mint(indexed address,uint256)
+          handler: handleMint
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: UpdateGuestList(address)
+          handler: handleUpdateGuestList
+        - event: Withdraw(indexed address,uint256)
+          handler: handleWithdraw
+      file: ./src/handlers/sett-affiliate-handler.ts
+  {{/affiliateSetts}}
+
+templates:
+  - kind: ethereum/contract
+    name: SettVault
+    network: {{ chain }}
+    source:
+      abi: BadgerSett
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Sett
+        - User
+        - Token
+        - UserSettBalance
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: BadgerSett
+          file: ./abis/BadgerSett.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/handlers/sett-handler.ts
+  - kind: ethereum/contract
+    name: AffiliateSettVault
+    network: {{ chain }}
+    source:
+      abi: BadgerAffiliateSett
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Sett
+        - User
+        - Token
+        - UserSettBalance
+      abis:
+        - name: BadgerAffiliateSett
+          file: ./abis/BadgerAffiliateSett.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: BadgerSett
+          file: ./abis/BadgerSett.json
+      eventHandlers:
+        - event: Burn(indexed address,uint256)
+          handler: handleBurn
+        - event: Deposit(indexed address,uint256)
+          handler: handleDeposit
+        - event: Mint(indexed address,uint256)
+          handler: handleMint
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: UpdateGuestList(address)
+          handler: handleUpdateGuestList
+        - event: Withdraw(indexed address,uint256)
+          handler: handleWithdraw
+      file: ./src/handlers/sett-affiliate-handler.ts
+  - kind: ethereum/contract
+    name: SettVaultV2
+    network: {{ chain }}
+    source:
+      abi: BadgerSettV2
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Sett
+        - User
+        - Token
+        - UserSettBalance
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: BadgerSettV2
+          file: ./abis/BadgerSettV2.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: StrategyAdded(indexed address,uint256,uint256,uint256,uint256)
+          handler: handleStrategyAdded
+        - event: StrategyReported(indexed address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleStrategyReported
+        - event: UpdateGovernance(address)
+          handler: handleUpdateGovernance
+        - event: NewPendingGovernance(address)
+          handler: handleNewPendingGovernance
+        - event: UpdateManagement(address)
+          handler: handleUpdateManagement
+        - event: UpdateGuestList(address)
+          handler: handleUpdateGuestList
+        - event: UpdateRewards(address)
+          handler: handleUpdateRewards
+        - event: UpdateDepositLimit(uint256)
+          handler: handleUpdateDepositLimit
+        - event: UpdateWithdrawalFee(uint256)
+          handler: handleUpdateWithdrawalFee
+        - event: UpdatePerformanceFee(uint256)
+          handler: handleUpdatePerformanceFee
+        - event: UpdateManagementFee(uint256)
+          handler: handleUpdateManagementFee
+        - event: UpdateGuardian(address)
+          handler: handleUpdateGuardian
+        - event: EmergencyShutdown(bool)
+          handler: handleEmergencyShutdown
+        - event: UpdateWithdrawalQueue(address[20])
+          handler: handleUpdateWithdrawalQueue
+        - event: StrategyUpdateDebtRatio(indexed address,uint256)
+          handler: handleStrategyUpdateDebtRatio
+        - event: StrategyUpdateMinDebtPerHarvest(indexed address,uint256)
+          handler: handleStrategyUpdateMinDebtPerHarvest
+        - event: StrategyUpdateMaxDebtPerHarvest(indexed address,uint256)
+          handler: handleStrategyUpdateMaxDebtPerHarvest
+        - event: StrategyUpdatePerformanceFee(indexed address,uint256)
+          handler: handleStrategyUpdatePerformanceFee
+        - event: StrategyMigrated(indexed address,indexed address)
+          handler: handleStrategyMigrated
+        - event: StrategyRevoked(indexed address)
+          handler: handleStrategyRevoked
+        - event: StrategyRemovedFromQueue(indexed address)
+          handler: handleStrategyRemovedFromQueue
+        - event: StrategyAddedToQueue(indexed address)
+          handler: handleStrategyAddedToQueue
+      file: ./src/handlers/sett-v2-handler.ts

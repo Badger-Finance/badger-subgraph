@@ -1,6 +1,7 @@
-node_modules/
-/generated
-/build
+**/node_modules/
+**/generated
+**/build
 
-.envrc
-.idea
+**/.envrc
+**/.idea
+**/*.iml

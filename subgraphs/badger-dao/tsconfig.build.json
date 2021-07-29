@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true
+  },
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "node_modules",
+    "test",
+    "**/*spec.ts"
+  ],
+  "include": ["src/**/*.ts"]
+}
