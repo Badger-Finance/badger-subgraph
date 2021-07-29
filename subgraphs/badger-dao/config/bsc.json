@@ -1,0 +1,21 @@
+{
+  "chain": "bsc",
+  "setts": [
+    {
+      "name": "CAKE-BNB-BTCB",
+      "address": "0xaf4B9C4b545D5324904bAa15e29796D2E2f90813",
+      "startBlock": 5516404
+    },
+    {
+      "name": "CAKE-BBADGER-BTCB",
+      "address": "0x857F91f735f4B03b19D2b5c6E476C73DB8241F55",
+      "startBlock": 5712803
+    },
+    {
+      "name": "CAKE-BDIGG-BTCB",
+      "address": "0xa861Ba302674b08f7F2F24381b705870521DDfed",
+      "startBlock": 5712807
+    }
+  ],
+  "affiliateSetts": []
+}

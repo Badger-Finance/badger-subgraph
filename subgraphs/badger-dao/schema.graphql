@@ -1,0 +1,66 @@
+type Sett @entity {
+  id: ID!
+  "Sett name"
+  name: String!
+  "Share token symbol"
+  symbol: String!
+  "Deposit token"
+  token: Token!
+  "Deposit token per share"
+  pricePerFullShare: BigInt!
+  "Shares outstanding"
+  balance: BigInt!
+  "Deposit tokens outstanding"
+  totalSupply: BigInt!
+  "Current sett deposit token value"
+  netDeposit: BigInt!
+  "Total sett deposit token value"
+  grossDeposit: BigInt!
+  "Total sett withdraw token value"
+  grossWithdraw: BigInt!
+  "Current sett deposit share value"
+  netShareDeposit: BigInt!
+  "Total sett deposit share value"
+  grossShareDeposit: BigInt!
+  "Total sett withdraw share value"
+  grossShareWithdraw: BigInt!
+}
+
+type User @entity {
+  id: ID!
+  settBalances: [UserSettBalance!]! @derivedFrom(field: "user")
+}
+
+type Transfer @entity {
+  id: ID!
+  timestamp: BigInt!
+  from: String!
+  to: String!
+  amount: BigInt!
+}
+
+type UserSettBalance @entity {
+  id: ID!
+  user: User!
+  sett: Sett!
+  "Current sett deposit token value"
+  netDeposit: BigInt!
+  "Total sett deposit token value"
+  grossDeposit: BigInt!
+  "Total sett withdraw token value"
+  grossWithdraw: BigInt!
+  "Current sett deposit share value"
+  netShareDeposit: BigInt!
+  "Total sett deposit share value"
+  grossShareDeposit: BigInt!
+  "Total sett withdraw share value"
+  grossShareWithdraw: BigInt!
+}
+
+type Token @entity {
+  id: ID!
+  decimals: BigInt!
+  name: String!
+  symbol: String!
+  totalSupply: BigInt!
+}
