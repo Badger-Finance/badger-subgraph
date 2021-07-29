@@ -2,13 +2,12 @@ specVersion: 0.0.3
 schema:
   file: ./schema.graphql
 dataSources:
- 
   # ===== Farm Harvest =====
   - kind: ethereum/contract
     name: harvestFarm
     network: mainnet
     source:
-      address: "0xaaE82E3c89e15E6F26F60724f115d5012363e030"
+      address: '0xaaE82E3c89e15E6F26F60724f115d5012363e030'
       abi: StrategyHarvestMetaFarm
       startBlock: 11376266
     mapping:
@@ -29,7 +28,7 @@ dataSources:
     name: harvestSushiWbtcBadger
     network: mainnet
     source:
-      address: "0x3a494D79AA78118795daad8AeFF5825C6c8dF7F1"
+      address: '0x3a494D79AA78118795daad8AeFF5825C6c8dF7F1'
       abi: StrategySushiBadgerWbtc
       startBlock: 11539000
     mapping:
@@ -49,7 +48,7 @@ dataSources:
     name: harvestSushiWbtcEth
     network: mainnet
     source:
-      address: "0x7a56d65254705b4def63c68488c0182968c452ce"
+      address: '0x7a56d65254705b4def63c68488c0182968c452ce'
       abi: StrategySushiLpOptimizer
       startBlock: 11537600
     mapping:
@@ -70,7 +69,7 @@ dataSources:
     name: harvestSushiIbBTCWbtc
     network: mainnet
     source:
-      address: "0xf4146A176b09C664978e03d28d07Db4431525dAd"
+      address: '0xf4146A176b09C664978e03d28d07Db4431525dAd'
       abi: StrategySushiLpOptimizer
       startBlock: 11537600
     mapping:
@@ -87,12 +86,11 @@ dataSources:
           handler: handleSushiHarvest
       file: ./src/mapping.ts
 
-      
   - kind: ethereum/contract
     name: harvestSushiWbtcDigg
     network: mainnet
     source:
-      address: "0x16626fd20b8e1541fdb85d9e63def368b374fa75"
+      address: '0x16626fd20b8e1541fdb85d9e63def368b374fa75'
       abi: StrategySushiDiggWbtcLpOptimizer
       startBlock: 11676338
     mapping:
@@ -113,7 +111,7 @@ dataSources:
     name: harvestHbtcCrv
     network: mainnet
     source:
-      address: "0xFf26f400e57bf726822EaCBB64Fa1c52F1F27988"
+      address: '0xFf26f400e57bf726822EaCBB64Fa1c52F1F27988'
       abi: StrategyConvexStakingOptimizer
       startBlock: 12600000
     mapping:
@@ -137,7 +135,7 @@ dataSources:
     name: harvestObtcCrv
     network: mainnet
     source:
-      address: "0x2bb864cdb4856ab2d148c5ca52dd7ccec126d138"
+      address: '0x2bb864cdb4856ab2d148c5ca52dd7ccec126d138'
       abi: StrategyConvexStakingOptimizer
       startBlock: 12600000
     mapping:
@@ -161,7 +159,7 @@ dataSources:
     name: harvestBbtcCrv
     network: mainnet
     source:
-      address: "0x4f3e7a4566320b2709fd1986f2e9f84053d3e2a0"
+      address: '0x4f3e7a4566320b2709fd1986f2e9f84053d3e2a0'
       abi: StrategyConvexStakingOptimizer
       startBlock: 12600000
     mapping:
@@ -185,7 +183,7 @@ dataSources:
     name: harvestPbtcCrv
     network: mainnet
     source:
-      address: "0x1c1fd689103bbfd701b3b7d41a3807f12814033d"
+      address: '0x1c1fd689103bbfd701b3b7d41a3807f12814033d'
       abi: StrategyConvexStakingOptimizer
       startBlock: 12600000
     mapping:
@@ -209,7 +207,7 @@ dataSources:
     name: harvestTriCrypto
     network: mainnet
     source:
-      address: "0x05ec4356e1acd89cc2d16adc7415c8c95e736ac1"
+      address: '0x05ec4356e1acd89cc2d16adc7415c8c95e736ac1'
       abi: StrategyConvexStakingOptimizer
       startBlock: 12600000
     mapping:
@@ -233,7 +231,7 @@ dataSources:
     name: harvestRenCrv
     network: mainnet
     source:
-      address: "0x6582A5b139Fc1C6360846efDc4440d51AaD4Df7B"
+      address: '0x6582A5b139Fc1C6360846efDc4440d51AaD4Df7B'
       abi: StrategyConvexStakingOptimizer
       startBlock: 12600000
     mapping:
@@ -252,12 +250,12 @@ dataSources:
         - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
           handler: handleTreeDistribution
       file: ./src/mapping.ts
-      
+
   - kind: ethereum/contract
     name: harvestSbtcCrv
     network: mainnet
     source:
-      address: "0xf1DED284E891943b3e9c657D7fC376b86164FFc2"
+      address: '0xf1DED284E891943b3e9c657D7fC376b86164FFc2'
       abi: StrategyConvexStakingOptimizer
       startBlock: 12600000
     mapping:
@@ -281,7 +279,7 @@ dataSources:
     name: harvestTbtcCrv
     network: mainnet
     source:
-      address: "0x522Bb024C339A12be1a47229546f288C40b62d29"
+      address: '0x522Bb024C339A12be1a47229546f288C40b62d29'
       abi: StrategyConvexStakingOptimizer
       startBlock: 12600000
     mapping:
@@ -306,7 +304,7 @@ dataSources:
     name: SimpleWrapperGatedUpgradeable
     network: mainnet
     source:
-      address: "0x4b92d19c11435614CD49Af1b589001b7c08cD4D5"
+      address: '0x4b92d19c11435614CD49Af1b589001b7c08cD4D5'
       abi: SimpleWrapperGatedUpgradeable
       startBlock: 12246700
     mapping:

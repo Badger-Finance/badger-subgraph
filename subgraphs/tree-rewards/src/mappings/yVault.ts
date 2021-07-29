@@ -1,6 +1,6 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
 
-import { Transfer } from '../../generated/nativeBadgerSett/V1Contract';
+import { Transfer } from '../../generated/templates/Strategy/V1Contract';
 import { Vault } from '../../generated/schema';
 import { BIGINT_ZERO, ZERO_ADDRESS } from '../utils/constants';
 import { toDecimal } from '../utils/decimals';
