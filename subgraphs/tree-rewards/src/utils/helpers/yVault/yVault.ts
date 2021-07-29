@@ -1,8 +1,8 @@
 import { Address, log } from '@graphprotocol/graph-ts';
 
-import { Controller as ControllerContract } from '../../../../generated/nativeBadgerSett/Controller';
-import { Strategy as StrategyContract } from '../../../../generated/nativeBadgerSett/Strategy';
-import { V1Contract } from '../../../../generated/nativeBadgerSett/V1Contract';
+import { Controller as ControllerContract } from '../../../../generated/templates/Strategy/Controller'
+import { Strategy as StrategyContract } from '../../../../generated/templates/Strategy/Strategy';
+import { V1Contract } from '../../../../generated/templates/Strategy/V1Contract';
 import {
   Controller,
   Deposit,
