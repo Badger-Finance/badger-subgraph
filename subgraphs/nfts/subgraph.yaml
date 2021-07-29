@@ -1,0 +1,69 @@
+specVersion: 0.0.3
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: BadgerERC1155
+    network: mainnet
+    source:
+      address: '0xe1e546e25A5eD890DFf8b8D005537c0d373497F8'
+      abi: BadgerERC1155
+      startBlock: 10734502
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - NFT
+      abis:
+        - name: BadgerERC1155
+          file: ./abis/BadgerERC1155.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleNFTTransfer
+      file: ./src/mapping.ts
+      
+  - kind: ethereum/contract
+    name: Proxy
+    network: mainnet
+    source:
+      address: '0x576cD258835C529B54722F84Bb7d4170aA932C64'
+      abi: BadgerERC1155
+      startBlock: 10734502
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - NFT
+      abis:
+        - name: BadgerERC1155
+          file: ./abis/BadgerERC1155.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleNFTTransfer
+      file: ./src/mapping.ts
+  
+  - kind: ethereum/contract
+    name: MemeLtd
+    network: mainnet
+    source:
+      address: '0xe4605d46Fd0B3f8329d936a8b258D69276cBa264'
+      abi: MemeLtd
+      startBlock: 10734502
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - NFT
+      abis:
+        - name: MemeLtd
+          file: ./abis/MemeLtd.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleMemeNFTTransfer
+      file: ./src/mapping.ts
+
+
+
