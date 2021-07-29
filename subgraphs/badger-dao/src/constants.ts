@@ -1,5 +1,7 @@
 import { BigInt } from '@graphprotocol/graph-ts';
 
+export const SECONDS_PER_DAY = 86400;
+
 // protocol addresses
 // TODO: we may need governance view on registry / dynamically set
 export let GOVERNANCE = '0xB65cef03b9B89f99517643226d76e286ee999e77';

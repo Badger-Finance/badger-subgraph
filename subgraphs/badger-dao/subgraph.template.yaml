@@ -1,5 +1,5 @@
 specVersion: 0.0.2
-description: $BADGER Token Contracts
+description: "Badger is a decentralized autonomous organization (DAO) with a single purpose: build the products and infrastructure necessary to accelerate Bitcoin as collateral across other blockchains."
 repository: https://github.com/axejintao/badger-dao
 schema:
   file: ./schema.graphql
@@ -24,8 +24,8 @@ dataSources:
           file: ./abis/VaultRegistry.json
         - name: ERC20
           file: ./abis/ERC20.json
-        - name: BadgerSettV2
-          file: ./abis/BadgerSettV2.json
+        - name: BadgerSett
+          file: ./abis/BadgerSett.json
       eventHandlers:
         - event: NewVault(address,address)
           handler: handleNewVault
@@ -87,21 +87,11 @@ dataSources:
         - name: BadgerSett
           file: ./abis/BadgerSett.json
       eventHandlers:
-        - event: Burn(indexed address,uint256)
-          handler: handleBurn
-        - event: Deposit(indexed address,uint256)
-          handler: handleDeposit
-        - event: Mint(indexed address,uint256)
-          handler: handleMint
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-        - event: UpdateGuestList(address)
-          handler: handleUpdateGuestList
-        - event: Withdraw(indexed address,uint256)
-          handler: handleWithdraw
       file: ./src/handlers/sett-affiliate-handler.ts
   {{/affiliateSetts}}
-
+  
 templates:
   - kind: ethereum/contract
     name: SettVault

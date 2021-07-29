@@ -1,5 +1,9 @@
 {
   "chain": "mainnet",
+  "registry": {
+    "address": "0x22765948A3d5048F3644b81792e4E1aA7ea3da4a",
+    "startBlock": 12883010
+  },
   "setts": [
     {
       "name": "sBTCCRV",
