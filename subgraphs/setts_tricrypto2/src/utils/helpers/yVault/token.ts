@@ -1,6 +1,6 @@
 import { Address } from '@graphprotocol/graph-ts';
 
-import { ERC20 } from '../../../../generated/nativeBadgerSett/ERC20';
+import { ERC20 } from '../../../../generated/Tricrypto2/ERC20';
 import { Token } from '../../../../generated/schema';
 import { DEFAULT_DECIMALS } from '../../decimals';
 

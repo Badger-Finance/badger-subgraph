@@ -1,6 +1,6 @@
 import { Address } from '@graphprotocol/graph-ts';
 
-import { Harvest } from '../../generated/nativeBadgerSett/Strategy';
+import { Harvest } from '../../generated/Tricrypto2/Strategy';
 import { BIGINT_ONE } from '../utils/constants';
 import { toDecimal } from '../utils/decimals';
 import {

@@ -230,32 +230,3 @@ type Transaction @entity {
   "List of Vaults that last updated on this transaction"
   vaultsUpdated: [Vault!]! @derivedFrom(field: "transaction")
 }
-
-type Geyser @entity {
-  id: ID!
-  totalStaked: BigInt!
-  stakeEvents: [StakedEvent!]! @derivedFrom(field: "geyser")
-  unstakeEvents: [UnstakedEvent!]! @derivedFrom(field: "geyser")
-}
-
-type StakedEvent @entity {
-  id: ID!
-  geyser: Geyser!
-  user: Bytes!
-  amount: BigInt!
-  total: BigInt!
-  timestamp: BigInt!
-  blockNumber: BigInt!
-  data: Bytes!
-}
-
-type UnstakedEvent @entity {
-  id: ID!
-  geyser: Geyser!
-  user: Bytes!
-  amount: BigInt!
-  total: BigInt!
-  timestamp: BigInt!
-  blockNumber: BigInt!
-  data: Bytes!
-}

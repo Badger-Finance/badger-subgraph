@@ -1,6 +1,5 @@
 export {
   getOrCreateVault,
-  getOrCreateAffiliateVault,
   getOrCreateVaultTransfer,
   getOrCreateVaultWithdrawal,
   getOrCreateVaultDeposit,
