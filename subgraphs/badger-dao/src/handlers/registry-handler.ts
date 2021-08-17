@@ -1,3 +1,4 @@
+import { Sett } from '../../generated/schema';
 import { SettVault } from '../../generated/templates';
 import { NewVault, PromoteVault, RemoveVault } from '../../generated/VaultRegistry/VaultRegistry';
 import { loadSett } from '../entities/badger-sett';
@@ -5,8 +6,11 @@ import { loadSett } from '../entities/badger-sett';
 // TODO: consider how to differentiate on author
 export function handleNewVault(event: NewVault): void {
   let vault = event.params.vault;
-  SettVault.create(vault);
-  loadSett(vault).save();
+  let sett = Sett.load(vault.toHexString());
+  if (sett == null) {
+    SettVault.create(vault);
+    loadSett(vault).save();
+  }
 }
 
 // TODO: potentially use for upgrading vault state vs. registering new vaults

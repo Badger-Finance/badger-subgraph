@@ -1,7 +1,8 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Sett } from '../../generated/schema';
 import { Transfer } from '../../generated/templates/SettVault/BadgerSett';
-import { NO_ADDR, NORMALIZER } from '../constants';
+import { NO_ADDR, SettType } from '../constants';
+import { loadAffiliateSett } from '../entities/affiliate-sett';
 import { loadSett } from '../entities/badger-sett';
 import { loadSettV2 } from '../entities/badger-sett-v2';
 import { loadSettSnapshot } from '../entities/sett-snapshot';
@@ -10,10 +11,10 @@ import { depositBalance, loadUserBalance, withdrawBalance } from '../entities/us
 
 export function handleTransfer(event: Transfer): void {
   let timestamp = event.block.timestamp.toI32();
-  let from = event.params.to;
-  let to = event.params.from;
+  let from = event.params.from;
+  let to = event.params.to;
   let value = event.params.value;
-  handleSettTokenTransfer(timestamp, event.address, from, to, value, true);
+  handleSettTokenTransfer(timestamp, event.address, SettType.v1, from, to, value);
 }
 
 export function depositSett(timestamp: i32, sett: Sett, share: BigInt, token: BigInt): void {
@@ -37,19 +38,30 @@ export function withdrawSett(timestamp: i32, sett: Sett, share: BigInt, token: B
 export function handleSettTokenTransfer(
   timestamp: i32,
   settAddress: Address,
+  settType: SettType,
   fromAddress: Address,
   toAddress: Address,
   share: BigInt,
-  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
-  legacy: boolean = false,
 ): void {
+  // load appropriate sett
+  let sett: Sett;
+  switch (settType) {
+    case SettType.Affiliate:
+      sett = loadAffiliateSett(settAddress);
+      break;
+    case SettType.v2:
+      sett = loadSettV2(settAddress);
+      break;
+    case SettType.v1:
+    default:
+      sett = loadSett(settAddress);
+  }
   // get relevant entities
-  let sett = legacy ? loadSett(settAddress) : loadSettV2(settAddress);
   let from = loadUser(fromAddress);
   let to = loadUser(toAddress);
 
   // get share and token values
-  let token = share.times(sett.pricePerFullShare).div(NORMALIZER);
+  let token = share.times(sett.pricePerFullShare).div(BigInt.fromI32(10).pow(<u8>sett.decimals));
 
   // get user balances
   let fromBalance = loadUserBalance(from, sett);
