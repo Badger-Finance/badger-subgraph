@@ -18,6 +18,7 @@ export function loadUserBalance(user: User, sett: Sett): UserSettBalance {
     settBalance.grossShareWithdraw = ZERO;
   }
 
+  settBalance.save();
   return settBalance as UserSettBalance;
 }
 

@@ -1,5 +1,7 @@
 import { BigInt } from '@graphprotocol/graph-ts';
 
+export const SECONDS_PER_DAY = 86400;
+
 // protocol addresses
 // TODO: we may need governance view on registry / dynamically set
 export let GOVERNANCE = '0xB65cef03b9B89f99517643226d76e286ee999e77';
@@ -12,9 +14,6 @@ export let DIGG = '0x798d1be841a82a273720ce31c822c61a67a601c3';
 
 // evaluated constants
 export let ZERO = BigInt.fromI32(0);
-
-// 10^18, suggest a better name!
-export let NORMALIZER = BigInt.fromI32(10).pow(18);
 
 // geysers
 export let GEYSERS: string[] = [
@@ -29,3 +28,9 @@ export let GEYSERS: string[] = [
   '0x0194b5fe9ab7e0c43a08acbb771516fc057402e7',
   '0x7f6fe274e172ac7d096a7b214c78584d99ca988b',
 ];
+
+export enum SettType {
+  v1,
+  v2,
+  Affiliate,
+}

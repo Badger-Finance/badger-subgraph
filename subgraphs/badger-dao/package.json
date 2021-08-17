@@ -1,15 +1,16 @@
 {
   "name": "badger-dao",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
-    "setup": "./pre-build.sh",
     "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
     "prepare:bsc": "mustache config/bsc.json subgraph.template.yaml > subgraph.yaml",
     "prepare:matic": "mustache config/matic.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:xdai": "mustache config/xdai.json subgraph.template.yaml > subgraph.yaml",
     "codegen": "graph codegen subgraph.yaml",
     "build": "graph build subgraph.yaml",
     "deploy:mainnet": "graph deploy --studio badger-dao",
     "deploy:matic": "graph deploy --node https://api.thegraph.com/deploy/ axejintao/badger-dao-polygon",
+    "deploy:xdai": "graph deploy --node https://api.thegraph.com/deploy/ axejintao/badger-dao-xdai",
     "deploy:bsc": "graph deploy --node https://api.thegraph.com/deploy/ axejintao/badger-dao-bsc",
     "deploy:mainnet-staging": "graph deploy --node https://api.thegraph.com/deploy/ axejintao/badger-dao",
     "create-local": "graph create --node http://localhost:8020/ axejintao/badger-dao",
@@ -19,10 +20,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@graphprotocol/graph-ts": "^0.20.0"
+    "@graphprotocol/graph-ts": "^0.20.1"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.21.0",
+    "@graphprotocol/graph-cli": "^0.21.1",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.14.1",
     "eslint": "^7.18.0",

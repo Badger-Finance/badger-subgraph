@@ -1,7 +1,7 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Token } from '../../generated/schema';
 import { ERC20 } from '../../generated/templates/SettVault/ERC20';
-import { readValue } from '../utils/contracts';
+import { readValue } from './contracts';
 
 export function loadToken(address: Address): Token {
   let token = Token.load(address.toHexString()) as Token;
@@ -16,7 +16,7 @@ export function loadToken(address: Address): Token {
   token.symbol = readValue<string>(contract.try_symbol(), '');
   token.decimals = BigInt.fromI32(readValue<i32>(contract.try_decimals(), 18));
   token.totalSupply = readValue<BigInt>(contract.try_totalSupply(), BigInt.fromI32(0));
-  token.save();
 
+  token.save();
   return token;
 }

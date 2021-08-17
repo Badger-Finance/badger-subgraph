@@ -1,66 +1,105 @@
-type Sett @entity {
+#####################
+# Interfaces
+#####################
+
+interface ERC20 {
   id: ID!
-  "Sett name"
   name: String!
-  "Share token symbol"
   symbol: String!
-  "Deposit token"
-  token: Token!
-  "Deposit token per share"
-  pricePerFullShare: BigInt!
-  "Shares outstanding"
-  balance: BigInt!
-  "Deposit tokens outstanding"
+  decimals: BigInt!
   totalSupply: BigInt!
-  "Current sett deposit token value"
+}
+
+interface Vault {
+  id: ID!
+  token: Token!
+  balance: BigInt!
+  pricePerFullShare: BigInt!
+}
+
+interface VaultBalance {
+  id: ID!
   netDeposit: BigInt!
-  "Total sett deposit token value"
-  grossDeposit: BigInt!
-  "Total sett withdraw token value"
-  grossWithdraw: BigInt!
-  "Current sett deposit share value"
   netShareDeposit: BigInt!
-  "Total sett deposit share value"
+  grossDeposit: BigInt!
   grossShareDeposit: BigInt!
-  "Total sett withdraw share value"
+  grossWithdraw: BigInt!
   grossShareWithdraw: BigInt!
 }
 
-type User @entity {
+interface Snapshot {
   id: ID!
-  settBalances: [UserSettBalance!]! @derivedFrom(field: "user")
+  timestamp: Int!
 }
 
-type Transfer @entity {
+#####################
+# Entities
+#####################
+
+type Token implements ERC20 @entity {
   id: ID!
-  timestamp: BigInt!
+  name: String!
+  symbol: String!
+  decimals: BigInt!
+  totalSupply: BigInt!
+}
+
+type Sett implements ERC20 & Vault & VaultBalance @entity {
+  id: ID!
+  name: String!
+  symbol: String!
+  decimals: BigInt!
+  totalSupply: BigInt!
+  token: Token!
+  balance: BigInt!
+  pricePerFullShare: BigInt!
+  netDeposit: BigInt!
+  netShareDeposit: BigInt!
+  grossDeposit: BigInt!
+  grossShareDeposit: BigInt!
+  grossWithdraw: BigInt!
+  grossShareWithdraw: BigInt!
+}
+
+type SettSnapshot implements ERC20 & Vault & VaultBalance & Snapshot @entity {
+  id: ID!
+  timestamp: Int!
+  name: String!
+  symbol: String!
+  decimals: BigInt!
+  totalSupply: BigInt!
+  token: Token!
+  balance: BigInt!
+  pricePerFullShare: BigInt!
+  netDeposit: BigInt!
+  netShareDeposit: BigInt!
+  grossDeposit: BigInt!
+  grossShareDeposit: BigInt!
+  grossWithdraw: BigInt!
+  grossShareWithdraw: BigInt!
+}
+
+type UserSettBalance implements VaultBalance @entity {
+  id: ID!
+  user: User!
+  sett: Sett!
+  netDeposit: BigInt!
+  netShareDeposit: BigInt!
+  grossDeposit: BigInt!
+  grossShareDeposit: BigInt!
+  grossWithdraw: BigInt!
+  grossShareWithdraw: BigInt!
+}
+
+type Transfer implements Snapshot @entity {
+  id: ID!
+  timestamp: Int!
   from: String!
   to: String!
   amount: BigInt!
 }
 
-type UserSettBalance @entity {
+type User @entity {
   id: ID!
-  user: User!
-  sett: Sett!
-  "Current sett deposit token value"
-  netDeposit: BigInt!
-  "Total sett deposit token value"
-  grossDeposit: BigInt!
-  "Total sett withdraw token value"
-  grossWithdraw: BigInt!
-  "Current sett deposit share value"
-  netShareDeposit: BigInt!
-  "Total sett deposit share value"
-  grossShareDeposit: BigInt!
-  "Total sett withdraw share value"
-  grossShareWithdraw: BigInt!
-}
-
-type Token @entity {
-  id: ID!
-  decimals: BigInt!
-  name: String!
-  symbol: String!
-  totalSupply: BigInt!
+  settBalances: [UserSettBalance!]! @derivedFrom(field: "user")
 }

@@ -11,7 +11,8 @@ export function loadUser(address: Address): User {
   }
 
   user = new User(id);
-  return user ;
+  user.save();
+  return user;
 }
 
 export function isValidUser(address: string): boolean {

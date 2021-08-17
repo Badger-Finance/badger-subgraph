@@ -1,7 +1,7 @@
 {
-  "chain": "matic",
+  "chain": "xdai",
   "registry": {
     "address": "0x22765948A3d5048F3644b81792e4E1aA7ea3da4a",
-    "startBlock": 17191330
+    "startBlock": 17199733
   }
 }
