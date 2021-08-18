@@ -1,0 +1,27 @@
+specVersion: 0.0.3
+schema:
+  file: ./schema.graphql
+dataSources:
+  # ===== Tokens =====
+  - kind: ethereum/contract
+    name: Badger
+    network: matic
+    source:
+      address: "0x1FcbE5937B0cc2adf69772D228fA4205aCF4D9b2"
+      abi: UChildERC20
+      startBlock: 17880441
+    mapping:
+      kind: ethereum/events
+      language: wasm/assemblyscript
+      apiVersion: 0.0.4
+      entities:
+        - TokenBalance
+        - Token
+      abis:
+        - name: UChildERC20
+          file: ./abis/UChildERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleBadgerTransfer
+      file: ./src/mapping.ts
+
