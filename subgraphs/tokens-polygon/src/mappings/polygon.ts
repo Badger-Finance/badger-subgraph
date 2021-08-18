@@ -2,8 +2,7 @@ import { Address } from '@graphprotocol/graph-ts';
 
 import { Transfer } from '../../generated/Badger/UChildERC20';
 import { getOrCreateTokenBalance } from '../utils/helpers/token/balance';
-export function handleBadgerTransfer(event: Transfer): void {
-  event.address
+export function handlePolygonTransfer(event: Transfer): void {
   let badgerToken = event.address
   let fromId = event.params.from
     .toHexString()

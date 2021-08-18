@@ -1,1 +1,1 @@
-export { handleBadgerTransfer } from './mappings/badger';
+export { handlePolygonTransfer } from './mappings/polygon';
