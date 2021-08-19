@@ -2,7 +2,7 @@ import { Address } from '@graphprotocol/graph-ts';
 
 import { TreeDistribution as TreeDistributionEvent } from '../../../../generated/harvestCrvATricrypto/StrategySushiBadgerIbBTC';
 import { TreeDistribution as TreeDistributionEntity } from '../../../../generated/schema';
-import { getOrCreateToken } from '../yVault/token';
+import { getOrCreateToken } from './token';
 
 export function getOrCreateTreeDistribution(
   id: String,
