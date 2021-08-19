@@ -18,8 +18,6 @@ export function getOrCreateTokenBalance(id: String, address: Address): TokenBala
   return tokenBalance as TokenBalance;
 }
 
-
-
 export function getOrCreateToken(tokenAddress: Address, persist: boolean = true): Token {
   let addressString = tokenAddress.toHexString();
 
