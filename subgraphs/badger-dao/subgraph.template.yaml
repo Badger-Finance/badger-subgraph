@@ -27,12 +27,20 @@ dataSources:
         - name: BadgerSett
           file: ./abis/BadgerSett.json
       eventHandlers:
-        - event: NewVault(address,address)
+        - event: AddKey(string)
+          handler: handleAddKey
+        - event: AddVersion(string)
+          handler: handleAddVersion
+        - event: NewVault(address,string,address)
           handler: handleNewVault
-        - event: PromoteVault(address,address)
+        - event: PromoteVault(address,string,address,uint8)
           handler: handlePromoteVault
-        - event: RemoveVault(address,address)
+        - event: RemoveVault(address,string,address)
           handler: handleRemoveVault
+        - event: DemoteVault(address,string,address,uint8)
+          handler: handleDemoteVault
+        - event: Set(string,address)
+          handler: handleSet
       file: ./src/handlers/registry-handler.ts
   {{/registry}}
   {{#setts}}
