@@ -1,7 +1,29 @@
 {
   "chain": "matic",
   "registry": {
-    "address": "0x22765948A3d5048F3644b81792e4E1aA7ea3da4a",
-    "startBlock": 17191330
-  }
+    "address": "0xfda7eb6f8b7a9e9fcfd348042ae675d1d652454f",
+    "startBlock": 17880441
+  },
+  "setts": [
+    {
+      "name": "QLP-USDC-WBTC",
+      "address": "0x6b2d4c4bb50274c5d4986ff678cc971c0260e967",
+      "startBlock": 17191330
+    },
+    {
+      "name": "CRV-REN",
+      "address": "0x7b6bfb88904e4b3a6d239d5ed8adf557b22c10fc",
+      "startBlock": 17191330
+    },
+    {
+      "name": "CRV-TRI",
+      "address": "0x85e1cacae9a63429394d68db59e14af74143c61c",
+      "startBlock": 17191330
+    },
+    {
+      "name": "SLP-IBBTC-WBTC",
+      "address": "0xea8567d84e3e54b32176418b4e0c736b56378961",
+      "startBlock": 17191330
+    }
+  ]
 }
