@@ -1,0 +1,59 @@
+specVersion: 0.0.3
+schema:
+  file: ./schema.graphql
+dataSources:
+
+  - kind: ethereum/contract
+    name: harvestSushiIbBTC
+    network: matic
+    source:
+      address: '0xDed61Bd8a8c90596D8A6Cf0e678dA04036146963'
+      abi: StrategySushiBadgerIbBTC
+      startBlock: 17657227
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TreeDistribution
+        - Token
+      abis:
+        - name: StrategySushiBadgerIbBTC
+          file: ./abis/StrategySushiBadgerIbBTC.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
+      file: ./src/mapping.ts
+# ===== Strategy Template =====
+templates:
+  - name: Strategy
+    kind: ethereum/contract
+    network: matic
+    source:
+      abi: Strategy
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mapping.ts
+      entities:
+        - Vault
+        - Deposit
+        - Withdraw
+        - Harvest
+        - Transfer
+        - AccountVaultBalance
+        - Account
+        - Token
+      abis:
+        - name: Strategy
+          file: ./abis/Strategy.json
+        - name: V1Contract
+          file: ./abis/V1Contract.json
+        - name: Controller
+          file: ./abis/Controller.json
+      eventHandlers:
+        - event: Harvest(uint256,indexed uint256)
+          handler: handleHarvest
