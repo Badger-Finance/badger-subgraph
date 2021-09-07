@@ -1,8 +1,8 @@
 {
   "chain": "mainnet",
   "registry": {
-    "address": "0x22765948A3d5048F3644b81792e4E1aA7ea3da4a",
-    "startBlock": 12883010
+    "address": "0xfda7eb6f8b7a9e9fcfd348042ae675d1d652454f",
+    "startBlock": 13006329
   },
   "setts": [
     {
@@ -93,6 +93,11 @@
     {
       "name": "tricrypto",
       "address": "0xbe08ef12e4a553666291e9ffc24fccfd354f2dd2",
+      "startBlock": 12679976
+    },
+    {
+      "name": "tricrypto2",
+      "address": "0x27E98fC7d05f54E544d16F58C194C2D7ba71e3B5",
       "startBlock": 12679976
     },
     {
