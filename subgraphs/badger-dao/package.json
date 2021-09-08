@@ -14,7 +14,7 @@
     "deploy:xdai": "graph deploy --node https://api.thegraph.com/deploy/ axejintao/badger-dao-xdai",
     "deploy:bsc": "graph deploy --node https://api.thegraph.com/deploy/ axejintao/badger-dao-bsc",
     "deploy:arbitrum": "graph deploy --node https://api.thegraph.com/deploy/ axejintao/badger-dao-arbitrum",
-    "deploy:mainnet-staging": "graph deploy --node https://api.thegraph.com/deploy/ axejintao/badger-dao",
+    "deploy:mainnet-staging": "graph deploy --node https://api.thegraph.com/deploy/ axejintao/jello-jintao",
     "create-local": "graph create --node http://localhost:8020/ axejintao/badger-dao",
     "remove-local": "graph remove --node http://localhost:8020/ axejintao/badger-dao",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 axejintao/badger-dao",
