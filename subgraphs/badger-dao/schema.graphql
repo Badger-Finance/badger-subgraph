@@ -36,6 +36,10 @@ interface Snapshot {
 # Entities
 #####################
 
+type Registry @entity {
+  id: ID!
+}
+
 type Token implements ERC20 @entity {
   id: ID!
   name: String!
