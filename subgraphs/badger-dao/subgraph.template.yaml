@@ -26,6 +26,8 @@ dataSources:
           file: ./abis/ERC20.json
         - name: BadgerSett
           file: ./abis/BadgerSett.json
+        - name: BadgerSettV2
+          file: ./abis/BadgerSett.json
       eventHandlers:
         - event: AddKey(string)
           handler: handleAddKey
@@ -43,6 +45,39 @@ dataSources:
           handler: handleSet
       file: ./src/handlers/registry-handler.ts
   {{/registry}}
+  {{#legacySetts}}
+  - kind: ethereum/contract
+    name: {{ name }}
+    network: {{ chain }}
+    source:
+      address: "{{ address }}"
+      abi: BadgerSett
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Sett
+        - User
+        - Token
+        - UserSettBalance
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: BadgerSett
+          file: ./abis/BadgerSett.json
+        - name: Strategy
+          file: ./abis/Strategy.json
+        - name: V1Contract
+          file: ./abis/V1Contract.json
+        - name: Controller
+          file: ./abis/Controller.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransferLegacy
+      file: ./src/handlers/sett-legacy-handler.ts
+  {{/legacySetts}}
   {{#setts}}
   - kind: ethereum/contract
     name: {{ name }}
@@ -99,7 +134,362 @@ dataSources:
           handler: handleTransfer
       file: ./src/handlers/sett-affiliate-handler.ts
   {{/affiliateSetts}}
+  {{#nfts}}
+  - kind: ethereum/contract
+    name: BadgerERC1155
+    network: {{ chain }}
+    source:
+      address: "{{ BADGERNFTAddress }}"
+      abi: BadgerERC1155
+      startBlock: 10734502
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - NFT
+      abis:
+        - name: BadgerERC1155
+          file: ./abis/BadgerERC1155.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleNFTTransfer
+      file: ./src/handlers/nft-handler.ts
+      
+  - kind: ethereum/contract
+    name: Proxy
+    network: {{ chain }}
+    source:
+      address: "{{ SomeProxyAddress }}"
+      abi: BadgerERC1155
+      startBlock: 10734502
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - NFT
+      abis:
+        - name: BadgerERC1155
+          file: ./abis/BadgerERC1155.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleNFTTransfer
+      file: ./src/handlers/nft-handler.ts
   
+  - kind: ethereum/contract
+    name: MemeLtd
+    network: {{ chain }}
+    source:
+      address: "{{ MemeLtdAddress }}"
+      abi: MemeLtd
+      startBlock: 10734502
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - NFT
+      abis:
+        - name: MemeLtd
+          file: ./abis/MemeLtd.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleMemeNFTTransfer
+      file: ./src/handlers/nft-handler.ts
+  {{/nfts}}
+  {{#tokens}}
+  # ===== Tokens =====
+  - kind: ethereum/contract
+    name: Badger
+    network: {{ chain }}
+    source:
+      address: "{{ badgerAddress }}"
+      abi: MiniMeToken
+      startBlock: 11348423
+    mapping:
+      kind: ethereum/events
+      language: wasm/assemblyscript
+      apiVersion: 0.0.4
+      entities:
+        - TokenBalance
+        - Token
+      abis:
+        - name: MiniMeToken
+          file: ./abis/MiniMeToken.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleBadgerTransfer
+      file: ./src/yearn/mapping.ts
+
+  - kind: ethereum/contract
+    name: Digg
+    network: {{ chain }}
+    source:
+      address: "{{ diggAddress }}"
+      abi: UFragments
+      startBlock: 11668293
+    mapping:
+      kind: ethereum/events
+      language: wasm/assemblyscript
+      apiVersion: 0.0.4
+      entities:
+        - TokenBalance
+        - Token
+      abis:
+        - name: UFragments
+          file: ./abis/UFragments.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleDiggTransfer
+      file: ./src/yearn/mapping.ts
+
+  - kind: ethereum/contract
+    name: ibBTCToken
+    network: {{ chain }}
+    source:
+      address: "{{ ibBTCAddress }}"
+      abi: bBTC
+      startBlock: 12342123
+    mapping:
+      kind: ethereum/events
+      language: wasm/assemblyscript
+      apiVersion: 0.0.4
+      entities:
+        - TokenBalance
+        - Token
+      abis:
+        - name: bBTC
+          file: ./abis/bBTC.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleIbBTCTransfer
+      file: ./src/yearn/mapping.ts
+  {{/tokens}}
+  {{#harvests}}
+  - kind: ethereum/contract
+    name: harvestHbtcCrv
+    network: {{ chain }}
+    source:
+      address: '0xFf26f400e57bf726822EaCBB64Fa1c52F1F27988'
+      abi: StrategyConvexStakingOptimizer
+      startBlock: 12600000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TreeDistribution
+        - Token
+      abis:
+        - name: StrategyConvexStakingOptimizer
+          file: ./abis/StrategyConvexStakingOptimizer.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
+      file: ./src/yearn/mapping.ts
+
+  - kind: ethereum/contract
+    name: harvestObtcCrv
+    network: {{ chain }}
+    source:
+      address: '0x2bb864cdb4856ab2d148c5ca52dd7ccec126d138'
+      abi: StrategyConvexStakingOptimizer
+      startBlock: 12600000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TreeDistribution
+        - Token
+      abis:
+        - name: StrategyConvexStakingOptimizer
+          file: ./abis/StrategyConvexStakingOptimizer.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
+      file: ./src/yearn/mapping.ts
+
+  - kind: ethereum/contract
+    name: harvestBbtcCrv
+    network: {{ chain }}
+    source:
+      address: '0x4f3e7a4566320b2709fd1986f2e9f84053d3e2a0'
+      abi: StrategyConvexStakingOptimizer
+      startBlock: 12600000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TreeDistribution
+        - Token
+      abis:
+        - name: StrategyConvexStakingOptimizer
+          file: ./abis/StrategyConvexStakingOptimizer.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
+      file: ./src/yearn/mapping.ts
+
+  - kind: ethereum/contract
+    name: harvestPbtcCrv
+    network: {{ chain }}
+    source:
+      address: '0x1c1fd689103bbfd701b3b7d41a3807f12814033d'
+      abi: StrategyConvexStakingOptimizer
+      startBlock: 12600000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TreeDistribution
+        - Token
+      abis:
+        - name: StrategyConvexStakingOptimizer
+          file: ./abis/StrategyConvexStakingOptimizer.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
+      file: ./src/yearn/mapping.ts
+
+  - kind: ethereum/contract
+    name: harvestTriCrypto
+    network: {{ chain }}
+    source:
+      address: '0x05ec4356e1acd89cc2d16adc7415c8c95e736ac1'
+      abi: StrategyConvexStakingOptimizer
+      startBlock: 12600000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TreeDistribution
+        - Token
+      abis:
+        - name: StrategyConvexStakingOptimizer
+          file: ./abis/StrategyConvexStakingOptimizer.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
+      file: ./src/yearn/mapping.ts
+
+  - kind: ethereum/contract
+    name: harvestTriCrypto2
+    network: {{ chain }}
+    source:
+      address: '0x2eB6479c2f033360C0F4575A88e3b8909Cbc6a03'
+      abi: StrategyConvexStakingOptimizer
+      startBlock: 12965943
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TreeDistribution
+        - Token
+      abis:
+        - name: StrategyConvexStakingOptimizer
+          file: ./abis/StrategyConvexStakingOptimizer.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
+      file: ./src/yearn/mapping.ts
+  
+
+  - kind: ethereum/contract
+    name: harvestRenCrv
+    network: {{ chain }}
+    source:
+      address: '0x6582A5b139Fc1C6360846efDc4440d51AaD4Df7B'
+      abi: StrategyConvexStakingOptimizer
+      startBlock: 12600000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TreeDistribution
+        - Token
+      abis:
+        - name: StrategyConvexStakingOptimizer
+          file: ./abis/StrategyConvexStakingOptimizer.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
+      file: ./src/yearn/mapping.ts
+
+  - kind: ethereum/contract
+    name: harvestSbtcCrv
+    network: {{ chain }}
+    source:
+      address: '0xf1DED284E891943b3e9c657D7fC376b86164FFc2'
+      abi: StrategyConvexStakingOptimizer
+      startBlock: 12600000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TreeDistribution
+        - Token
+      abis:
+        - name: StrategyConvexStakingOptimizer
+          file: ./abis/StrategyConvexStakingOptimizer.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
+      file: ./src/yearn/mapping.ts
+
+  - kind: ethereum/contract
+    name: harvestTbtcCrv
+    network: {{ chain }}
+    source:
+      address: '0x522Bb024C339A12be1a47229546f288C40b62d29'
+      abi: StrategyConvexStakingOptimizer
+      startBlock: 12600000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TreeDistribution
+        - Token
+      abis:
+        - name: StrategyConvexStakingOptimizer
+          file: ./abis/StrategyConvexStakingOptimizer.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
+      file: ./src/yearn/mapping.ts
+{{/harvests}}
 templates:
   - kind: ethereum/contract
     name: SettVault
@@ -226,3 +616,34 @@ templates:
         - event: StrategyAddedToQueue(indexed address)
           handler: handleStrategyAddedToQueue
       file: ./src/handlers/sett-v2-handler.ts
+  {{#strategyTemplate}}
+  - name: Strategy
+    kind: ethereum/contract
+    network: {{ chain }}
+    source:
+      abi: Strategy
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Token_Vault
+        - Token_Deposit
+        - Token_Withdraw
+        - Token_Harvest
+        - Token_Transfer
+        - Token_AccountVaultBalance
+        - Token_Account
+        - Token_Token
+      abis:
+        - name: Strategy
+          file: ./abis/Strategy.json
+        - name: V1Contract
+          file: ./abis/V1Contract.json
+        - name: Controller
+          file: ./abis/Controller.json
+      eventHandlers:
+        - event: Harvest(uint256,indexed uint256)
+          handler: handleHarvest
+      file: ./src/yearn/mapping.ts
+  {{/strategyTemplate}}

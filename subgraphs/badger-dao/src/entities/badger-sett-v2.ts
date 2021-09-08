@@ -26,6 +26,7 @@ export function loadSettV2(address: Address): Sett {
     sett.netShareDeposit = ZERO;
     sett.grossShareDeposit = ZERO;
     sett.grossShareWithdraw = ZERO;
+    sett.status = 'dev';
   }
 
   sett.pricePerFullShare = readValue<BigInt>(contract.try_pricePerShare(), sett.pricePerFullShare);

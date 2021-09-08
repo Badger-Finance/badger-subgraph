@@ -10,6 +10,9 @@ module.exports = {
 		'build',
 		'generated',
 		'node_modules',
+		'src/yearn/utils/helpers/yVault/account.ts',
+		'src/yearn/utils/helpers/yVault/token.ts',
+		'src/yearn/utils/helpers/yVault/yVault.ts',
 	],
 	parserOptions: {
 		ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features

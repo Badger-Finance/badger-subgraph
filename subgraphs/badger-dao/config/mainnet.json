@@ -1,10 +1,10 @@
 {
   "chain": "mainnet",
   "registry": {
-    "address": "0x22765948A3d5048F3644b81792e4E1aA7ea3da4a",
-    "startBlock": 12883010
+    "address": "0xfda7eb6f8b7a9e9fcfd348042ae675d1d652454f",
+    "startBlock": 13006329  
   },
-  "setts": [
+  "legacySetts": [
     {
       "name": "sBTCCRV",
       "address": "0xd04c48A53c111300aD41190D63681ed3dAd998eC",
@@ -104,6 +104,11 @@
       "name": "cvxcrv",
       "address": "0x2B5455aac8d64C14786c3a29858E43b5945819C0",
       "startBlock": 12679976
+    },
+    {
+      "name": "tricrypto2",
+      "address": "0x27e98fc7d05f54e544d16f58c194c2d7ba71e3b5",
+      "startBlock": 12965932
     }
   ],
   "affiliateSetts": [
@@ -112,5 +117,17 @@
       "address": "0x4b92d19c11435614cd49af1b589001b7c08cd4d5",
       "startBlock": 12246710
     }
-  ]
+  ],
+  "nfts": [{
+    "BADGERNFTAddress": "0xe1e546e25A5eD890DFf8b8D005537c0d373497F8",
+    "SomeProxyAddress": "0x576cD258835C529B54722F84Bb7d4170aA932C64",
+    "MemeLtdAddress": "0xe4605d46Fd0B3f8329d936a8b258D69276cBa264"
+  }],
+  "tokens": [{
+    "badgerAddress": "0x3472A5A71965499acd81997a54BBA8D852C6E53d",
+    "diggAddress": "0x798D1bE841a82a273720CE31c822C61a67a601C3",
+    "ibBTCAddress": "0xc4E15973E6fF2A35cC804c2CF9D2a1b817a8b40F"
+  }],
+  "harvests" : [{}],
+  "strategyTemplate" : [{}]
 }

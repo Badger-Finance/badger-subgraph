@@ -35,7 +35,6 @@ interface Snapshot {
 #####################
 # Entities
 #####################
-
 type Token implements ERC20 @entity {
   id: ID!
   name: String!
@@ -59,6 +58,8 @@ type Sett implements ERC20 & Vault & VaultBalance @entity {
   grossShareDeposit: BigInt!
   grossWithdraw: BigInt!
   grossShareWithdraw: BigInt!
+  status: String!  # dev, experimental, guarded, open，unregistered
+
 }
 
 type SettSnapshot implements ERC20 & Vault & VaultBalance & Snapshot @entity {
@@ -103,3 +104,346 @@ type User @entity {
   id: ID!
   settBalances: [UserSettBalance!]! @derivedFrom(field: "user")
 }
+
+## NFTS -- Start
+type NFT_TokenBalance @entity {
+  id: ID!
+  token: NFT_Token!
+  amount: BigInt!
+  owner: NFT_User
+}
+type NFT_Token @entity {
+  id: ID!
+  tokenId: BigInt!
+}
+
+type NFT_User @entity {
+  id: ID!
+  tokens:[NFT_TokenBalance!] @derivedFrom(field:"owner")
+}
+## NFTS -- End
+
+## Tokens -- Start
+type Yearn_Vault @entity {
+  id: ID!
+  "Amount of underlying token per 1 share"
+  pricePerFullShare: BigDecimal!
+  "Total shares supply"
+  totalSupply: BigDecimal!
+  "Full vault underlying token balance (vault + strategy)"
+  vaultBalance: BigDecimal!
+  "Yearn_Strategy underlying token balance"
+  strategyBalance: BigDecimal!
+  # TODO:
+  "How much the vault allows to be borrowed"
+  available: BigDecimal!
+  "Yearn_Deposit token"
+  underlyingToken: Yearn_Token!
+  shareToken: Yearn_Token!
+  currentController: Yearn_Controller
+  currentStrategy: Yearn_Strategy
+  "Yearn_Transaction metadata for the last update"
+  transaction: Yearn_Transaction!
+  # TODO:
+  "balance: totalDeposited - totalWithdrawn: all deposits of underlying made by external accounts"
+  netDeposits: BigDecimal!
+  totalDeposited: BigDecimal!
+  totalWithdrawn: BigDecimal!
+  "totalActiveShares: totalSharesMinted - totalSharesBurned"
+  totalActiveShares: BigDecimal!
+  totalSharesMinted: BigDecimal!
+  totalSharesBurned: BigDecimal!
+  totalEarnings: BigDecimal!
+  # raw
+  pricePerFullShareRaw: BigInt!
+  totalSupplyRaw: BigInt!
+  # TODO:
+  "Balance of the Yearn_Vault contract of underlying Yearn_Token + balance of the Yearn_Strategy contract of underlying Yearn_Token"
+  vaultBalanceRaw: BigInt!
+  # TODO:
+  "Balance of underlying Yearn_Token specifically held in the strategy"
+  strategyBalanceRaw: BigInt!
+  # TODO:
+  "How much the vault allows to be borrowed"
+  availableRaw: BigInt!
+  netDepositsRaw: BigInt!
+  totalDepositedRaw: BigInt!
+  totalWithdrawnRaw: BigInt!
+  totalActiveSharesRaw: BigInt!
+  totalSharesMintedRaw: BigInt!
+  totalSharesBurnedRaw: BigInt!
+  totalEarningsRaw: BigInt!
+  totalHarvestCalls: BigInt!
+  # derived fields
+  transfers: [Yearn_Transfer!]! @derivedFrom(field: "vault")
+  deposits: [Yearn_Deposit!]! @derivedFrom(field: "vault")
+  withdrawals: [Yearn_Withdrawal!]! @derivedFrom(field: "vault")
+  harvests: [Yearn_Harvest!]! @derivedFrom(field: "vault")
+  balances: [Yearn_AccountVaultBalance!]! @derivedFrom(field: "vault")
+  strategies: [Yearn_Strategy!] @derivedFrom(field: "vault")
+  controllers: [Yearn_Controller!] @derivedFrom(field: "vault")
+}
+
+type Yearn_Account @entity {
+  "User ethereum address"
+  id: ID!
+  vaultBalances: [Yearn_AccountVaultBalance!]! @derivedFrom(field: "account")
+  "Yearn_Account deposits"
+  deposits: [Yearn_Deposit!]! @derivedFrom(field: "account")
+  "Yearn_Account withdrawals"
+  withdrawals: [Yearn_Deposit!]! @derivedFrom(field: "account")
+  "Incoming transfers"
+  receivedTransfers: [Yearn_Transfer!]! @derivedFrom(field: "to")
+  "Outgoing transfers"
+  sentTransfers: [Yearn_Transfer!]! @derivedFrom(field: "from")
+}
+
+type Yearn_AccountVaultBalance @entity {
+  id: ID!
+  vault: Yearn_Vault!
+  account: Yearn_Account!
+  "Yearn_Deposit/withdrawal token"
+  underlyingToken: Yearn_Token!
+  shareToken: Yearn_Token!
+  "Net deposits of a given Yearn_Account within a given Yearn_Vault. Transfers between accounts are taken into consideration for this metric"
+  netDeposits: BigDecimal!
+  "Total tokens deposited by this Yearn_Account in Yearn_Vault"
+  totalDeposited: BigDecimal!
+  "Total tokens withdrawn by this Yearn_Account in Yearn_Vault"
+  totalWithdrawn: BigDecimal!
+  "Total tokens sent to another account by this Yearn_Account in Yearn_Vault"
+  totalSent: BigDecimal!
+  "Total tokens received from another account by this Yearn_Account in Yearn_Vault"
+  totalReceived: BigDecimal!
+  "Shares are the token minted by the Yearn_Vault"
+  shareBalance: BigDecimal!
+  totalSharesMinted: BigDecimal!
+  totalSharesBurned: BigDecimal!
+  totalSharesSent: BigDecimal!
+  totalSharesReceived: BigDecimal!
+  "Net deposits of a given Yearn_Account within a given Yearn_Vault. Transfers between accounts are taken into consideration for this metric"
+  netDepositsRaw: BigInt!
+  "Total tokens deposited by this Yearn_Account in Yearn_Vault"
+  totalDepositedRaw: BigInt!
+  "Total tokens withdrawn by this Yearn_Account in Yearn_Vault"
+  totalWithdrawnRaw: BigInt!
+  "Total tokens sent to another account by this Yearn_Account in Yearn_Vault"
+  totalSentRaw: BigInt!
+  "Total tokens received from another account by this Yearn_Account in Yearn_Vault"
+  totalReceivedRaw: BigInt!
+  "Shares are the token minted by the Yearn_Vault"
+  shareBalanceRaw: BigInt!
+  totalSharesMintedRaw: BigInt!
+  totalSharesBurnedRaw: BigInt!
+  totalSharesSentRaw: BigInt!
+  totalSharesReceivedRaw: BigInt!
+}
+
+type Yearn_Token @entity {
+  id: ID!
+  address: Bytes!
+  decimals: Int!
+  name: String!
+  symbol: String!
+}
+
+type Yearn_Transfer @entity {
+  id: ID!
+  from: Yearn_Account!
+  to: Yearn_Account!
+  value: BigInt!
+  amount: BigInt!
+  vault: Yearn_Vault!
+  pricePerFullShare: BigInt!
+  vaultBalance: BigInt!
+  totalSupply: BigInt!
+  available: BigInt!
+  transaction: Yearn_Transaction!
+}
+
+interface Yearn_Action @entity {
+  id: ID!
+  vault: Yearn_Vault!
+  account: Yearn_Account!
+  amount: BigInt!
+  shares: BigInt!
+  pricePerFullShare: BigInt!
+  vaultBalance: BigInt!
+  totalSupply: BigInt!
+  available: BigInt!
+  transaction: Yearn_Transaction!
+  blockNumber: BigInt!
+}
+
+type Yearn_Deposit implements Yearn_Action @entity {
+  id: ID!
+  vault: Yearn_Vault!
+  account: Yearn_Account!
+  amount: BigInt!
+  shares: BigInt!
+  pricePerFullShare: BigInt!
+  vaultBalance: BigInt!
+  totalSupply: BigInt!
+  available: BigInt!
+  transaction: Yearn_Transaction!
+  blockNumber: BigInt!
+}
+
+type Yearn_Withdrawal implements Yearn_Action @entity {
+  id: ID!
+  vault: Yearn_Vault!
+  account: Yearn_Account!
+  amount: BigInt!
+  shares: BigInt!
+  pricePerFullShare: BigInt!
+  vaultBalance: BigInt!
+  totalSupply: BigInt!
+  available: BigInt!
+  transaction: Yearn_Transaction!
+  blockNumber: BigInt!
+}
+
+type Yearn_Harvest @entity {
+  id: ID!
+  vault: Yearn_Vault!
+  strategy: Yearn_Strategy!
+  pricePerFullShareBefore: BigDecimal!
+  pricePerFullShareAfter: BigDecimal!
+  vaultBalanceBefore: BigDecimal!
+  vaultBalanceAfter: BigDecimal!
+  strategyBalanceBefore: BigDecimal!
+  strategyBalanceAfter: BigDecimal!
+  earnings: BigDecimal!
+  pricePerFullShareBeforeRaw: BigInt!
+  pricePerFullShareAfterRaw: BigInt!
+  vaultBalanceBeforeRaw: BigInt!
+  vaultBalanceAfterRaw: BigInt!
+  strategyBalanceBeforeRaw: BigInt!
+  strategyBalanceAfterRaw: BigInt!
+  earningsRaw: BigInt!
+  transaction: Yearn_Transaction!
+}
+
+type Yearn_Strategy @entity {
+  "Ethereum address"
+  id: ID!
+  vault: Yearn_Vault!
+  totalEarnings: BigDecimal!
+  totalEarningsRaw: BigInt!
+  harvests: [Yearn_Harvest!]! @derivedFrom(field: "strategy")
+  activeOnVaults: [Yearn_Vault!] @derivedFrom(field: "currentStrategy")
+}
+
+type Yearn_Controller @entity {
+  "Ethereum address"
+  id: ID!
+  vault: Yearn_Vault!
+  activeOnVaults: [Yearn_Vault!] @derivedFrom(field: "currentController")
+}
+
+type Yearn_Transaction @entity {
+  "ID = Yearn_Transaction Hash"
+  id: ID!
+  timestamp: BigInt!
+  blockNumber: BigInt!
+  # duplicated field to allow for byte search with transactionHash_contains
+  transactionHash: Bytes!
+  deposits: [Yearn_Deposit!]! @derivedFrom(field: "transaction")
+  withdrawals: [Yearn_Withdrawal!]! @derivedFrom(field: "transaction")
+  transfers: [Yearn_Transfer!]! @derivedFrom(field: "transaction")
+  harvests: [Yearn_Harvest!]! @derivedFrom(field: "transaction")
+  # TODO: rename
+  "List of Vaults that last updated on this transaction"
+  vaultsUpdated: [Yearn_Vault!]! @derivedFrom(field: "transaction")
+}
+
+# type Yearn_Geyser @entity {
+#   id: ID!
+#   totalStaked: BigInt!
+#   stakeEvents: [Yearn_StakedEvent!]! @derivedFrom(field: "geyser")
+#   unstakeEvents: [Yearn_UnstakedEvent!]! @derivedFrom(field: "geyser")
+# }
+
+# # Each user has account data for one geyser
+# type Yearn_GeyserAccountData @entity {
+#   id: ID!
+#   geyser: Yearn_Geyser!
+#   stakes: [Yearn_GeyserStake!]! @derivedFrom(field: "account")
+#   lastUpdate: BigInt!
+#   cumulativeShareSeconds: BigInt!
+# }
+
+# type Yearn_GeyserStake @entity {
+#   id: ID!
+#   geyser: Yearn_Geyser!
+#   account: Yearn_Account!
+#   amount: BigInt!
+#   stakedAt: BigInt!
+# }
+
+type Yearn_StakedEvent @entity {
+  id: ID!
+#  geyser: Yearn_Geyser!
+  user: Bytes!
+  amount: BigInt!
+  total: BigInt!
+  timestamp: BigInt!
+  blockNumber: BigInt!
+  data: Bytes!
+}
+
+type Yearn_UnstakedEvent @entity {
+  id: ID!
+#  geyser: Yearn_Geyser!
+  user: Bytes!
+  amount: BigInt!
+  total: BigInt!
+  timestamp: BigInt!
+  blockNumber: BigInt!
+  data: Bytes!
+}
+
+type Yearn_HarvestEvent @entity {
+  id: ID!
+  sourceAddress: String!
+  sourceId: String!
+}
+
+type Yearn_FarmHarvestEvent @entity {
+  id: ID!
+  totalFarmHarvested: BigInt!
+  farmToRewards: BigInt!
+  governancePerformanceFee: BigInt!
+  strategistPerformanceFee: BigInt!
+  timestamp: BigInt!
+  blockNumber: BigInt!
+}
+
+type Yearn_SushiHarvestEvent @entity {
+  id: ID!
+  xSushiHarvested: BigInt!
+  totalxSushi: BigInt!
+  toStrategist: BigInt!
+  toGovernance: BigInt!
+  toBadgerTree: BigInt!
+  timestamp: BigInt!
+  blockNumber: BigInt!
+}
+
+type Yearn_TokenBalance @entity {
+  id: ID!
+  balance: BigInt!
+  token: Yearn_Token!
+}
+
+## Tokens -- End
+
+## Harvests -- Start
+type TreeDistribution @entity {
+  id: ID!
+  token: Token!
+  amount: BigInt!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+}
+## Harvests -- End

@@ -1,7 +1,8 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Sett } from '../../generated/schema';
 import { BadgerSett } from '../../generated/templates/SettVault/BadgerSett';
-import { NO_ADDR, ZERO } from '../constants';
+import { NO_ADDR, REGISTRY_SETT_STATUSES, ZERO } from '../constants';
+import { loadSettV2 } from './badger-sett-v2';
 import { readValue } from './contracts';
 import { loadToken } from './token';
 
@@ -26,6 +27,7 @@ export function loadSett(address: Address): Sett {
     sett.netShareDeposit = ZERO;
     sett.grossShareDeposit = ZERO;
     sett.grossShareWithdraw = ZERO;
+    sett.status = 'dev';
   }
 
   sett.pricePerFullShare = readValue<BigInt>(contract.try_getPricePerFullShare(), sett.pricePerFullShare);
@@ -34,4 +36,27 @@ export function loadSett(address: Address): Sett {
 
   sett.save();
   return sett as Sett;
+}
+
+export function updateSettStatus(address: Address, version: string, status: string): void {
+  let sett = Sett.load(address.toHexString());
+  if (version == 'v1') {
+    sett = loadSett(address);
+  } else if (version == 'v2') {
+    sett = loadSettV2(address);
+  }
+
+  if (sett !== null) {
+    sett.status = status;
+    sett.save();
+  }
+}
+
+export function SettStatusString(status: i32): string {
+  let statusString = 'unknown';
+  if (0 <= status && status < REGISTRY_SETT_STATUSES.length) {
+    statusString = REGISTRY_SETT_STATUSES[status];
+  }
+
+  return statusString as string;
 }

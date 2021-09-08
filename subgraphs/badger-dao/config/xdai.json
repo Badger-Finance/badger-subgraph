@@ -1,7 +1,10 @@
 {
   "chain": "xdai",
-  "registry": {
-    "address": "0x22765948A3d5048F3644b81792e4E1aA7ea3da4a",
-    "startBlock": 17199733
-  }
+  "setts": [
+    {
+      "name": "BADGER",
+      "address": "0x0000DEAD0000DEAD0000DEAD0000DEAD0000DEAD",
+      "startBlock": 17199733
+    }
+  ]
 }

@@ -23,7 +23,7 @@ import {
   UpdateWithdrawalFee,
   UpdateWithdrawalQueue,
 } from '../../generated/templates/SettVaultV2/BadgerSettV2';
-import { SettType } from '../constants';
+import { BadgerSettType } from '../constants';
 import { handleSettTokenTransfer } from './sett-handler';
 
 /* eslint-disable */
@@ -32,7 +32,7 @@ export function handleTransfer(event: Transfer): void {
   let from = event.params.sender;
   let to = event.params.receiver;
   let value = event.params.value;
-  handleSettTokenTransfer(timestamp, event.address, SettType.v2, from, to, value);
+  handleSettTokenTransfer(timestamp, event.address, BadgerSettType.v2, from, to, value);
 }
 
 export function handleStrategyAdded(event: StrategyAdded): void {}

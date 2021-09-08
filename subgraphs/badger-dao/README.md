@@ -36,3 +36,7 @@ Network Options
 - bsc
 - matic
 - xdai
+
+#debugging
+https://github.com/graphprotocol/graph-node/blob/master/server/index-node/src/schema.graphql
+curl --location --request POST 'https://api.thegraph.com/index-node/graphql'  --data-raw '{"query":"{ indexingStatusForPendingVersion(subgraphName: \"antonyip/badger_community_subgraph6\") { subgraph fatalError { message } nonFatalErrors {message } } }"}'

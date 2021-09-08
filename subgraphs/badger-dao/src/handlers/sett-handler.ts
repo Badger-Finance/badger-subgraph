@@ -1,7 +1,7 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
+import { Transfer } from '../../generated/BADGER/BadgerSett';
 import { Sett } from '../../generated/schema';
-import { Transfer } from '../../generated/templates/SettVault/BadgerSett';
-import { NO_ADDR, SettType } from '../constants';
+import { BadgerSettType, NO_ADDR } from '../constants';
 import { loadAffiliateSett } from '../entities/affiliate-sett';
 import { loadSett } from '../entities/badger-sett';
 import { loadSettV2 } from '../entities/badger-sett-v2';
@@ -14,7 +14,7 @@ export function handleTransfer(event: Transfer): void {
   let from = event.params.from;
   let to = event.params.to;
   let value = event.params.value;
-  handleSettTokenTransfer(timestamp, event.address, SettType.v1, from, to, value);
+  handleSettTokenTransfer(timestamp, event.address, BadgerSettType.v1, from, to, value);
 }
 
 export function depositSett(timestamp: i32, sett: Sett, share: BigInt, token: BigInt): void {
@@ -38,7 +38,7 @@ export function withdrawSett(timestamp: i32, sett: Sett, share: BigInt, token: B
 export function handleSettTokenTransfer(
   timestamp: i32,
   settAddress: Address,
-  settType: SettType,
+  settType: BadgerSettType,
   fromAddress: Address,
   toAddress: Address,
   share: BigInt,
@@ -46,13 +46,13 @@ export function handleSettTokenTransfer(
   // load appropriate sett
   let sett: Sett;
   switch (settType) {
-    case SettType.Affiliate:
+    case BadgerSettType.Affiliate:
       sett = loadAffiliateSett(settAddress);
       break;
-    case SettType.v2:
+    case BadgerSettType.v2:
       sett = loadSettV2(settAddress);
       break;
-    case SettType.v1:
+    case BadgerSettType.v1:
     default:
       sett = loadSett(settAddress);
   }

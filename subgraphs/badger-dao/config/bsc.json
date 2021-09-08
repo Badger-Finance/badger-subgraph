@@ -2,6 +2,11 @@
   "chain": "bsc",
   "setts": [
     {
+      "name": "BADGER",
+      "address": "0x0000DEAD0000DEAD0000DEAD0000DEAD0000DEAD",
+      "startBlock": 5516404
+    },
+    {
       "name": "CAKE-BNB-BTCB",
       "address": "0xaf4B9C4b545D5324904bAa15e29796D2E2f90813",
       "startBlock": 5516404
