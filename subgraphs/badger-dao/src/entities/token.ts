@@ -6,18 +6,14 @@ import { readValue } from './contracts';
 export function loadToken(address: Address): Token {
   let id = address.toHexString();
   let sett = Sett.load(id) as Sett;
+  // create a token representation of the sett,
+  // append a prefix to avoid sett / token collisions
+  if (sett != null) {
+    id = '0x'.concat(id);
+  }
 
   // handle scenario where a sett is loaded as a deposit token, sett implements token
-  let token: Token;
-  if (sett != null) {
-    token = new Token(id);
-    token.name = sett.name;
-    token.symbol = sett.symbol;
-    token.decimals = sett.decimals;
-    token.totalSupply = sett.totalSupply;
-  } else {
-    token = Token.load(id) as Token;
-  }
+  let token = Token.load(id) as Token;;
 
   if (token) {
     return token;
