@@ -4,12 +4,12 @@ schema:
 dataSources:
 
   - kind: ethereum/contract
-    name: harvestSushiIbBTC
-    network: matic
+    name: sushiWbtcWethLP
+    network: arbitrum-one
     source:
-      address: '0xDed61Bd8a8c90596D8A6Cf0e678dA04036146963'
+      address: '0xA6827f0f14D0B83dB925B616d820434697328c22'
       abi: StrategySushiBadgerIbBTC
-      startBlock: 17657227
+      startBlock: 310262
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -30,7 +30,7 @@ dataSources:
 templates:
   - name: Strategy
     kind: ethereum/contract
-    network: matic
+    network: arbitrum-one
     source:
       abi: Strategy
     mapping:

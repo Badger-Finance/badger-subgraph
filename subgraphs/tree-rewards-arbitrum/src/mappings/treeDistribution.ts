@@ -1,4 +1,4 @@
-import { TreeDistribution } from '../../generated/harvestCrvATricrypto/StrategySushiBadgerIbBTC';
+import { TreeDistribution } from '../../generated/sushiWbtcWethLP/StrategySushiBadgerIbBTC';
 import { getOrCreateTreeDistribution } from '../utils/helpers/tree/distribution';
 
 export function handleTreeDistribution(event: TreeDistribution): void {

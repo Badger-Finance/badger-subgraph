@@ -1,6 +1,6 @@
 import { Address } from '@graphprotocol/graph-ts';
 
-import { TreeDistribution as TreeDistributionEvent } from '../../../../generated/harvestCrvATricrypto/StrategySushiBadgerIbBTC';
+import { TreeDistribution as TreeDistributionEvent } from '../../../../generated/sushiWbtcWethLP/StrategySushiBadgerIbBTC';
 import { TreeDistribution as TreeDistributionEntity } from '../../../../generated/schema';
 import { getOrCreateToken } from './token';
 
