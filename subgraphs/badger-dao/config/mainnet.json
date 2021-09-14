@@ -96,6 +96,11 @@
       "startBlock": 12679976
     },
     {
+      "name": "renbtc",
+      "address": "0x58CAc1409F1ffbdcBA6a58d54c94CAC3fb4C6F8B",
+      "startBlock": 12870265
+    },
+    {
       "name": "tricrypto2",
       "address": "0x27E98fC7d05f54E544d16F58C194C2D7ba71e3B5",
       "startBlock": 12679976
