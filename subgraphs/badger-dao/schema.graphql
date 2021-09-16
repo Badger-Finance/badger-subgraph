@@ -98,8 +98,9 @@ type UserSettBalance implements VaultBalance @entity {
 type Transfer implements Snapshot @entity {
   id: ID!
   timestamp: Int!
-  from: String!
-  to: String!
+  sett: Sett!
+  from: User!
+  to: User!
   amount: BigInt!
 }
 

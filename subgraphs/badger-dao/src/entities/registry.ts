@@ -1,5 +1,5 @@
-import { Address } from "@graphprotocol/graph-ts";
-import { Registry } from "../../generated/schema";
+import { Address } from '@graphprotocol/graph-ts';
+import { Registry } from '../../generated/schema';
 
 export function loadRegistry(address: Address): Registry {
   let id = address.toHexString();

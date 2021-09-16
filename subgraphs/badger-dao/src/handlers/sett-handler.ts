@@ -1,4 +1,4 @@
-import { Address, BigInt } from '@graphprotocol/graph-ts';
+import { Address, BigInt, Bytes } from '@graphprotocol/graph-ts';
 import { Sett } from '../../generated/schema';
 import { Transfer } from '../../generated/templates/SettVault/BadgerSett';
 import { NO_ADDR, SettType } from '../constants';
@@ -6,6 +6,7 @@ import { loadAffiliateSett } from '../entities/affiliate-sett';
 import { loadSett } from '../entities/badger-sett';
 import { loadSettV2 } from '../entities/badger-sett-v2';
 import { loadSettSnapshot } from '../entities/sett-snapshot';
+import { loadTransfer, transferExists } from '../entities/transfer';
 import { isValidUser, loadUser } from '../entities/user';
 import { depositBalance, loadUserBalance, withdrawBalance } from '../entities/user-sett-balance';
 
@@ -14,7 +15,8 @@ export function handleTransfer(event: Transfer): void {
   let from = event.params.from;
   let to = event.params.to;
   let value = event.params.value;
-  handleSettTokenTransfer(timestamp, event.address, SettType.v1, from, to, value);
+  let hash = event.block.hash;
+  handleSettTokenTransfer(hash, timestamp, event.address, SettType.v1, from, to, value);
 }
 
 export function depositSett(timestamp: i32, sett: Sett, share: BigInt, token: BigInt): void {
@@ -36,6 +38,7 @@ export function withdrawSett(timestamp: i32, sett: Sett, share: BigInt, token: B
 }
 
 export function handleSettTokenTransfer(
+  hash: Bytes,
   timestamp: i32,
   settAddress: Address,
   settType: SettType,
@@ -56,6 +59,12 @@ export function handleSettTokenTransfer(
     default:
       sett = loadSett(settAddress);
   }
+  if (transferExists(hash)) {
+    return;
+  }
+
+  loadTransfer(hash, timestamp, sett.id, fromAddress, toAddress, share);
+
   // get relevant entities
   let from = loadUser(fromAddress);
   let to = loadUser(toAddress);

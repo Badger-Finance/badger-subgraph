@@ -13,7 +13,7 @@ export function loadToken(address: Address): Token {
   }
 
   // handle scenario where a sett is loaded as a deposit token, sett implements token
-  let token = Token.load(id) as Token;;
+  let token = Token.load(id) as Token;
 
   if (token) {
     return token;
