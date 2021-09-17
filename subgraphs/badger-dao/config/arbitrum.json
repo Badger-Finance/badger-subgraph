@@ -14,6 +14,16 @@
       "name": "SLP-WETH-WBTC",
       "address": "0xFc13209cAfE8fb3bb5fbD929eC9F11a39e8Ac041",
       "startBlock": 309603
+    },
+    {
+      "name": "CRV-REN",
+      "address": "0xBA418CDdd91111F5c1D1Ac2777Fa8CEa28D71843",
+      "startBlock": 309603
+    },
+    {
+      "name": "CRV-TRICRYPTO",
+      "address": "0x4591890225394BF66044347653e112621AF7DDeb",
+      "startBlock": 309603
     }
   ]
 }
