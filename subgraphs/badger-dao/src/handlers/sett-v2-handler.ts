@@ -32,7 +32,8 @@ export function handleTransfer(event: Transfer): void {
   let from = event.params.sender;
   let to = event.params.receiver;
   let value = event.params.value;
-  handleSettTokenTransfer(timestamp, event.address, SettType.v2, from, to, value);
+  let hash = event.block.hash;
+  handleSettTokenTransfer(hash, timestamp, event.address, SettType.v2, from, to, value);
 }
 
 export function handleStrategyAdded(event: StrategyAdded): void {}

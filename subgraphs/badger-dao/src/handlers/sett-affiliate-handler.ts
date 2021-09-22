@@ -7,5 +7,6 @@ export function handleTransfer(event: Transfer): void {
   let from = event.params.from;
   let to = event.params.to;
   let value = event.params.value;
-  handleSettTokenTransfer(timestamp, event.address, SettType.Affiliate, from, to, value);
+  let hash = event.block.hash;
+  handleSettTokenTransfer(hash, timestamp, event.address, SettType.Affiliate, from, to, value);
 }

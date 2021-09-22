@@ -10,6 +10,7 @@ import {
   Set,
 } from '../../generated/VaultRegistry/VaultRegistry';
 import { loadSett } from '../entities/badger-sett';
+import { loadRegistry } from '../entities/registry';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars-experimental
 export function handleAddKey(event: AddKey): void {}
@@ -19,6 +20,7 @@ export function handleAddVersion(event: AddVersion): void {}
 
 // TODO: consider how to differentiate on author
 export function handleNewVault(event: NewVault): void {
+  loadRegistry(event.address);
   let vault = event.params.vault;
   let sett = Sett.load(vault.toHexString());
   if (sett == null) {
