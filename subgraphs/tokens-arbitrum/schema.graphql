@@ -1,0 +1,13 @@
+type Token @entity {
+  id: ID!
+  address: Bytes!
+  decimals: Int!
+  name: String!
+  symbol: String!
+}
+
+type TokenBalance @entity {
+  id: ID!
+  balance: BigInt!
+  token: Token!
+}

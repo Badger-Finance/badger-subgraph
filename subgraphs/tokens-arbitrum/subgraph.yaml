@@ -1,0 +1,26 @@
+specVersion: 0.0.3
+schema:
+  file: ./schema.graphql
+dataSources:
+  # ===== Tokens =====
+  - kind: ethereum/contract
+    name: Badger
+    network: arbitrum-one
+    source:
+      address: "0xBfa641051Ba0a0Ad1b0AcF549a89536A0D76472E"
+      abi: UChildERC20
+      startBlock: 226071
+    mapping:
+      kind: ethereum/events
+      language: wasm/assemblyscript
+      apiVersion: 0.0.4
+      entities:
+        - TokenBalance
+        - Token
+      abis:
+        - name: UChildERC20
+          file: ./abis/UChildERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handlePolygonTransfer
+      file: ./src/mapping.ts
