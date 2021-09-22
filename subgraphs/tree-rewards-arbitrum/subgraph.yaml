@@ -1,0 +1,105 @@
+specVersion: 0.0.3
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: sushiWbtcWethLP
+    network: arbitrum-one
+    source:
+      address: '0xA6827f0f14D0B83dB925B616d820434697328c22'
+      abi: StrategySushiBadgerIbBTC
+      startBlock: 310262
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TreeDistribution
+        - Token
+      abis:
+        - name: StrategySushiBadgerIbBTC
+          file: ./abis/StrategySushiBadgerIbBTC.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: harvestWbtcRenBTC
+    network: arbitrum-one
+    source:
+      address: '0x4C5d19Da5EaeC298B79879a5f7481bEDE055F4F8'
+      abi: StrategySushiBadgerIbBTC
+      startBlock: 310262
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TreeDistribution
+        - Token
+      abis:
+        - name: StrategySushiBadgerIbBTC
+          file: ./abis/StrategySushiBadgerIbBTC.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
+      file: ./src/mapping.ts
+
+  - kind: ethereum/contract
+    name: harvestTricrypto
+    network: arbitrum-one
+    source:
+      address: '0xE83A790fC3B7132fb8d7f8d438Bc5139995BF5f4'
+      abi: StrategySushiBadgerIbBTC
+      startBlock: 310262
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TreeDistribution
+        - Token
+      abis:
+        - name: StrategySushiBadgerIbBTC
+          file: ./abis/StrategySushiBadgerIbBTC.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
+      file: ./src/mapping.ts
+# ===== Strategy Template =====
+templates:
+  - name: Strategy
+    kind: ethereum/contract
+    network: arbitrum-one
+    source:
+      abi: Strategy
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mapping.ts
+      entities:
+        - Vault
+        - Deposit
+        - Withdraw
+        - Harvest
+        - Transfer
+        - AccountVaultBalance
+        - Account
+        - Token
+      abis:
+        - name: Strategy
+          file: ./abis/Strategy.json
+        - name: V1Contract
+          file: ./abis/V1Contract.json
+        - name: Controller
+          file: ./abis/Controller.json
+      eventHandlers:
+        - event: Harvest(uint256,indexed uint256)
+          handler: handleHarvest
