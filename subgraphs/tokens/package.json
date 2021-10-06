@@ -1,43 +1,27 @@
 {
-  "name": "yearn-subgraph",
+  "name": "tokens",
   "license": "MIT",
+  "version": "v1.0.0",
+  "author": "BadgerDAO",
   "scripts": {
-    "codegen": "graph codegen",
-    "build": "graph build",
-    "deploy": "graph deploy $GRAPH_PATH --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --access-token $ACCESS_TOKEN",
-    "create": "graph create $GRAPH_PATH --node https://api.thegraph.com/deploy/",
-    "create-local": "graph create $GRAPH_PATH --node http://localhost:8020/",
-    "remove-local": "graph remove $GRAPH_PATH --node http://localhost:8020/",
-    "deploy-local": "graph deploy $GRAPH_PATH --node http://localhost:8020/ --ipfs http://localhost:5001",
-    "create-staging": "graph create $GRAPH_PATH --node http://3.129.21.117:8020/",
-    "remove-staging": "graph remove $GRAPH_PATH --node http://3.129.21.117:8020/",
-    "deploy-staging": "graph deploy $GRAPH_PATH --node http://3.129.21.117:8020/ --ipfs http://localhost:5001",
-    "publish-graph": "yarn codegen && yarn deploy",
-    "lint:check": "eslint src --rulesdir . && prettier --check **/*.json **/*.md",
-    "lint:fix": "eslint src --rulesdir . --fix && prettier --config .prettierrc.json --write  **/*.js **/*.md"
-  },
-  "dependencies": {
-    "@graphprotocol/graph-cli": "^0.18.0",
-    "@graphprotocol/graph-ts": "^0.18.1"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.3.0",
-    "@typescript-eslint/parser": "^4.3.0",
-    "eslint": "^7.10.0",
-    "eslint-config-prettier": "^6.12.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-simple-import-sort": "^5.0.3",
-    "husky": "^4.3.0",
-    "prettier": "^2.1.2",
-    "typescript": "^4.0.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint:fix",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint \"src/**/*.ts\" --fix",
+    "codegen": "graph codegen subgraph.yaml",
+    "build": "graph build subgraph.yaml",
+    "create-local": "graph create --node http://localhost:8020/ badgerdao/badger-dao-tokens",
+    "remove-local": "graph remove --node http://localhost:8020/ badgerdao/badger-dao-tokens",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 badgerdao/badger-dao-tokens",
+    
+    "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:bsc": "mustache config/bsc.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:matic": "mustache config/matic.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:xdai": "mustache config/xdai.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:arbitrum": "mustache config/arbitrum.json subgraph.template.yaml > subgraph.yaml",
+
+    "deploy-studio:mainnet": "graph deploy --studio badger-dao-tokens",
+
+    "deploy:mainnet": "graph deploy --product hosted-service badgerdao/badger-dao-tokens",
+    "deploy:matic": "graph deploy --product hosted-service badgerdao/badger-dao-tokens-polygon",
+    "deploy:arbitrum": "graph deploy --product hosted-service badgerdao/badger-dao-tokens-arbitrum"
   }
 }

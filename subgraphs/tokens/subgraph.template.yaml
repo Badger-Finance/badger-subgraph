@@ -4,13 +4,14 @@ repository: https://github.com/Badger-Finance/badger-subgraph/tree/master/subgra
 schema:
   file: ./schema.graphql
 dataSources:
+  {{#tokens}}
   - kind: ethereum/contract
-    name: Badger
-    network: mainnet
+    name: {{ name }}
+    network: {{ chain }}
     source:
-      address: "0x3472A5A71965499acd81997a54BBA8D852C6E53d"
+      address: "{{ address }}"
       abi: ERC20
-      startBlock: 11348423
+      startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
       language: wasm/assemblyscript
@@ -25,34 +26,15 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: ./src/handlers/transfer-handler.ts
-  - kind: ethereum/contract
-    name: ibBTC
-    network: mainnet
-    source:
-      address: "0xc4E15973E6fF2A35cC804c2CF9D2a1b817a8b40F"
-      abi: ERC20
-      startBlock: 12342123
-    mapping:
-      kind: ethereum/events
-      language: wasm/assemblyscript
-      apiVersion: 0.0.4
-      entities:
-        - TokenBalance
-        - Token
-      abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
-      file: ./src/handlers/transfer-handler.ts
+  {{/tokens}}
+  {{#digg}}
   - kind: ethereum/contract
     name: Digg
     network: mainnet
     source:
-      address: "0x798D1bE841a82a273720CE31c822C61a67a601C3"
+      address: "{{ address }}"
       abi: UFragments
-      startBlock: 11668293
+      startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
       language: wasm/assemblyscript
@@ -69,3 +51,4 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: ./src/handlers/digg-transfer-handler.ts
+  {{/digg}}
