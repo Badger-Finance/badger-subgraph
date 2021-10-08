@@ -2,15 +2,15 @@
   "name": "setts",
   "license": "MIT",
   "version": "v1.0.0",
-  "author": "BadgerDAO",
+  "author": "badger-finance",
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "codegen": "graph codegen subgraph.yaml",
     "build": "graph build subgraph.yaml",
-    "create-local": "graph create --node http://localhost:8020/ badgerdao/badger-dao-setts",
-    "remove-local": "graph remove --node http://localhost:8020/ badgerdao/badger-dao-setts",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 badgerdao/setts",
+    "create-local": "graph create --node http://localhost:8020/ badger-finance/badger-dao-setts",
+    "remove-local": "graph remove --node http://localhost:8020/ badger-finance/badger-dao-setts",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 badger-finance/setts",
 
     "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
     "prepare:matic": "mustache config/matic.json subgraph.template.yaml > subgraph.yaml",
@@ -20,11 +20,11 @@
 
     "deploy-studio:mainnet": "graph deploy --studio badger-dao-setts",
 
-    "deploy:mainnet": "graph deploy --product hosted-service badgerdao/badger-dao-setts",
-    "deploy:matic": "graph deploy --product hosted-service badgerdao/badger-dao-setts-polygon",
-    "deploy:arbitrum": "graph deploy --product hosted-service badgerdao/badger-dao-setts-arbitrum",
-    "deploy:xdai": "graph deploy --product hosted-service badgerdao/badger-dao-setts-xdai",
-    "deploy:bsc": "graph deploy --product hosted-service badgerdao/badger-dao-setts-bsc",
+    "deploy:mainnet": "graph deploy --product hosted-service badger-finance/badger-dao-setts",
+    "deploy:matic": "graph deploy --product hosted-service badger-finance/badger-dao-setts-polygon",
+    "deploy:arbitrum": "graph deploy --product hosted-service badger-finance/badger-dao-setts-arbitrum",
+    "deploy:xdai": "graph deploy --product hosted-service badger-finance/badger-dao-setts-xdai",
+    "deploy:bsc": "graph deploy --product hosted-service badger-finance/badger-dao-setts-bsc",
 
     "deploy:test": "graph deploy --product hosted-service axejintao/jello-jintao"
   }
