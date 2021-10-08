@@ -46,7 +46,7 @@ export function handlePerformanceFeeGovernance(event: PerformanceFeeGovernance):
 export function handlePerformanceFeeStrategist(event: PerformanceFeeStrategist): void {}
 
 export function handleSetController(event: SetController): void {
-  const strategy = loadStrategy(event.address);
+  let strategy = loadStrategy(event.address);
   strategy.controller = loadController(event.params.controller).id;
   strategy.save();
 }
@@ -72,8 +72,8 @@ export function handleTendState(event: TendState): void {}
 export function handleTokenSwapPathSet(event: TokenSwapPathSet): void {}
 
 export function handleTreeDistribution(event: TreeDistribution): void {
-  const distribution = loadBadgerTreeDistribution(event);
-  const strategy = loadStrategy(event.address);
+  let distribution = loadBadgerTreeDistribution(event);
+  let strategy = loadStrategy(event.address);
   distribution.strategy = strategy.id;
   distribution.sett = strategy.sett;
   distribution.save();

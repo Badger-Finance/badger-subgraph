@@ -1,28 +1,24 @@
-import { Address } from "@graphprotocol/graph-ts";
-import { UChildERC20 } from "../../generated/Badger/UChildERC20";
-import { Token } from "../../generated/schema";
-import { DEFAULT_DECIMALS } from "../constants";
+import { Address, BigInt } from '@graphprotocol/graph-ts';
+import { Token } from '../../generated/schema';
+import { ERC20 } from '../../generated/templates/Token/ERC20';
+import { readValue } from './contracts';
 
 export function loadToken(address: Address): Token {
   let id = address.toHexString();
+  // handle scenario where a sett is loaded as a deposit token, sett implements token
+  let token = Token.load(id) as Token;
 
-  let token = Token.load(id);
   if (token) {
     return token;
   }
 
+  let contract = ERC20.bind(address);
   token = new Token(id);
-  token.address = address;
-  let erc20Token = UChildERC20.bind(address);
+  token.name = readValue<string>(contract.try_name(), '');
+  token.symbol = readValue<string>(contract.try_symbol(), '');
+  token.decimals = BigInt.fromI32(readValue<i32>(contract.try_decimals(), 18));
+  token.totalSupply = readValue<BigInt>(contract.try_totalSupply(), BigInt.fromI32(0));
 
-  let tokenDecimals = erc20Token.try_decimals();
-  let tokenName = erc20Token.try_name();
-  let tokenSymbol = erc20Token.try_symbol();
-
-  token.decimals = !tokenDecimals.reverted ? tokenDecimals.value : DEFAULT_DECIMALS;
-  token.name = !tokenName.reverted ? tokenName.value : '';
-  token.symbol = !tokenSymbol.reverted ? tokenSymbol.value : '';
   token.save();
-
-  return token as Token;
+  return token;
 }

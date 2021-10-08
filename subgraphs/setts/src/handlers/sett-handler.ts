@@ -15,11 +15,11 @@ import {
 } from '../entities/user-sett-balance';
 
 export function handleTransfer(event: Transfer): void {
-  const timestamp = event.block.timestamp.toI32();
-  const from = event.params.from;
-  const to = event.params.to;
-  const value = event.params.value;
-  const hash = event.block.hash;
+  let timestamp = event.block.timestamp.toI32();
+  let from = event.params.from;
+  let to = event.params.to;
+  let value = event.params.value;
+  let hash = event.block.hash;
   handleSettTokenTransfer(hash, timestamp, event.address, SettType.v1, from, to, value);
 }
 
@@ -80,17 +80,17 @@ export function handleSettTokenTransfer(
   loadTransfer(hash, timestamp, sett.id, fromAddress, toAddress, share);
 
   // get relevant entities
-  const from = loadUser(fromAddress);
-  const to = loadUser(toAddress);
+  let from = loadUser(fromAddress);
+  let to = loadUser(toAddress);
 
   // get share and token values
-  const token = share
+  let token = share
     .times(sett.pricePerFullShare)
     .div(BigInt.fromI32(10).pow(<u8>sett.decimals.toI32()));
 
   // get user balances
-  const fromBalance = loadUserBalance(from, sett);
-  const toBalance = loadUserBalance(to, sett);
+  let fromBalance = loadUserBalance(from, sett);
+  let toBalance = loadUserBalance(to, sett);
 
   // deposit
   if (fromAddress.toHexString() == NO_ADDR) {

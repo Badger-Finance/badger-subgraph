@@ -52,3 +52,24 @@ dataSources:
           handler: handleTransfer
       file: ./src/handlers/digg-transfer-handler.ts
   {{/digg}}
+
+templates:
+  - kind: ethereum/contract
+    name: Token
+    network: {{ chain }}
+    source:
+      abi: ERC20
+    mapping:
+      kind: ethereum/events
+      language: wasm/assemblyscript
+      apiVersion: 0.0.4
+      entities:
+        - TokenBalance
+        - Token
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/handlers/transfer-handler.ts

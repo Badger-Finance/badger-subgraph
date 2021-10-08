@@ -3,7 +3,7 @@ import { Sett, User, UserSettBalance } from '../../generated/schema';
 import { ZERO } from '../constants';
 
 export function loadUserBalance(user: User, sett: Sett): UserSettBalance {
-  const id = user.id.concat('-').concat(sett.id);
+  let id = user.id.concat('-').concat(sett.id);
   let settBalance = UserSettBalance.load(id);
 
   if (settBalance == null) {

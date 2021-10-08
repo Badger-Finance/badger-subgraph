@@ -11,10 +11,10 @@ export const NONE = '';
 export const NO_ADDR = '0x0000000000000000000000000000000000000000';
 export const BADGER = '0x3472a5a71965499acd81997a54bba8d852c6e53d';
 export const DIGG = '0x798d1be841a82a273720ce31c822c61a67a601c3';
-export const ADDR_ZERO = Address.fromString(NO_ADDR);
+export let ADDR_ZERO = Address.fromString(NO_ADDR);
 
 // evaluated constants
-export const ZERO = BigInt.fromI32(0);
+export let ZERO = BigInt.fromI32(0);
 
 // geysers
 export const GEYSERS: string[] = [

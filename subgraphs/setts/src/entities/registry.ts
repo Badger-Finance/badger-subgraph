@@ -2,7 +2,7 @@ import { Address } from '@graphprotocol/graph-ts';
 import { Registry } from '../../generated/schema';
 
 export function loadRegistry(address: Address): Registry {
-  const id = address.toHexString();
+  let id = address.toHexString();
   let registry = Registry.load(id) as Registry;
   if (registry) {
     return registry;

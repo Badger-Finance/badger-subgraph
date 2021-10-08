@@ -3,7 +3,7 @@ import { User } from '../../generated/schema';
 import { GEYSERS, NO_ADDR } from '../constants';
 
 export function loadUser(address: Address): User {
-  const id = address.toHexString();
+  let id = address.toHexString();
   let user = User.load(id) as User;
 
   if (user) {

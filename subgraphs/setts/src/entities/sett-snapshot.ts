@@ -3,15 +3,15 @@ import { Sett, SettSnapshot } from '../../generated/schema';
 import { SECONDS_PER_DAY } from '../constants';
 
 export function settSnapshotExists(timestamp: i32, sett: Sett): boolean {
-  const day = timestamp / SECONDS_PER_DAY;
-  const id = sett.id.concat('-').concat(BigInt.fromI32(day).toString());
-  const snapshot = SettSnapshot.load(id);
+  let day = timestamp / SECONDS_PER_DAY;
+  let id = sett.id.concat('-').concat(BigInt.fromI32(day).toString());
+  let snapshot = SettSnapshot.load(id);
   return snapshot != null;
 }
 
 export function loadSettSnapshot(timestamp: i32, sett: Sett): SettSnapshot {
-  const day = timestamp / SECONDS_PER_DAY;
-  const id = sett.id.concat('-').concat(BigInt.fromI32(day).toString());
+  let day = timestamp / SECONDS_PER_DAY;
+  let id = sett.id.concat('-').concat(BigInt.fromI32(day).toString());
   let snapshot = SettSnapshot.load(id);
 
   if (snapshot == null) {

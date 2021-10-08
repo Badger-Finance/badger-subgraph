@@ -1,9 +1,9 @@
-type Token @entity {
+type Token implements ERC20 @entity {
   id: ID!
-  address: Bytes!
-  decimals: Int!
   name: String!
   symbol: String!
+  decimals: BigInt!
+  totalSupply: BigInt!
 }
 
 type TokenBalance @entity {

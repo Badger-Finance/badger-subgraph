@@ -5,7 +5,7 @@ import { loadToken } from './token';
 export function loadBadgerTreeDistribution(
   event: TreeDistribution,
 ): BadgerTreeDistribution {
-  const id = event.transaction.hash
+  let id = event.transaction.hash
     .toHexString()
     .concat('-')
     .concat(event.logIndex.toString());

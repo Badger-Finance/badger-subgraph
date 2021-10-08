@@ -10,7 +10,7 @@ export function loadTransfer(
   to: Address,
   amount: BigInt,
 ): Transfer {
-  const id = hash.toHexString();
+  let id = hash.toHexString();
   let transfer = Transfer.load(id) as Transfer;
   if (transfer) {
     return transfer;
@@ -26,6 +26,6 @@ export function loadTransfer(
 }
 
 export function transferExists(hash: Bytes): boolean {
-  const transfer = Transfer.load(hash.toHexString()) as Transfer;
+  let transfer = Transfer.load(hash.toHexString()) as Transfer;
   return transfer != null;
 }

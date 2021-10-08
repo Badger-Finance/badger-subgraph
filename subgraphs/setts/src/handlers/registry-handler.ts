@@ -45,10 +45,10 @@ export function handleSet(event: Set): void {}
 
 function handleVaultEvent(registry: Address, vault: Address): void {
   loadRegistry(registry);
-  const sett = Sett.load(vault.toHexString());
+  let sett = Sett.load(vault.toHexString());
   if (sett == null) {
-    const maybeSett = BadgerSett.bind(vault);
-    const maybeName = readValue<string>(maybeSett.try_name(), '');
+    let maybeSett = BadgerSett.bind(vault);
+    let maybeName = readValue<string>(maybeSett.try_name(), '');
     // avoid adding erroneous non-sett addresss (eoa)
     if (maybeName.length > 0) {
       SettVault.create(vault);

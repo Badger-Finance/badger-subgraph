@@ -8,8 +8,8 @@ import { loadStrategyFromController } from './strategy';
 import { loadToken } from './token';
 
 export function loadSett(address: Address): Sett {
-  const contract = BadgerSett.bind(address);
-  const id = address.toHexString();
+  let contract = BadgerSett.bind(address);
+  let id = address.toHexString();
   let sett = Sett.load(id);
 
   if (sett == null) {
@@ -17,7 +17,7 @@ export function loadSett(address: Address): Sett {
     sett.name = readValue<string>(contract.try_name(), sett.name);
     sett.symbol = readValue<string>(contract.try_symbol(), sett.symbol);
     sett.decimals = BigInt.fromI32(readValue<i32>(contract.try_decimals(), 18));
-    const token = readValue<Address>(contract.try_token(), Address.fromString(NO_ADDR));
+    let token = readValue<Address>(contract.try_token(), Address.fromString(NO_ADDR));
     sett.token = loadToken(token).id;
     sett.pricePerFullShare = BigInt.fromI32(1);
     sett.balance = BigInt.fromI32(0);
@@ -37,10 +37,10 @@ export function loadSett(address: Address): Sett {
   sett.balance = readValue<BigInt>(contract.try_balance(), sett.balance);
   sett.totalSupply = readValue<BigInt>(contract.try_totalSupply(), sett.totalSupply);
 
-  const defaultController = sett.controller
+  let defaultController = sett.controller
     ? Address.fromString(sett.controller)
     : Address.fromString(NO_ADDR);
-  const controller = readValue<Address>(contract.try_controller(), defaultController);
+  let controller = readValue<Address>(contract.try_controller(), defaultController);
   sett.controller = loadController(controller).id;
   sett.strategy = loadStrategyFromController(
     controller,

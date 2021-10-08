@@ -6,8 +6,8 @@ import { readValue } from './contracts';
 import { loadToken } from './token';
 
 export function loadAffiliateSett(address: Address): Sett {
-  const contract = BadgerAffiliateSett.bind(address);
-  const id = address.toHexString();
+  let contract = BadgerAffiliateSett.bind(address);
+  let id = address.toHexString();
   let sett = Sett.load(id);
 
   if (sett == null) {
@@ -15,7 +15,7 @@ export function loadAffiliateSett(address: Address): Sett {
     sett.name = readValue<string>(contract.try_name(), sett.name);
     sett.symbol = readValue<string>(contract.try_symbol(), sett.symbol);
     sett.decimals = BigInt.fromI32(readValue<i32>(contract.try_decimals(), 18));
-    const token = readValue<Address>(contract.try_token(), Address.fromString(NO_ADDR));
+    let token = readValue<Address>(contract.try_token(), Address.fromString(NO_ADDR));
     sett.token = loadToken(token).id;
     sett.pricePerFullShare = BigInt.fromI32(1);
     sett.balance = BigInt.fromI32(0);

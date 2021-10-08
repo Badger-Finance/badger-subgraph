@@ -5,7 +5,7 @@ import { loadSett } from './badger-sett';
 import { loadStrategy } from './strategy';
 
 export function loadHarvest(event: Harvest): SettHarvest {
-  const id = event.transaction.hash
+  let id = event.transaction.hash
     .toHexString()
     .concat('-')
     .concat(event.logIndex.toString());
@@ -17,13 +17,13 @@ export function loadHarvest(event: Harvest): SettHarvest {
   harvest.timestamp = event.block.timestamp.toI32();
   harvest.blockNumber = event.block.number;
 
-  const strategy = loadStrategy(event.address);
+  let strategy = loadStrategy(event.address);
   harvest.strategy = strategy.id;
   harvest.sett = strategy.sett;
   harvest.amount = event.params.harvested;
 
   if (strategy.sett) {
-    const sett = loadSett(Address.fromString(strategy.sett));
+    let sett = loadSett(Address.fromString(strategy.sett));
     harvest.token = sett.token;
   }
 

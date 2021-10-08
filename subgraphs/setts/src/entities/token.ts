@@ -5,7 +5,7 @@ import { readValue } from './contracts';
 
 export function loadToken(address: Address): Token {
   let id = address.toHexString();
-  const sett = Sett.load(id) as Sett;
+  let sett = Sett.load(id) as Sett;
   // create a token representation of the sett,
   // append a prefix to avoid sett / token collisions
   if (sett != null) {
@@ -19,7 +19,7 @@ export function loadToken(address: Address): Token {
     return token;
   }
 
-  const contract = ERC20.bind(address);
+  let contract = ERC20.bind(address);
   token = new Token(id);
   token.name = readValue<string>(contract.try_name(), '');
   token.symbol = readValue<string>(contract.try_symbol(), '');

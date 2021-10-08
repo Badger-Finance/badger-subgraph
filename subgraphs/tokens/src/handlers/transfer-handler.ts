@@ -1,4 +1,4 @@
-import { Transfer } from '../../generated/Badger/UChildERC20';
+import { Transfer } from '../../generated/templates/Token/ERC20';
 import { loadTokenBalance } from '../entities/token-balance';
 
 export function handleTransfer(event: Transfer): void {
