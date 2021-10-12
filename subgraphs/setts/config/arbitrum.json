@@ -1,0 +1,44 @@
+{
+  "chain": "arbitrum-one",
+  "registry": {
+    "address": "0xfda7eb6f8b7a9e9fcfd348042ae675d1d652454f",
+    "startBlock": 265678
+  },
+  "setts": [
+    {
+      "name": "SLP-WETH-SUSHI",
+      "address": "0xe774D1FB3133b037AA17D39165b8F45f444f632d",
+      "startBlock": 280923
+    },
+    {
+      "name": "SLP-WETH-WBTC",
+      "address": "0xFc13209cAfE8fb3bb5fbD929eC9F11a39e8Ac041",
+      "startBlock": 309603
+    },
+    {
+      "name": "CRV-REN",
+      "address": "0xBA418CDdd91111F5c1D1Ac2777Fa8CEa28D71843",
+      "startBlock": 309603
+    },
+    {
+      "name": "CRV-TRICRYPTO",
+      "address": "0x4591890225394BF66044347653e112621AF7DDeb",
+      "startBlock": 309603
+    },
+    {
+      "name": "CRV-TRICRYPTO-LIGHT",
+      "address": "0xfdb9e5a186FB7655aC9cD7CAFF3d6D4c6064cc50",
+      "startBlock": 309603
+    },
+    {
+      "name": "SWAPR-SWPR-WETH",
+      "address": "0x0c2153e8aE4DB8233c61717cDC4c75630E952561",
+      "startBlock": 309603
+    },
+    {
+      "name": "SWAPR-WBTC-WETH",
+      "address": "0xaf9aB64F568149361ab670372b16661f4380e80B",
+      "startBlock": 309603
+    }
+  ]
+}
