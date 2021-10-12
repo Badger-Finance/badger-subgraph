@@ -6,6 +6,8 @@
     "subgraphs/*"
   ],
   "scripts": {
+    "format": "yarn workspaces run format",
+    "lint": "yarn workspaces run lint",
     "build": "yarn workspaces run build",
     "codegen": "yarn workspaces run codegen",
     "prepare:mainnet": "yarn workspaces run prepare:mainnet",

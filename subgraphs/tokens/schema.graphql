@@ -1,4 +1,4 @@
-type Token implements ERC20 @entity {
+type Token @entity {
   id: ID!
   name: String!
   symbol: String!

@@ -1,7 +1,5 @@
-**/node_modules/
-**/generated
-**/build
-
-**/.envrc
-**/.idea
-**/*.iml
+node_modules
+generated
+build
+subgraph.yaml
+yarn-error.log

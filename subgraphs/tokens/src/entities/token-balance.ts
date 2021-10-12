@@ -1,7 +1,7 @@
-import { Address } from "@graphprotocol/graph-ts";
-import { TokenBalance } from "../../generated/schema";
-import { BIGINT_ZERO } from "../constants";
-import { loadToken } from "./token";
+import { Address } from '@graphprotocol/graph-ts';
+import { TokenBalance } from '../../generated/schema';
+import { BIGINT_ZERO } from '../constants';
+import { loadToken } from './token';
 
 export function loadTokenBalance(token: Address, user: Address): TokenBalance {
   let id = token.toHexString().concat('-').concat(user.toHexString());

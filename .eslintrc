@@ -2,12 +2,15 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "tsconfig.json",
-    "sourceType": "module",
+    "sourceType": "module"
   },
   "plugins": ["@typescript-eslint/eslint-plugin"],
   "extends": [
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
+    "plugin:prettier/recommended"
   ],
-  "ignorePatterns": [".eslintrc.js"],
+  "rules": {
+    "prefer-const": "off"
+  },
+  "ignorePatterns": [".eslintrc.js"]
 }

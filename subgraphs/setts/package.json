@@ -24,8 +24,6 @@
     "deploy:matic": "graph deploy --product hosted-service badger-finance/badger-dao-setts-polygon",
     "deploy:arbitrum": "graph deploy --product hosted-service badger-finance/badger-dao-setts-arbitrum",
     "deploy:xdai": "graph deploy --product hosted-service badger-finance/badger-dao-setts-xdai",
-    "deploy:bsc": "graph deploy --product hosted-service badger-finance/badger-dao-setts-bsc",
-
-    "deploy:test": "graph deploy --product hosted-service axejintao/jello-jintao"
+    "deploy:bsc": "graph deploy --product hosted-service badger-finance/badger-dao-setts-bsc"
   }
 }

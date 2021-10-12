@@ -1,5 +1,5 @@
-import { Transfer, UFragments } from '../../generated/Digg/UFragments';
-import { loadTokenBalance } from "../entities/token-balance";
+import { Transfer, UFragments } from '../../generated/templates/UFragments/UFragments';
+import { loadTokenBalance } from '../entities/token-balance';
 
 export function handleTransfer(event: Transfer): void {
   let digg = UFragments.bind(event.address);
