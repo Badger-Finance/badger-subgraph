@@ -114,6 +114,31 @@
       "name": "cvxcrv",
       "address": "0x2B5455aac8d64C14786c3a29858E43b5945819C0",
       "startBlock": 12679976
+    },
+    {
+      "name": "vecvx",
+      "address": "0xfd05d3c7fe2924020620a8be4961bbaa747e6305",
+      "startBlock": 12679976
+    },
+    {
+      "name": "crvvecvx",
+      "address": "0x937B8E917d0F36eDEBBA8E459C5FB16F3b315551",
+      "startBlock": 12679976
+    },
+    {
+      "name": "crvibbtc",
+      "address": "0xae96ff08771a109dc6650a1bdca62f2d558e40af",
+      "startBlock": 12679976
+    },
+    {
+      "name": "BIMBTC",
+      "address": "0x599D92B453C010b1050d31C364f6ee17E819f193",
+      "startBlock": 12679976
+    },
+    {
+      "name": "BMHBTC",
+      "address": "0x26B8efa69603537AC8ab55768b6740b67664D518",
+      "startBlock": 12679976
     }
   ],
   "affiliateSetts": [

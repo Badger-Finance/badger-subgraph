@@ -109,6 +109,11 @@ type UserSettBalance implements VaultBalance @entity {
   grossShareWithdraw: BigInt!
 }
 
+type Transaction @entity {
+  id: ID!
+  transfers: [Transfer!]! @derivedFrom(field: "transaction")
+}
+
 type Transfer implements Snapshot @entity {
   id: ID!
   timestamp: Int!
@@ -116,6 +121,7 @@ type Transfer implements Snapshot @entity {
   from: User!
   to: User!
   amount: BigInt!
+  transaction: Transaction!
 }
 
 type User @entity {

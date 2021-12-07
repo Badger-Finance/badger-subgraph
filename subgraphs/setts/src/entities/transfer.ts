@@ -1,16 +1,18 @@
 import { Address, BigInt, Bytes } from '@graphprotocol/graph-ts';
 import { Transfer } from '../../generated/schema';
+import { loadTransaction } from './transaction';
 import { loadUser } from './user';
 
 export function loadTransfer(
   hash: Bytes,
+  index: BigInt,
   timestamp: i32,
   sett: string,
   from: Address,
   to: Address,
   amount: BigInt,
 ): Transfer {
-  let id = hash.toHexString();
+  let id = hash.toHexString().concat('-').concat(index.toString());
   let transfer = Transfer.load(id) as Transfer;
   if (transfer) {
     return transfer;
@@ -21,6 +23,7 @@ export function loadTransfer(
   transfer.from = loadUser(from).id;
   transfer.to = loadUser(to).id;
   transfer.amount = amount;
+  transfer.transaction = loadTransaction(hash).id;
   transfer.save();
   return transfer;
 }
