@@ -6,7 +6,7 @@ import { loadAffiliateSett } from '../entities/affiliate-sett';
 import { loadSett } from '../entities/badger-sett';
 import { loadSettV2 } from '../entities/badger-sett-v2';
 import { loadSettSnapshot } from '../entities/sett-snapshot';
-import { loadTransfer, transferExists } from '../entities/transfer';
+import { loadTransfer } from '../entities/transfer';
 import { isValidUser, loadUser } from '../entities/user';
 import {
   depositBalance,
@@ -19,8 +19,9 @@ export function handleTransfer(event: Transfer): void {
   let from = event.params.from;
   let to = event.params.to;
   let value = event.params.value;
-  let hash = event.block.hash;
-  handleSettTokenTransfer(hash, timestamp, event.address, SettType.v1, from, to, value);
+  let hash = event.transaction.hash;
+  let index = event.logIndex;
+  handleSettTokenTransfer(hash, index, timestamp, event.address, SettType.v1, from, to, value);
 }
 
 export function depositSett(
@@ -53,6 +54,7 @@ export function withdrawSett(
 
 export function handleSettTokenTransfer(
   hash: Bytes,
+  index: BigInt,
   timestamp: i32,
   settAddress: Address,
   settType: SettType,
@@ -73,11 +75,8 @@ export function handleSettTokenTransfer(
     default:
       sett = loadSett(settAddress);
   }
-  if (transferExists(hash)) {
-    return;
-  }
 
-  loadTransfer(hash, timestamp, sett.id, fromAddress, toAddress, share);
+  loadTransfer(hash, index, timestamp, sett.id, fromAddress, toAddress, share);
 
   // get relevant entities
   let from = loadUser(fromAddress);

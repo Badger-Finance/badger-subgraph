@@ -3,7 +3,7 @@
   "private": true,
   "license": "MIT",
   "workspaces": [
-    "subgraphs/*"
+    "src/*"
   ],
   "scripts": {
     "format": "yarn workspaces run format",
