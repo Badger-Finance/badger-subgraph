@@ -32,11 +32,11 @@ export function loadSushiTreeDistribution(event: HarvestState): BadgerTreeDistri
   if (distribution) {
     return distribution;
   }
-  distribution = new BadgerTreeDistribution(id)
-  distribution.timestamp = event.params.timestamp
-  distribution.blockNumber = event.params.blockNumber
-  distribution.amount = event.params.toBadgerTree
-  distribution.token = loadToken(XSUSHI).id
-  distribution.save()
-  return distribution
+  distribution = new BadgerTreeDistribution(id);
+  distribution.timestamp = event.params.timestamp;
+  distribution.blockNumber = event.params.blockNumber;
+  distribution.amount = event.params.toBadgerTree;
+  distribution.token = loadToken(XSUSHI).id;
+  distribution.save();
+  return distribution;
 }

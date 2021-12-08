@@ -79,6 +79,7 @@ export function handleTreeDistribution(event: TreeDistribution): void {
   distribution.sett = strategy.sett;
   distribution.save();
 }
+
 export function handleSushiTreeDistribution(event: HarvestState): void {
   let distribution = loadSushiTreeDistribution(event);
   let strategy = loadStrategy(event.address);
