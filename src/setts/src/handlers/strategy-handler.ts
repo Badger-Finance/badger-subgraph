@@ -1,6 +1,7 @@
 import {
   ExtraRewardsTokenSet,
   Harvest,
+  HarvestState,
   Paused,
   PerformanceFeeGovernance,
   PerformanceFeeStrategist,
@@ -20,7 +21,7 @@ import {
   WithdrawOther,
   WithdrawState,
 } from '../../generated/templates/BadgerStrategy/BadgerStrategy';
-import { loadBadgerTreeDistribution } from '../entities/badger-tree-distribution';
+import { loadBadgerTreeDistribution, loadSushiTreeDistribution } from '../entities/badger-tree-distribution';
 import { loadController } from '../entities/controller';
 import { loadHarvest } from '../entities/harvest';
 import { loadStrategy } from '../entities/strategy';
@@ -73,6 +74,13 @@ export function handleTokenSwapPathSet(event: TokenSwapPathSet): void {}
 
 export function handleTreeDistribution(event: TreeDistribution): void {
   let distribution = loadBadgerTreeDistribution(event);
+  let strategy = loadStrategy(event.address);
+  distribution.strategy = strategy.id;
+  distribution.sett = strategy.sett;
+  distribution.save();
+}
+export function handleSushiTreeDistribution(event: HarvestState): void {
+  let distribution = loadSushiTreeDistribution(event);
   let strategy = loadStrategy(event.address);
   distribution.strategy = strategy.id;
   distribution.sett = strategy.sett;
