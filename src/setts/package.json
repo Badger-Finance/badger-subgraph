@@ -20,7 +20,7 @@
 
     "deploy-studio:mainnet": "graph deploy --studio badger-dao-setts",
 
-    "deploy:mainnet": "graph deploy --product hosted-service axejintao/badger-incident",
+    "deploy:mainnet": "graph deploy --product hosted-service badger-finance/badger-dao-setts",
     "deploy:matic": "graph deploy --product hosted-service badger-finance/badger-dao-setts-polygon",
     "deploy:arbitrum": "graph deploy --product hosted-service badger-finance/badger-dao-setts-arbitrum",
     "deploy:xdai": "graph deploy --product hosted-service badger-finance/badger-dao-setts-xdai",
