@@ -1,5 +1,6 @@
 import { BadgerTreeDistribution } from '../../generated/schema';
-import { TreeDistribution } from '../../generated/templates/BadgerStrategy/BadgerStrategy';
+import { HarvestState, TreeDistribution } from '../../generated/templates/BadgerStrategy/BadgerStrategy';
+import { XSUSHI } from '../constants';
 import { loadToken } from './token';
 
 export function loadBadgerTreeDistribution(
@@ -9,15 +10,33 @@ export function loadBadgerTreeDistribution(
     .toHexString()
     .concat('-')
     .concat(event.logIndex.toString());
-  let distriubtion = BadgerTreeDistribution.load(id) as BadgerTreeDistribution;
-  if (distriubtion) {
-    return distriubtion;
+  let distribution = BadgerTreeDistribution.load(id) as BadgerTreeDistribution;
+  if (distribution) {
+    return distribution;
   }
-  distriubtion = new BadgerTreeDistribution(id);
-  distriubtion.timestamp = event.params.timestamp.toI32();
-  distriubtion.blockNumber = event.params.blockNumber;
-  distriubtion.amount = event.params.amount;
-  distriubtion.token = loadToken(event.params.token).id;
-  distriubtion.save();
-  return distriubtion;
+  distribution = new BadgerTreeDistribution(id);
+  distribution.timestamp = event.params.timestamp.toI32();
+  distribution.blockNumber = event.params.blockNumber;
+  distribution.amount = event.params.amount;
+  distribution.token = loadToken(event.params.token).id;
+  distribution.save();
+  return distribution;
+}
+
+export function loadSushiTreeDistribution(event: HarvestState): BadgerTreeDistribution {
+  let id = event.transaction.hash
+    .toHexString()
+    .concat('-')
+    .concat(event.logIndex.toString());
+  let distribution = BadgerTreeDistribution.load(id) as BadgerTreeDistribution;
+  if (distribution) {
+    return distribution;
+  }
+  distribution = new BadgerTreeDistribution(id);
+  distribution.timestamp = event.params.timestamp;
+  distribution.blockNumber = event.params.blockNumber;
+  distribution.amount = event.params.toBadgerTree;
+  distribution.token = loadToken(XSUSHI).id;
+  distribution.save();
+  return distribution;
 }

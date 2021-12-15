@@ -320,6 +320,8 @@ templates:
           handler: handleTokenSwapPathSet
         - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
           handler: handleTreeDistribution
+        - event: HarvestState(uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleSushiTreeDistribution
         - event: Unpaused(address)
           handler: handleUnpaused
         - event: Withdraw(uint256)
