@@ -1,3 +1,4 @@
+import { Address } from '@graphprotocol/graph-ts';
 import { BadgerTreeDistribution } from '../../generated/schema';
 import { HarvestState, TreeDistribution } from '../../generated/templates/BadgerStrategy/BadgerStrategy';
 import { XSUSHI } from '../constants';
@@ -33,10 +34,10 @@ export function loadSushiTreeDistribution(event: HarvestState): BadgerTreeDistri
     return distribution;
   }
   distribution = new BadgerTreeDistribution(id);
-  distribution.timestamp = event.params.timestamp;
+  distribution.timestamp = event.params.timestamp.toI32();
   distribution.blockNumber = event.params.blockNumber;
   distribution.amount = event.params.toBadgerTree;
-  distribution.token = loadToken(XSUSHI).id;
+  distribution.token = loadToken(Address.fromString(XSUSHI)).id;
   distribution.save();
   return distribution;
 }
