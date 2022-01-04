@@ -1,0 +1,10 @@
+{
+  "chain": "avalanche",
+  "tokens": [
+    {
+      "name": "CRV",
+      "address": "0x249848beca43ac405b8102ec90dd5f22ca513c06",
+      "startBlock": 9129116
+    }
+  ]
+}

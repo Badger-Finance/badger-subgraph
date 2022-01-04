@@ -1,0 +1,14 @@
+{
+  "chain": "avalanche",
+  "registry": {
+    "address": "0xfda7eb6f8b7a9e9fcfd348042ae675d1d652454f",
+    "startBlock": 9137772
+  },
+  "badgerSetts": [
+    {
+      "name": "WBTC",
+      "address": "0x711555f2B421DA9A86a18Dc163d04699310fE297",
+      "startBlock": 8591300
+    }
+  ]
+}

@@ -13,6 +13,7 @@
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 badger-finance/setts",
 
     "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:avalanche": "mustache config/avalanche.json subgraph.template.yaml > subgraph.yaml",
     "prepare:matic": "mustache config/matic.json subgraph.template.yaml > subgraph.yaml",
     "prepare:arbitrum": "mustache config/arbitrum.json subgraph.template.yaml > subgraph.yaml",
     "prepare:bsc": "mustache config/bsc.json subgraph.template.yaml > subgraph.yaml",
@@ -21,6 +22,7 @@
     "deploy-studio:mainnet": "graph deploy --studio badger-dao-setts",
 
     "deploy:mainnet": "graph deploy --product hosted-service badger-finance/badger-dao-setts",
+    "deploy:avalanche": "graph deploy --product hosted-service axejintao/badger-dao-setts-avalanche",
     "deploy:matic": "graph deploy --product hosted-service badger-finance/badger-dao-setts-polygon",
     "deploy:arbitrum": "graph deploy --product hosted-service badger-finance/badger-dao-setts-arbitrum",
     "deploy:xdai": "graph deploy --product hosted-service badger-finance/badger-dao-setts-xdai",

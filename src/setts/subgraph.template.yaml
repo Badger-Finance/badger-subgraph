@@ -64,11 +64,13 @@ dataSources:
         - User
         - Token
         - UserSettBalance
+        - Strategy
+        - Controller
       abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
         - name: BadgerSett
           file: ./abis/BadgerSett.json
+        - name: ERC20
+          file: ./abis/ERC20.json
         - name: BadgerController
           file: ./abis/BadgerController.json
         - name: BadgerStrategy
@@ -95,13 +97,13 @@ dataSources:
         - User
         - Token
         - UserSettBalance
+        - Strategy
+        - Controller
       abis:
         - name: BadgerAffiliateSett
           file: ./abis/BadgerAffiliateSett.json
         - name: ERC20
           file: ./abis/ERC20.json
-        - name: BadgerSett
-          file: ./abis/BadgerSett.json
         - name: BadgerController
           file: ./abis/BadgerController.json
         - name: BadgerStrategy
@@ -111,6 +113,41 @@ dataSources:
           handler: handleTransfer
       file: ./src/handlers/sett-affiliate-handler.ts
   {{/affiliateSetts}}
+  {{#badgerSetts}}
+  - kind: ethereum/contract
+    name: {{ name }}
+    network: {{ chain }}
+    source:
+      address: "{{ address }}"
+      abi: BadgerSettV1_5
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Sett
+        - User
+        - Token
+        - UserSettBalance
+        - Strategy
+        - Controller
+      abis:
+        - name: BadgerSettV1_5
+          file: ./abis/BadgerSettV1_5.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: BadgerController
+          file: ./abis/BadgerController.json
+        - name: BadgerStrategy
+          file: ./abis/BadgerStrategy.json
+        - name: BadgerSett
+          file: ./abis/BadgerSett.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/handlers/sett-v1-5-handler.ts
+  {{/badgerSetts}}
   
 templates:
   - kind: ethereum/contract
@@ -154,6 +191,8 @@ templates:
         - User
         - Token
         - UserSettBalance
+        - Strategy
+        - Controller
       abis:
         - name: BadgerAffiliateSett
           file: ./abis/BadgerAffiliateSett.json
@@ -193,6 +232,8 @@ templates:
         - User
         - Token
         - UserSettBalance
+        - Strategy
+        - Controller
       abis:
         - name: ERC20
           file: ./abis/ERC20.json
@@ -260,26 +301,12 @@ templates:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - ExtraRewardsTokenSet
-        - Harvest
-        - Paused
-        - PerformanceFeeGovernance
-        - PerformanceFeeStrategist
-        - SetController
-        - SetGovernance
-        - SetPerformanceFeeGovernance
-        - SetPerformanceFeeStrategist
-        - SetStrategist
-        - SetWithdrawalFee
-        - Tend
-        - TendState
-        - TokenSwapPathSet
-        - TreeDistribution
-        - Unpaused
-        - Withdraw
-        - WithdrawAll
-        - WithdrawOther
-        - WithdrawState
+        - Sett
+        - User
+        - Token
+        - UserSettBalance
+        - Strategy
+        - Controller
       abis:
         - name: BadgerStrategy
           file: ./abis/BadgerStrategy.json
@@ -333,3 +360,72 @@ templates:
         - event: WithdrawState(uint256,uint256,uint256,uint256)
           handler: handleWithdrawState
       file: ./src/handlers/strategy-handler.ts
+  - kind: ethereum/contract
+    name: BadgerSettV1_5
+    network: {{ chain }}
+    source:
+      abi: BadgerSettV1_5
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Sett
+        - User
+        - Token
+        - UserSettBalance
+        - Strategy
+        - Controller
+      abis:
+        - name: BadgerSettV1_5
+          file: ./abis/BadgerSettV1_5.json
+        - name: BadgerSett
+          file: ./abis/BadgerSett.json
+        - name: BadgerStrategy
+          file: ./abis/BadgerStrategy.json
+        - name: BadgerController
+          file: ./abis/BadgerController.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Harvested(indexed address,uint256,indexed uint256,uint256)
+          handler: handleHarvested
+        - event: PauseDeposits(indexed address)
+          handler: handlePauseDeposits
+        - event: Paused(address)
+          handler: handlePaused
+        - event: SetGuardian(indexed address)
+          handler: handleSetGuardian
+        - event: SetGuestList(indexed address)
+          handler: handleSetGuestList
+        - event: SetManagementFee(uint256)
+          handler: handleSetManagementFee
+        - event: SetMaxManagementFee(uint256)
+          handler: handleSetMaxManagementFee
+        - event: SetMaxPerformanceFee(uint256)
+          handler: handleSetMaxPerformanceFee
+        - event: SetMaxWithdrawalFee(uint256)
+          handler: handleSetMaxWithdrawalFee
+        - event: SetPerformanceFeeGovernance(uint256)
+          handler: handleSetPerformanceFeeGovernance
+        - event: SetPerformanceFeeStrategist(uint256)
+          handler: handleSetPerformanceFeeStrategist
+        - event: SetStrategy(indexed address)
+          handler: handleSetStrategy
+        - event: SetToEarnBps(uint256)
+          handler: handleSetToEarnBps
+        - event: SetTreasury(indexed address)
+          handler: handleSetTreasury
+        - event: SetWithdrawalFee(uint256)
+          handler: handleSetWithdrawalFee
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
+        - event: UnpauseDeposits(indexed address)
+          handler: handleUnpauseDeposits
+        - event: Unpaused(address)
+          handler: handleUnpaused
+      file: ./src/handlers/sett-v1-5-handler.ts
