@@ -65,6 +65,7 @@ type Sett implements ERC20 & Vault & VaultBalance @entity {
   decimals: BigInt!
   totalSupply: BigInt!
   token: Token!
+  available: BigInt!
   balance: BigInt!
   pricePerFullShare: BigInt!
   netDeposit: BigInt!
