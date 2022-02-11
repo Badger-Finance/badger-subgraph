@@ -18,8 +18,9 @@ export function loadAffiliateSett(address: Address): Sett {
     let token = readValue<Address>(contract.try_token(), Address.fromString(NO_ADDR));
     sett.token = loadToken(token).id;
     sett.pricePerFullShare = BigInt.fromI32(1);
-    sett.balance = BigInt.fromI32(0);
-    sett.totalSupply = BigInt.fromI32(0);
+    sett.balance = ZERO;
+    sett.totalSupply = ZERO;
+    sett.available = ZERO;
     sett.netDeposit = ZERO;
     sett.grossDeposit = ZERO;
     sett.grossWithdraw = ZERO;
