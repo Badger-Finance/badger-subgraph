@@ -1,5 +1,4 @@
 node_modules
 generated
 build
-subgraph.yaml
 yarn-error.log
