@@ -25,6 +25,7 @@
     "deploy:mainnet": "graph deploy --product hosted-service badger-finance/badger-dao-tokens",
     "deploy:matic": "graph deploy --product hosted-service badger-finance/badger-dao-tokens-polygon",
     "deploy:arbitrum": "graph deploy --product hosted-service badger-finance/badger-dao-tokens-arbitrum",
-    "deploy:fantom": "graph deploy --product hosted-service badger-finance/badger-dao-tokens-fantom"
+    "deploy:fantom": "graph deploy --product hosted-service badger-finance/badger-dao-tokens-fantom",
+    "deploy:bsc": "graph deploy --product hosted-service badger-finance/badger-dao-tokens-bsc"
   }
 }
