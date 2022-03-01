@@ -13,6 +13,8 @@
     "codegen": "graph codegen --output-dir src/types/",
     "build": "graph build",
 
+    "prepare:mainnet": "echo 'no preparation configured'",
+
     "deploy": "graph deploy --product hosted-service badger-finance/fuse-subgraph",
     "deploy-local": "graph deploy badger-finance/fuse-subgraph --ipfs http://localhost:5001 --node http://127.0.0.1:8020"
   },
