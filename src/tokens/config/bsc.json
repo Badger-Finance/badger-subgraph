@@ -1,0 +1,10 @@
+{
+  "chain": "bsc",
+  "tokens": [
+    {
+      "name": "Badger",
+      "address": "0x753fbc5800a8C8e3Fb6DC6415810d627A387Dfc9",
+      "startBlock": 5491347
+    }
+  ]
+}
