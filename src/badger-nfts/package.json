@@ -1,0 +1,20 @@
+{
+  "name": "badger-nfts",
+  "version": "0.1.0",
+  "scripts": {
+    "create": "graph create badger-finance/badger-nfts --node https://api.thegraph.com/deploy/",
+    "create-local": "graph create badger-finance/badger-nfts --node http://127.0.0.1:8020",
+
+    "codegen": "graph codegen",
+    "build": "graph build",
+
+    "prepare:mainnet": "echo 'no preparation configured'",
+
+    "deploy": "graph deploy --product hosted-service badger-finance/badger-nfts",
+    "deploy-local": "graph deploy badger-finance/badger-nfts --ipfs http://localhost:5001 --node http://127.0.0.1:8020"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.20.0",
+    "@graphprotocol/graph-ts": "^0.20.0"
+  }
+}
