@@ -31,21 +31,21 @@ dataSources:
   
 templates:
   - kind: ethereum/contract
-      name: BridgePoolProd
-      network: {{ chain }}
-      source:
-        abi: BridgePoolProd
-      mapping:
-        kind: ethereum/events
-        apiVersion: 0.0.4
-        language: wasm/assemblyscript
-        entities:
-          - Token
-          - TokenBalance
-        abis:
-          - name: BridgePoolProd
+    name: BridgePoolProd
+    network: {{ chain }}
+    source:
+      abi: BridgePoolProd
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - TokenBalance
+      abis:
+        - name: BridgePoolProd
           file: ./abis/BridgePoolProd.json
-        eventHandlers:
-          - event: Transfer(indexed address,indexed address,uint256)
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-        file: ./src/handlers/transfer-handler.ts
+      file: ./src/handlers/transfer-handler.ts
