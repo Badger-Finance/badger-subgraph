@@ -1,0 +1,22 @@
+{
+  "chain": "mainnet",
+  "badgerNfts": [
+    {
+      "name": "BadgerERC1155",
+      "address": "0xe1e546e25A5eD890DFf8b8D005537c0d373497F8",
+      "startBlock": 10734502
+    },
+    {
+      "name": "Proxy",
+      "address": "0x576cD258835C529B54722F84Bb7d4170aA932C64",
+      "startBlock": 10734502
+    }
+  ],
+  "memeNfts": [
+    {
+      "name": "MemeLtd",
+      "address": "0xe4605d46Fd0B3f8329d936a8b258D69276cBa264",
+      "startBlock": 10734502
+    }
+  ]
+}

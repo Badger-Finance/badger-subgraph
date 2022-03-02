@@ -4,13 +4,14 @@ repository: https://github.com/Badger-Finance/badger-subgraph/tree/master/src/ba
 schema:
   file: ./schema.graphql
 dataSources:
+  {{#pools}}
   - kind: ethereum/contract
-    name: BridgePoolProd
-    network: mainnet
+    name: {{ name }}
+    network: {{ chain }}
     source:
-      address: "0x43298f9f91a4545df64748e78a2c777c580573d6"
+      address: "{{ address }}"
       abi: BridgePoolProd
-      startBlock: 13603269
+      startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -25,12 +26,13 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: ./src/handlers/transfer-handler.ts
+  {{/pools}}
   
   
 templates:
   - kind: ethereum/contract
       name: BridgePoolProd
-      network: mainnet
+      network: {{ chain }}
       source:
         abi: BridgePoolProd
       mapping:
