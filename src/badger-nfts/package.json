@@ -8,7 +8,7 @@
     "codegen": "graph codegen",
     "build": "graph build",
 
-    "prepare:mainnet": "echo 'no preparation configured'",
+    "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
 
     "deploy": "graph deploy --product hosted-service badger-finance/badger-nfts",
     "deploy-local": "graph deploy badger-finance/badger-nfts --ipfs http://localhost:5001 --node http://127.0.0.1:8020"

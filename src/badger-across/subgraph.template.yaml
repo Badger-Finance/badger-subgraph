@@ -1,0 +1,51 @@
+specVersion: 0.0.3
+description: "Badger is a decentralized autonomous organization (DAO) with a single purpose: build the products and infrastructure necessary to accelerate Bitcoin as collateral across other blockchains."
+repository: https://github.com/Badger-Finance/badger-subgraph/tree/master/src/badger-across
+schema:
+  file: ./schema.graphql
+dataSources:
+  {{#pools}}
+  - kind: ethereum/contract
+    name: {{ name }}
+    network: {{ chain }}
+    source:
+      address: "{{ address }}"
+      abi: BridgePoolProd
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - TokenBalance
+      abis:
+        - name: BridgePoolProd
+          file: ./abis/BridgePoolProd.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/handlers/transfer-handler.ts
+  {{/pools}}
+  
+  
+templates:
+  - kind: ethereum/contract
+    name: BridgePoolProd
+    network: {{ chain }}
+    source:
+      abi: BridgePoolProd
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - TokenBalance
+      abis:
+        - name: BridgePoolProd
+          file: ./abis/BridgePoolProd.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/handlers/transfer-handler.ts

@@ -1,0 +1,10 @@
+{
+  "chain": "mainnet",
+  "pools": [
+    {
+      "name": "BridgePoolProd",
+      "address": "0x43298f9f91a4545df64748e78a2c777c580573d6",
+      "startBlock": 13603269
+    }
+  ]
+}
