@@ -4,13 +4,14 @@ repository: https://github.com/Badger-Finance/badger-subgraph/tree/master/src/fu
 schema:
   file: ./schema.graphql
 dataSources:
+  {{#FusePoolDirectory}}
   - kind: ethereum/contract
-    name: FusePoolDirectory
-    network: mainnet
+    name: {{ name }}
+    network: {{ chain }}
     source:
-      address: '0x835482FE0532f169024d5E9410199369aAD5C77E'
+      address: '{{ address }}'
       abi: FusePoolDirectory
-      startBlock: 12059666
+      startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -28,11 +29,12 @@ dataSources:
       eventHandlers:
         - event: PoolRegistered(uint256,(string,address,address,uint256,uint256))
           handler: handlePoolRegistered
+  {{/FusePoolDirectory}}
 
 templates:
   - name: Comptroller
     kind: ethereum/contract
-    network: mainnet
+    network: {{ chain }}
     source:
       abi: Comptroller
     mapping:
@@ -74,7 +76,7 @@ templates:
 
   - name: CToken
     kind: ethereum/contract
-    network: mainnet
+    network: {{ chain }}
     source:
       abi: CToken
     mapping:
