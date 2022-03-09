@@ -152,6 +152,7 @@ type SettHarvest implements TokenDistribution @entity {
 
 type Strategy @entity {
   id: ID!
+  balance: BigInt!
   controller: Controller
   sett: Sett
   treeDistributions: [BadgerTreeDistribution!]! @derivedFrom(field: "strategy")
