@@ -17,7 +17,13 @@
     "prepare:xdai": "echo badger-nfts not support on xdai",
 
     "deploy": "graph deploy --product hosted-service badger-finance/badger-nfts",
-    "deploy-local": "graph deploy badger-finance/badger-nfts --ipfs http://localhost:5001 --node http://127.0.0.1:8020"
+    "deploy-local": "graph deploy badger-finance/badger-nfts --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
+    "deploy:fantom": "echo badger-nfts not support on fantom",
+    "deploy:avalanche": "echo badger-nfts not support on avalanche",
+    "deploy:matic": "echo badger-nfts not support on matic",
+    "deploy:arbitrum": "echo badger-nfts not support on arbitrum",
+    "deploy:bsc": "echo badger-nfts not support on bsc",
+    "deploy:xdai": "echo badger-nfts not support on xdai"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.20.0",

@@ -17,6 +17,12 @@
     "prepare:xdai": "echo badger-across not support on xdai",
 
     "deploy": "graph deploy --product hosted-service badger-finance/badger-across",
+    "deploy:fantom": "echo badger-across not support on fantom",
+    "deploy:avalanche": "echo badger-across not support on avalanche",
+    "deploy:matic": "echo badger-across not support on matic",
+    "deploy:arbitrum": "echo badger-across not support on arbitrum",
+    "deploy:bsc": "echo badger-across not support on bsc",
+    "deploy:xdai": "echo badger-across not support on xdai",
     "deploy-local": "graph deploy badger-finance/badger-across --ipfs http://localhost:5001 --node http://127.0.0.1:8020"
   },
   "devDependencies": {
