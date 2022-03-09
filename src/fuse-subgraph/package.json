@@ -14,6 +14,12 @@
     "build": "graph build",
 
     "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:fantom": "echo fuse-subgraph not support on fantom",
+    "prepare:avalanche": "echo fuse-subgraph not support on avalanche",
+    "prepare:matic": "echo fuse-subgraph not support on matic",
+    "prepare:arbitrum": "echo fuse-subgraph not support on arbitrum",
+    "prepare:bsc": "echo fuse-subgraph not support on bsc",
+    "prepare:xdai": "echo fuse-subgraph not support on xdai",
 
     "deploy": "graph deploy --product hosted-service badger-finance/fuse-subgraph",
     "deploy-local": "graph deploy badger-finance/fuse-subgraph --ipfs http://localhost:5001 --node http://127.0.0.1:8020"

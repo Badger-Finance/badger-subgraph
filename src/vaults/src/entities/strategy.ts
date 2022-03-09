@@ -1,9 +1,9 @@
-import { Address } from '@graphprotocol/graph-ts';
+import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Strategy } from '../../generated/schema';
 import { BadgerStrategy } from '../../generated/templates';
 import { BadgerStrategy as BaseStrategy } from '../../generated/templates/BadgerStrategy/BadgerStrategy';
 import { BadgerController } from '../../generated/templates/BadgerStrategy/BadgerController';
-import { ADDR_ZERO, NO_ADDR } from '../constants';
+import { ADDR_ZERO, NO_ADDR, ZERO } from '../constants';
 import { readValue } from './contracts';
 
 export function loadStrategy(address: Address): Strategy {
@@ -14,6 +14,7 @@ export function loadStrategy(address: Address): Strategy {
     strategy = new Strategy(id);
   }
   let contract = BaseStrategy.bind(address);
+  strategy.balance = readValue<BigInt>(contract.try_balanceOfPool(), ZERO);
   let controller = readValue<Address>(contract.try_controller(), ADDR_ZERO);
   if (controller != ADDR_ZERO) {
     let want = readValue<Address>(contract.try_want(), ADDR_ZERO);

@@ -9,6 +9,12 @@
     "build": "graph build",
 
     "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:fantom": "echo badger-nfts not support on fantom",
+    "prepare:avalanche": "echo badger-nfts not support on avalanche",
+    "prepare:matic": "echo badger-nfts not support on matic",
+    "prepare:arbitrum": "echo badger-nfts not support on arbitrum",
+    "prepare:bsc": "echo badger-nfts not support on bsc",
+    "prepare:xdai": "echo badger-nfts not support on xdai",
 
     "deploy": "graph deploy --product hosted-service badger-finance/badger-nfts",
     "deploy-local": "graph deploy badger-finance/badger-nfts --ipfs http://localhost:5001 --node http://127.0.0.1:8020"
