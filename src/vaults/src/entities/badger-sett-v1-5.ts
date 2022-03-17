@@ -1,6 +1,6 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Sett } from '../../generated/schema';
-import { BadgerSettV1_5 } from "../../generated/templates/BadgerSettV1_5/BadgerSettV1_5";
+import { BadgerSettV1_5 } from '../../generated/templates/BadgerSettV1_5/BadgerSettV1_5';
 import { NO_ADDR, ZERO } from '../constants';
 import { readValue } from './contracts';
 import { loadToken } from './token';

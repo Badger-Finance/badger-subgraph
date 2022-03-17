@@ -24,11 +24,14 @@ import { SettType } from "../constants";
 import { handleSettTokenTransfer } from "./sett-handler";
 import { loadBadgerTreeDistribution } from '../entities/badger-tree-distribution'
 import { loadSettV1_5 } from "../entities/badger-sett-v1-5";
+import { loadHarvestV1_5 } from "../entities/harvest";
 /* eslint-disable */
 export function handleApproval(event: Approval): void {
 }
 
-export function handleHarvested(event: Harvested): void {}
+export function handleHarvested(event: Harvested): void {
+  loadHarvestV1_5(event);
+}
 
 export function handlePauseDeposits(event: PauseDeposits): void {}
 

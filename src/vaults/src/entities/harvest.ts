@@ -1,7 +1,9 @@
 import { Address } from '@graphprotocol/graph-ts';
 import { SettHarvest } from '../../generated/schema';
+import { Harvested } from '../../generated/templates/BadgerSettV1_5/BadgerSettV1_5';
 import { Harvest } from '../../generated/templates/BadgerStrategy/BadgerStrategy';
 import { loadSett } from './badger-sett';
+import { loadSettV1_5 } from './badger-sett-v1-5';
 import { loadStrategy } from './strategy';
 
 export function loadHarvest(event: Harvest): SettHarvest {
@@ -29,4 +31,25 @@ export function loadHarvest(event: Harvest): SettHarvest {
 
   harvest.save();
   return harvest;
+}
+
+export function loadHarvestV1_5(event: Harvested): SettHarvest {
+  let id = event.transaction.hash
+    .toHexString()
+    .concat('-')
+    .concat(event.logIndex.toString());
+  let harvest = SettHarvest.load(id) as SettHarvest;
+  if (harvest) {
+    return harvest;
+  }
+  harvest = new SettHarvest(id);
+  harvest.timestamp = event.params.timestamp;
+  harvest.blockNumber = event.params.blockNumber;
+  let sett = loadSettV1_5(event.address);
+  harvest.strategy = sett.strategy;
+  harvest.sett = sett.id;
+  harvest.amount = event.params.amount;
+  harvest.token = event.params.token;
+  harvest.save();
+  return harvest();
 }

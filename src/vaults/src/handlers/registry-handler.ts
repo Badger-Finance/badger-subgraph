@@ -54,7 +54,7 @@ function handleVaultEvent(registry: Address, vault: Address, version: string): v
     // avoid adding erroneous non-sett addresss (eoa)
     if (maybeName.length > 0) {
       SettVault.create(vault);
-      switch(version) {
+      switch (version) {
         case SettType.v1_5:
           loadSettV1_5(vault).save();
           break;

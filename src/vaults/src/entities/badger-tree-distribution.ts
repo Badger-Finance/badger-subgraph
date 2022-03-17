@@ -1,6 +1,9 @@
 import { Address } from '@graphprotocol/graph-ts';
 import { BadgerTreeDistribution } from '../../generated/schema';
-import { HarvestState, TreeDistribution } from '../../generated/templates/BadgerStrategy/BadgerStrategy';
+import {
+  HarvestState,
+  TreeDistribution,
+} from '../../generated/templates/BadgerStrategy/BadgerStrategy';
 import { XSUSHI } from '../constants';
 import { loadToken } from './token';
 
