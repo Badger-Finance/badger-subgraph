@@ -148,6 +148,37 @@ dataSources:
           handler: handleTransfer
       file: ./src/handlers/sett-v1-5-handler.ts
   {{/badgerSetts}}
+  {{#forwarder}}
+  - kind: ethereum
+    name: HarvestForwarder
+    network: {{ chain }}
+    source:
+      address: "{{ address }}"
+      abi: HarvestForwarder
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - TreeDistribution
+        - TreeUpdate
+        - OwnerUpdate
+        - Sweep
+      abis:
+        - name: HarvestForwarder
+          file: ./abis/HarvestForwarder.json
+      eventHandlers:
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256,address)
+          handler: handleTreeDistribution
+        - event: TreeUpdate(address,address)
+          handler: handleTreeUpdate
+        - event: OwnerUpdate(address,address)
+          handler: handleOwnerUpdate
+        - event: Sweep(address,uint256)
+          handler: handleSweep
+      file: ./src/handlers/harvest-forwarder-handler.ts
+  {{/forwarder}}
   
 templates:
   - kind: ethereum/contract

@@ -164,3 +164,12 @@ type Controller @entity {
   strategies: [Strategy!]! @derivedFrom(field: "controller")
   setts: [Sett!]! @derivedFrom(field: "controller")
 }
+
+type TreeDistribution @entity {
+  id: ID!
+  token: String!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  beneficiary: String!
+}
