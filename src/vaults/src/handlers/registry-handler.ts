@@ -11,7 +11,9 @@ import {
   RemoveVault,
   Set,
 } from '../../generated/VaultRegistry/VaultRegistry';
+import { SettType } from '../constants';
 import { loadSett } from '../entities/badger-sett';
+import { loadSettV1_5 } from '../entities/badger-sett-v1-5';
 import { readValue } from '../entities/contracts';
 import { loadRegistry } from '../entities/registry';
 
@@ -23,13 +25,13 @@ export function handleAddVersion(event: AddVersion): void {}
 
 // TODO: consider how to differentiate on author
 export function handleNewVault(event: NewVault): void {
-  handleVaultEvent(event.address, event.params.vault);
+  handleVaultEvent(event.address, event.params.vault, event.params.version);
 }
 
 // TODO: potentially use for upgrading vault state vs. registering new vaults
 // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
 export function handlePromoteVault(event: PromoteVault): void {
-  handleVaultEvent(event.address, event.params.vault);
+  handleVaultEvent(event.address, event.params.vault, event.params.version);
 }
 
 // TODO: consider vault state (active, deprecated, guarded) via new / promote
@@ -43,7 +45,7 @@ export function handleDemoteVault(event: DemoteVault): void {}
 // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
 export function handleSet(event: Set): void {}
 
-function handleVaultEvent(registry: Address, vault: Address): void {
+function handleVaultEvent(registry: Address, vault: Address, version: string): void {
   loadRegistry(registry);
   let sett = Sett.load(vault.toHexString());
   if (sett == null) {
@@ -52,7 +54,14 @@ function handleVaultEvent(registry: Address, vault: Address): void {
     // avoid adding erroneous non-sett addresss (eoa)
     if (maybeName.length > 0) {
       SettVault.create(vault);
-      loadSett(vault).save();
+      switch(version) {
+        case SettType.v1_5:
+          loadSettV1_5(vault).save();
+          break;
+        case SettType.v1:
+        default:
+          loadSett(vault).save();
+      }
     }
   }
 }

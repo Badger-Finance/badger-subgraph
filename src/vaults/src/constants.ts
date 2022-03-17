@@ -30,9 +30,9 @@ export const GEYSERS: string[] = [
   '0x0194b5fe9ab7e0c43a08acbb771516fc057402e7',
   '0x7f6fe274e172ac7d096a7b214c78584d99ca988b',
 ];
-
 export enum SettType {
-  v1,
-  v2,
-  Affiliate,
+  v1 = "v1",
+  v1_5 = "v1.5",
+  v2 = "v2",
+  Affiliate = "affilate",
 }
