@@ -73,17 +73,13 @@ export function handleTendState(event: TendState): void {}
 export function handleTokenSwapPathSet(event: TokenSwapPathSet): void {}
 
 export function handleTreeDistribution(event: TreeDistribution): void {
-  let id = event.transaction.hash
-  .toHexString()
-  .concat('-')
-  .concat(event.logIndex.toString());
-
   let distribution = loadBadgerTreeDistribution(
-    id,
     event.params.timestamp,
     event.params.blockNumber,
     event.params.amount,
-    event.params.token
+    event.params.token,
+    event.transaction.hash,
+    event.logIndex,
   );
   let strategy = loadStrategy(event.address);
   distribution.strategy = strategy.id;

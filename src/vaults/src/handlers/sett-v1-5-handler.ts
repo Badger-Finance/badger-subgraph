@@ -76,17 +76,13 @@ export function handleTransfer(event: Transfer): void {
 }
 
 export function handleTreeDistribution(event: TreeDistribution): void {
-  let id = event.transaction.hash
-  .toHexString()
-  .concat('-')
-  .concat(event.logIndex.toString());
-
   let distribution = loadBadgerTreeDistribution(
-    id,
     event.params.timestamp,
     event.params.blockNumber,
     event.params.amount,
-    event.params.token
+    event.params.token,
+    event.transaction.hash,
+    event.logIndex
   );
   let sett = loadSettV1_5(event.address);
   distribution.sett = sett.id;

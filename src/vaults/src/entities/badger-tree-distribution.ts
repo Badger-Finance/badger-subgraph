@@ -1,4 +1,4 @@
-import { Address, BigInt } from '@graphprotocol/graph-ts';
+import { Address, BigInt, Bytes } from '@graphprotocol/graph-ts';
 import { BadgerTreeDistribution } from '../../generated/schema';
 import {
   HarvestState,
@@ -8,12 +8,19 @@ import { XSUSHI } from '../constants';
 import { loadToken } from './token';
 
 export function loadBadgerTreeDistribution(
-  id: string,
   timestamp: BigInt,
   blockNumber: BigInt,
   amount: BigInt,
-  token: Address
+  token: Address,
+  txHash: Bytes,
+  logIndex: BigInt,
 ): BadgerTreeDistribution {
+
+  let id = txHash
+  .toHexString()
+  .concat('-')
+  .concat(logIndex.toString());
+
   let distribution = BadgerTreeDistribution.load(id) as BadgerTreeDistribution;
   if (distribution) {
     return distribution;
