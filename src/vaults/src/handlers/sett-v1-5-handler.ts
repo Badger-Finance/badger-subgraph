@@ -20,9 +20,6 @@ import {
   UnpauseDeposits,
   Unpaused
 } from "../../generated/templates/BadgerSettV1_5/BadgerSettV1_5";
-import {
-  TreeDistribution as TreeDistributionV1,
-} from '../../generated/templates/BadgerStrategy/BadgerStrategy';
 
 import { SettType } from "../constants";
 import { handleSettTokenTransfer } from "./sett-handler";

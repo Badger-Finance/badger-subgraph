@@ -11,7 +11,7 @@ import {
   RemoveVault,
   Set,
 } from '../../generated/VaultRegistry/VaultRegistry';
-import { SettType, SETT_V1, SETT_V1_5 } from '../constants';
+import { SETT_V1_5 } from '../constants';
 import { loadSett } from '../entities/badger-sett';
 import { loadSettV1_5 } from '../entities/badger-sett-v1-5';
 import { readValue } from '../entities/contracts';
@@ -55,10 +55,10 @@ function handleVaultEvent(registry: Address, vault: Address, version: string): v
     if (maybeName.length > 0) {
       SettVault.create(vault);
       if (version == SETT_V1_5) {
-        loadSettV1_5(vault).save()
+        loadSettV1_5(vault).save();
       }
       else {
-        loadSett(vault).save()
+        loadSett(vault).save();
       }
     }
   }

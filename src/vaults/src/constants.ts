@@ -1,4 +1,3 @@
-
 import { Address, BigInt } from '@graphprotocol/graph-ts';
 
 export const SECONDS_PER_DAY = 86400;

@@ -19,9 +19,9 @@ export function loadBadgerTreeDistribution(
     return distribution;
   }
   distribution = new BadgerTreeDistribution(id);
-  distribution.timestamp = timestamp.toI32()
-  distribution.blockNumber = blockNumber
-  distribution.amount = amount
+  distribution.timestamp = timestamp.toI32();
+  distribution.blockNumber = blockNumber;
+  distribution.amount = amount;
   distribution.token = loadToken(token).id;
   distribution.save();
   return distribution;
