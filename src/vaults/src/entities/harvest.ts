@@ -43,13 +43,13 @@ export function loadHarvestV1_5(event: Harvested): SettHarvest {
     return harvest;
   }
   harvest = new SettHarvest(id);
-  harvest.timestamp = event.params.timestamp;
+  harvest.timestamp = event.params.timestamp.toI32();
   harvest.blockNumber = event.params.blockNumber;
   let sett = loadSettV1_5(event.address);
   harvest.strategy = sett.strategy;
   harvest.sett = sett.id;
   harvest.amount = event.params.amount;
-  harvest.token = event.params.token;
+  harvest.token = event.params.token.toString();
   harvest.save();
-  return harvest();
+  return harvest;
 }

@@ -1,7 +1,7 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Sett } from '../../generated/schema';
 import { BadgerSettV1_5 } from '../../generated/templates/BadgerSettV1_5/BadgerSettV1_5';
-import { NO_ADDR, ZERO } from '../constants';
+import { ADDR_ZERO, NO_ADDR, ZERO } from '../constants';
 import { readValue } from './contracts';
 import { loadToken } from './token';
 
@@ -31,7 +31,7 @@ export function loadSettV1_5(address: Address): Sett {
   }
 
   sett.available = readValue<BigInt>(contract.try_available(), sett.available);
-  sett.strategy = readValue<string>(contract.try_strategy(), NO_ADDR);
+  sett.strategy = readValue<Address>(contract.try_strategy(), ADDR_ZERO).toString();
 
   sett.pricePerFullShare = readValue<BigInt>(
     contract.try_getPricePerFullShare(),

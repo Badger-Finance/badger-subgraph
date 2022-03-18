@@ -20,6 +20,10 @@ import {
   UnpauseDeposits,
   Unpaused
 } from "../../generated/templates/BadgerSettV1_5/BadgerSettV1_5";
+import {
+  TreeDistribution as TreeDistributionV1,
+} from '../../generated/templates/BadgerStrategy/BadgerStrategy';
+
 import { SettType } from "../constants";
 import { handleSettTokenTransfer } from "./sett-handler";
 import { loadBadgerTreeDistribution } from '../entities/badger-tree-distribution'
@@ -75,7 +79,18 @@ export function handleTransfer(event: Transfer): void {
 }
 
 export function handleTreeDistribution(event: TreeDistribution): void {
-  let distribution = loadBadgerTreeDistribution(event);
+  let id = event.transaction.hash
+  .toHexString()
+  .concat('-')
+  .concat(event.logIndex.toString());
+
+  let distribution = loadBadgerTreeDistribution(
+    id,
+    event.params.timestamp,
+    event.params.blockNumber,
+    event.params.amount,
+    event.params.token
+  );
   let sett = loadSettV1_5(event.address);
   distribution.sett = sett.id;
   distribution.strategy = sett.strategy;
