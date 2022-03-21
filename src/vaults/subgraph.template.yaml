@@ -146,6 +146,8 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
+        - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
+          handler: handleTreeDistribution
       file: ./src/handlers/sett-v1-5-handler.ts
   {{/badgerSetts}}
   
