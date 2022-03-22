@@ -31,7 +31,7 @@ export function loadSettV1_5(address: Address): Sett {
   }
 
   sett.available = readValue<BigInt>(contract.try_available(), sett.available);
-  sett.strategy = readValue<Address>(contract.try_strategy(), ADDR_ZERO).toString();
+  sett.strategy = readValue<Address>(contract.try_strategy(), ADDR_ZERO).toHexString();
 
   sett.pricePerFullShare = readValue<BigInt>(
     contract.try_getPricePerFullShare(),
