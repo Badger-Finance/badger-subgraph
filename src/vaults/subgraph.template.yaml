@@ -30,6 +30,10 @@ dataSources:
           file: ./abis/BadgerController.json
         - name: BadgerStrategy
           file: ./abis/BadgerStrategy.json
+        - name: BadgerSettV1_5
+          file: ./abis/BadgerSettV1_5.json
+        - name: BadgerStrategyV1_5
+          file: ./abis/BadgerStrategyV1_5.json
       eventHandlers:
         - event: AddKey(string)
           handler: handleAddKey
@@ -312,6 +316,8 @@ templates:
       abis:
         - name: BadgerStrategy
           file: ./abis/BadgerStrategy.json
+        - name: BadgerStrategyV1_5
+          file: ./abis/BadgerStrategyV1_5.json
         - name: BadgerController
           file: ./abis/BadgerController.json
         - name: ERC20
