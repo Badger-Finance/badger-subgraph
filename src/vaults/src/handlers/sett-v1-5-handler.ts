@@ -20,14 +20,19 @@ import {
   UnpauseDeposits,
   Unpaused
 } from "../../generated/templates/BadgerSettV1_5/BadgerSettV1_5";
+
 import { SettType } from "../constants";
 import { handleSettTokenTransfer } from "./sett-handler";
-
+import { loadBadgerTreeDistribution } from '../entities/badger-tree-distribution'
+import { loadSettV1_5 } from "../entities/badger-sett-v1-5";
+import { loadHarvestV1_5 } from "../entities/harvest";
 /* eslint-disable */
 export function handleApproval(event: Approval): void {
 }
 
-export function handleHarvested(event: Harvested): void {}
+export function handleHarvested(event: Harvested): void {
+  loadHarvestV1_5(event);
+}
 
 export function handlePauseDeposits(event: PauseDeposits): void {}
 
@@ -70,7 +75,20 @@ export function handleTransfer(event: Transfer): void {
   handleSettTokenTransfer(hash, event.logIndex, timestamp, event.address, SettType.v1, from, to, value);
 }
 
-export function handleTreeDistribution(event: TreeDistribution): void {}
+export function handleTreeDistribution(event: TreeDistribution): void {
+  let distribution = loadBadgerTreeDistribution(
+    event.params.timestamp,
+    event.params.blockNumber,
+    event.params.amount,
+    event.params.token,
+    event.transaction.hash,
+    event.logIndex
+  );
+  let sett = loadSettV1_5(event.address);
+  distribution.sett = sett.id;
+  distribution.strategy = sett.strategy;
+  distribution.save();
+}
 
 export function handleUnpauseDeposits(event: UnpauseDeposits): void {}
 

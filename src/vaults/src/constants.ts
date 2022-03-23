@@ -11,8 +11,12 @@ export const NONE = '';
 export const NO_ADDR = '0x0000000000000000000000000000000000000000';
 export const BADGER = '0x3472a5a71965499acd81997a54bba8d852c6e53d';
 export const DIGG = '0x798d1be841a82a273720ce31c822c61a67a601c3';
-export const XSUSHI = '0x8798249c2e607446efb7ad49ec89dd1865ff4272'
+export const XSUSHI = '0x8798249c2e607446efb7ad49ec89dd1865ff4272';
 export let ADDR_ZERO = Address.fromString(NO_ADDR);
+
+
+export const SETT_V1: string = "v1"
+export const SETT_V1_5: string = "v1.5"
 
 // evaluated constants
 export let ZERO = BigInt.fromI32(0);
@@ -30,9 +34,10 @@ export const GEYSERS: string[] = [
   '0x0194b5fe9ab7e0c43a08acbb771516fc057402e7',
   '0x7f6fe274e172ac7d096a7b214c78584d99ca988b',
 ];
-
 export enum SettType {
   v1,
+  v1_5,
   v2,
-  Affiliate,
+  Affiliate
 }
+
