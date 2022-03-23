@@ -391,6 +391,8 @@ templates:
           file: ./abis/BadgerSett.json
         - name: BadgerStrategy
           file: ./abis/BadgerStrategy.json
+        - name: BadgerStrategyV1_5
+          file: ./abis/BadgerStrategyV1_5.json
         - name: BadgerController
           file: ./abis/BadgerController.json
         - name: ERC20

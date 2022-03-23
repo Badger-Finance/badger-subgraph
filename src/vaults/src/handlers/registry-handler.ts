@@ -1,6 +1,6 @@
-import { Address, log } from '@graphprotocol/graph-ts';
+import { Address } from '@graphprotocol/graph-ts';
 import { Sett } from '../../generated/schema';
-import { SettVault } from '../../generated/templates';
+import { SettVault, BadgerSettV1_5 } from '../../generated/templates';
 import { BadgerSett } from '../../generated/templates/SettVault/BadgerSett';
 import {
   AddKey,
@@ -53,11 +53,12 @@ function handleVaultEvent(registry: Address, vault: Address, version: string): v
     let maybeName = readValue<string>(maybeSett.try_name(), '');
     // avoid adding erroneous non-sett addresss (eoa)
     if (maybeName.length > 0) {
-      SettVault.create(vault);
       if (version == SETT_V1_5) {
+        BadgerSettV1_5.create(vault);
         loadSettV1_5(vault).save();
       }
       else {
+        SettVault.create(vault);
         loadSett(vault).save();
       }
     }
