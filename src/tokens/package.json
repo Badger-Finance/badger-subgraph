@@ -11,7 +11,6 @@
     "create-local": "graph create --node http://localhost:8020/ badger-finance/badger-dao-tokens",
     "remove-local": "graph remove --node http://localhost:8020/ badger-finance/badger-dao-tokens",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 badger-finance/badger-dao-tokens",
-    
     "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
     "prepare:avalanche": "mustache config/avalanche.json subgraph.template.yaml > subgraph.yaml",
     "prepare:bsc": "mustache config/bsc.json subgraph.template.yaml > subgraph.yaml",
@@ -19,13 +18,12 @@
     "prepare:xdai": "mustache config/xdai.json subgraph.template.yaml > subgraph.yaml",
     "prepare:arbitrum": "mustache config/arbitrum.json subgraph.template.yaml > subgraph.yaml",
     "prepare:fantom": "mustache config/fantom.json subgraph.template.yaml > subgraph.yaml",
-
     "deploy-studio:mainnet": "graph deploy --studio badger-dao-tokens",
-
     "deploy:mainnet": "graph deploy --product hosted-service badger-finance/badger-dao-tokens",
     "deploy:matic": "graph deploy --product hosted-service badger-finance/badger-dao-tokens-polygon",
     "deploy:arbitrum": "graph deploy --product hosted-service badger-finance/badger-dao-tokens-arbitrum",
     "deploy:fantom": "graph deploy --product hosted-service badger-finance/badger-dao-tokens-fantom",
-    "deploy:bsc": "graph deploy --product hosted-service badger-finance/badger-dao-tokens-bsc"
+    "deploy:bsc": "graph deploy --product hosted-service badger-finance/badger-dao-tokens-bsc",
+    "deploy:avalanche": "echo tokens not support on avalanche"
   }
 }

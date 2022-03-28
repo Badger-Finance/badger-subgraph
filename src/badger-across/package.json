@@ -1,13 +1,12 @@
 {
   "name": "badger-across",
   "version": "0.1.0",
+  "license": "MIT",
   "scripts": {
     "create": "graph create badger-finance/badger-across --node https://api.thegraph.com/deploy/",
     "create-local": "graph create badger-finance/badger-across --node http://127.0.0.1:8020",
-
     "codegen": "graph codegen",
     "build": "graph build",
-
     "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
     "prepare:fantom": "echo badger-across not support on fantom",
     "prepare:avalanche": "echo badger-across not support on avalanche",
@@ -15,7 +14,6 @@
     "prepare:arbitrum": "echo badger-across not support on arbitrum",
     "prepare:bsc": "echo badger-across not support on bsc",
     "prepare:xdai": "echo badger-across not support on xdai",
-
     "deploy": "graph deploy --product hosted-service badger-finance/badger-across",
     "deploy:fantom": "echo badger-across not support on fantom",
     "deploy:avalanche": "echo badger-across not support on avalanche",
@@ -29,4 +27,4 @@
     "@graphprotocol/graph-cli": "^0.20.0",
     "@graphprotocol/graph-ts": "^0.20.0"
   }
-} 
+}
