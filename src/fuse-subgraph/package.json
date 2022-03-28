@@ -2,6 +2,7 @@
   "name": "fuse-subgraph",
   "version": "0.5.0",
   "main": "subgraph.yaml",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/badger-finance/badger-subgraph.git"
@@ -9,10 +10,8 @@
   "scripts": {
     "create": "graph create badger-finance/fuse-subgraph --node https://api.thegraph.com/deploy/",
     "create-local": "graph create badger-finance/fuse-subgraph --node http://127.0.0.1:8020",
-
     "codegen": "graph codegen --output-dir src/types/",
     "build": "graph build",
-
     "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
     "prepare:fantom": "echo fuse-subgraph not support on fantom",
     "prepare:avalanche": "echo fuse-subgraph not support on avalanche",
@@ -20,7 +19,6 @@
     "prepare:arbitrum": "echo fuse-subgraph not support on arbitrum",
     "prepare:bsc": "echo fuse-subgraph not support on bsc",
     "prepare:xdai": "echo fuse-subgraph not support on xdai",
-
     "deploy": "graph deploy --product hosted-service badger-finance/fuse-subgraph",
     "deploy:fantom": "echo fuse-subgraph not support on fantom",
     "deploy:avalanche": "echo fuse-subgraph not support on avalanche",

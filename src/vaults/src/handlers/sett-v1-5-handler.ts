@@ -18,17 +18,17 @@ import {
   Transfer,
   TreeDistribution,
   UnpauseDeposits,
-  Unpaused
-} from "../../generated/templates/BadgerSettV1_5/BadgerSettV1_5";
+  Unpaused,
+} from '../../generated/templates/BadgerSettV1_5/BadgerSettV1_5';
 
-import { SettType } from "../constants";
-import { handleSettTokenTransfer } from "./sett-handler";
-import { loadBadgerTreeDistribution } from '../entities/badger-tree-distribution'
-import { loadSettV1_5 } from "../entities/badger-sett-v1-5";
-import { loadHarvestV1_5 } from "../entities/harvest";
+import { SettType } from '../constants';
+import { handleSettTokenTransfer } from './sett-handler';
+import { loadBadgerTreeDistribution } from '../entities/badger-tree-distribution';
+import { loadSettV1_5 } from '../entities/badger-sett-v1-5';
+import { loadHarvestV1_5 } from '../entities/harvest';
+import { loadStrategyV1_5 } from '../entities/strategy';
 /* eslint-disable */
-export function handleApproval(event: Approval): void {
-}
+export function handleApproval(event: Approval): void {}
 
 export function handleHarvested(event: Harvested): void {
   loadHarvestV1_5(event);
@@ -51,14 +51,16 @@ export function handleSetMaxPerformanceFee(event: SetMaxPerformanceFee): void {}
 export function handleSetMaxWithdrawalFee(event: SetMaxWithdrawalFee): void {}
 
 export function handleSetPerformanceFeeGovernance(
-  event: SetPerformanceFeeGovernance
+  event: SetPerformanceFeeGovernance,
 ): void {}
 
 export function handleSetPerformanceFeeStrategist(
-  event: SetPerformanceFeeStrategist
+  event: SetPerformanceFeeStrategist,
 ): void {}
 
-export function handleSetStrategy(event: SetStrategy): void {}
+export function handleSetStrategy(event: SetStrategy): void {
+  loadStrategyV1_5(event.address);
+}
 
 export function handleSetToEarnBps(event: SetToEarnBps): void {}
 
@@ -72,7 +74,16 @@ export function handleTransfer(event: Transfer): void {
   let to = event.params.to;
   let value = event.params.value;
   let hash = event.transaction.hash;
-  handleSettTokenTransfer(hash, event.logIndex, timestamp, event.address, SettType.v1, from, to, value);
+  handleSettTokenTransfer(
+    hash,
+    event.logIndex,
+    timestamp,
+    event.address,
+    SettType.v1,
+    from,
+    to,
+    value,
+  );
 }
 
 export function handleTreeDistribution(event: TreeDistribution): void {
@@ -82,7 +93,7 @@ export function handleTreeDistribution(event: TreeDistribution): void {
     event.params.amount,
     event.params.token,
     event.transaction.hash,
-    event.logIndex
+    event.logIndex,
   );
   let sett = loadSettV1_5(event.address);
   distribution.sett = sett.id;

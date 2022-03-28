@@ -71,14 +71,18 @@ dataSources:
         - Strategy
         - Controller
       abis:
+        - name: BadgerSettV1_5
+          file: ./abis/BadgerSettV1_5.json
         - name: BadgerSett
           file: ./abis/BadgerSett.json
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: BadgerController
-          file: ./abis/BadgerController.json
         - name: BadgerStrategy
           file: ./abis/BadgerStrategy.json
+        - name: BadgerStrategyV1_5
+          file: ./abis/BadgerStrategyV1_5.json
+        - name: BadgerController
+          file: ./abis/BadgerController.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
@@ -106,12 +110,18 @@ dataSources:
       abis:
         - name: BadgerAffiliateSett
           file: ./abis/BadgerAffiliateSett.json
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: BadgerController
-          file: ./abis/BadgerController.json
+        - name: BadgerSettV1_5
+          file: ./abis/BadgerSettV1_5.json
+        - name: BadgerSett
+          file: ./abis/BadgerSett.json
         - name: BadgerStrategy
           file: ./abis/BadgerStrategy.json
+        - name: BadgerStrategyV1_5
+          file: ./abis/BadgerStrategyV1_5.json
+        - name: BadgerController
+          file: ./abis/BadgerController.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
@@ -139,14 +149,16 @@ dataSources:
       abis:
         - name: BadgerSettV1_5
           file: ./abis/BadgerSettV1_5.json
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: BadgerController
-          file: ./abis/BadgerController.json
-        - name: BadgerStrategy
-          file: ./abis/BadgerStrategy.json
         - name: BadgerSett
           file: ./abis/BadgerSett.json
+        - name: BadgerStrategy
+          file: ./abis/BadgerStrategy.json
+        - name: BadgerStrategyV1_5
+          file: ./abis/BadgerStrategyV1_5.json
+        - name: BadgerController
+          file: ./abis/BadgerController.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
@@ -202,14 +214,18 @@ templates:
         - Token
         - UserSettBalance
       abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
+        - name: BadgerSettV1_5
+          file: ./abis/BadgerSettV1_5.json
         - name: BadgerSett
           file: ./abis/BadgerSett.json
-        - name: BadgerController
-          file: ./abis/BadgerController.json
         - name: BadgerStrategy
           file: ./abis/BadgerStrategy.json
+        - name: BadgerStrategyV1_5
+          file: ./abis/BadgerStrategyV1_5.json
+        - name: BadgerController
+          file: ./abis/BadgerController.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
@@ -272,14 +288,20 @@ templates:
         - Strategy
         - Controller
       abis:
+        - name: BadgerSettV1_5
+          file: ./abis/BadgerSettV1_5.json
+        - name: BadgerSett
+          file: ./abis/BadgerSett.json
+        - name: BadgerStrategy
+          file: ./abis/BadgerStrategy.json
+        - name: BadgerStrategyV1_5
+          file: ./abis/BadgerStrategyV1_5.json
+        - name: BadgerController
+          file: ./abis/BadgerController.json
         - name: ERC20
           file: ./abis/ERC20.json
         - name: BadgerSettV2
           file: ./abis/BadgerSettV2.json
-        - name: BadgerController
-          file: ./abis/BadgerController.json
-        - name: BadgerStrategy
-          file: ./abis/BadgerStrategy.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
@@ -345,6 +367,10 @@ templates:
         - Strategy
         - Controller
       abis:
+        - name: BadgerSettV1_5
+          file: ./abis/BadgerSettV1_5.json
+        - name: BadgerSett
+          file: ./abis/BadgerSett.json
         - name: BadgerStrategy
           file: ./abis/BadgerStrategy.json
         - name: BadgerStrategyV1_5
@@ -353,8 +379,6 @@ templates:
           file: ./abis/BadgerController.json
         - name: ERC20
           file: ./abis/ERC20.json
-        - name: BadgerSett
-          file: ./abis/BadgerSett.json
       eventHandlers:
         - event: ExtraRewardsTokenSet(indexed address,uint256,uint256,uint256,address,uint256)
           handler: handleExtraRewardsTokenSet
