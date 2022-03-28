@@ -1,11 +1,12 @@
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
-import { Strategy } from '../../generated/schema';
+import { Sett, Strategy } from '../../generated/schema';
 import { BadgerStrategy } from '../../generated/templates';
 import { BadgerStrategy as BaseStrategy } from '../../generated/templates/BadgerStrategy/BadgerStrategy';
 import { BadgerStrategyV1_5 as BaseStrategyV1_5 } from '../../generated/templates/BadgerStrategy/BadgerStrategyV1_5'
 import { BadgerController } from '../../generated/templates/BadgerStrategy/BadgerController';
 import { ADDR_ZERO, NO_ADDR, ZERO } from '../constants';
 import { readValue } from './contracts';
+import { loadSettV1_5 } from './badger-sett-v1-5';
 
 export function loadStrategy(address: Address): Strategy {
   let id = address.toHexString();
@@ -29,7 +30,6 @@ export function loadStrategy(address: Address): Strategy {
   strategy.save();
   return strategy;
 }
-
 export function loadStrategyV1_5(address: Address): Strategy {
   let id = address.toHexString();
   let strategy = Strategy.load(id) as Strategy;
@@ -41,7 +41,10 @@ export function loadStrategyV1_5(address: Address): Strategy {
   strategy.balance = readValue<BigInt>(contract.try_balanceOfPool(), ZERO);
   let vault = readValue<Address>(contract.try_vault(), ADDR_ZERO);
   if (vault != ADDR_ZERO) {
+    let sett = loadSettV1_5(vault)
+    sett.strategy = strategy.id
     strategy.sett = vault.toHexString();
+    sett.save()
   }
   strategy.save();
   return strategy;

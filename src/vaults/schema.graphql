@@ -78,6 +78,7 @@ type Sett implements ERC20 & Vault & VaultBalance @entity {
   strategy: Strategy
   treeDistributions: [BadgerTreeDistribution!]! @derivedFrom(field: "sett")
   harvests: [SettHarvest!]! @derivedFrom(field: "sett")
+  version: String!
 }
 
 type SettSnapshot implements ERC20 & Vault & VaultBalance & Snapshot @entity {

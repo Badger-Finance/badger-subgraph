@@ -1,7 +1,7 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Sett } from '../../generated/schema';
 import { BadgerSettV2 } from '../../generated/templates/SettVaultV2/BadgerSettV2';
-import { NO_ADDR, ZERO } from '../constants';
+import { NO_ADDR, SETT_V2, ZERO } from '../constants';
 import { readValue } from './contracts';
 import { loadToken } from './token';
 
@@ -27,6 +27,7 @@ export function loadSettV2(address: Address): Sett {
     sett.netShareDeposit = ZERO;
     sett.grossShareDeposit = ZERO;
     sett.grossShareWithdraw = ZERO;
+    sett.version = SETT_V2
   }
 
   sett.pricePerFullShare = readValue<BigInt>(

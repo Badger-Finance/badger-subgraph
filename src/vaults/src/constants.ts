@@ -15,8 +15,9 @@ export const XSUSHI = '0x8798249c2e607446efb7ad49ec89dd1865ff4272';
 export let ADDR_ZERO = Address.fromString(NO_ADDR);
 
 
-export const SETT_V1: string = "v1"
-export const SETT_V1_5: string = "v1.5"
+export const SETT_V1: string = "v1";
+export const SETT_V1_5: string = "v1.5";
+export const SETT_V2: string = "v2";
 
 // evaluated constants
 export let ZERO = BigInt.fromI32(0);
