@@ -1,4 +1,4 @@
-import { Address, BigInt, log } from '@graphprotocol/graph-ts';
+import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Strategy } from '../../generated/schema';
 import { BadgerStrategy } from '../../generated/templates';
 import { BadgerStrategy as BaseStrategy } from '../../generated/templates/BadgerStrategy/BadgerStrategy';
@@ -29,7 +29,6 @@ export function loadStrategy(address: Address): Strategy {
   strategy.save();
   return strategy;
 }
-
 export function loadStrategyV1_5(address: Address): Strategy {
   let id = address.toHexString();
   let strategy = Strategy.load(id) as Strategy;

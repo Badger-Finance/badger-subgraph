@@ -27,6 +27,7 @@ import { loadBadgerTreeDistribution } from '../entities/badger-tree-distribution
 import { loadSettV1_5 } from '../entities/badger-sett-v1-5';
 import { loadHarvestV1_5 } from '../entities/harvest';
 import { loadStrategyV1_5 } from '../entities/strategy';
+import { Address } from '@graphprotocol/graph-ts';
 /* eslint-disable */
 export function handleApproval(event: Approval): void {}
 
@@ -79,7 +80,7 @@ export function handleTransfer(event: Transfer): void {
     event.logIndex,
     timestamp,
     event.address,
-    SettType.v1,
+    SettType.v1_5,
     from,
     to,
     value,
