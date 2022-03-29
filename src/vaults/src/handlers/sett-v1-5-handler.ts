@@ -59,7 +59,7 @@ export function handleSetPerformanceFeeStrategist(
 ): void {}
 
 export function handleSetStrategy(event: SetStrategy): void {
-  loadStrategyV1_5(event.address);
+  loadStrategyV1_5(event.params.newStrategy);
 }
 
 export function handleSetToEarnBps(event: SetToEarnBps): void {}
@@ -79,7 +79,7 @@ export function handleTransfer(event: Transfer): void {
     event.logIndex,
     timestamp,
     event.address,
-    SettType.v1,
+    SettType.v1_5,
     from,
     to,
     value,

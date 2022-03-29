@@ -4,6 +4,7 @@ import { Transfer } from '../../generated/templates/SettVault/BadgerSett';
 import { NO_ADDR, SettType } from '../constants';
 import { loadAffiliateSett } from '../entities/affiliate-sett';
 import { loadSett } from '../entities/badger-sett';
+import { loadSettV1_5 } from '../entities/badger-sett-v1-5';
 import { loadSettV2 } from '../entities/badger-sett-v2';
 import { loadSettSnapshot } from '../entities/sett-snapshot';
 import { loadTransfer } from '../entities/transfer';
@@ -70,6 +71,9 @@ export function handleSettTokenTransfer(
       break;
     case SettType.v2:
       sett = loadSettV2(settAddress);
+      break;
+    case SettType.v1_5:
+      sett = loadSettV1_5(settAddress);
       break;
     case SettType.v1:
     default:

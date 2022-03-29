@@ -1,4 +1,4 @@
-import { Address, BigInt, log } from '@graphprotocol/graph-ts';
+import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Sett } from '../../generated/schema';
 import { BadgerSettV1_5 } from '../../generated/templates/BadgerSettV1_5/BadgerSettV1_5';
 import { ADDR_ZERO, NO_ADDR, ZERO } from '../constants';
