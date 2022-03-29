@@ -60,12 +60,7 @@ export function handleSetPerformanceFeeStrategist(
 ): void {}
 
 export function handleSetStrategy(event: SetStrategy): void {
-  let strategy = loadStrategyV1_5(event.address);
-  if(strategy.sett)  {
-    let sett = loadSettV1_5(Address.fromString(strategy.sett))
-    sett.strategy = strategy.id
-    sett.save()
-  }
+  loadStrategyV1_5(event.address);
 }
 
 export function handleSetToEarnBps(event: SetToEarnBps): void {}
