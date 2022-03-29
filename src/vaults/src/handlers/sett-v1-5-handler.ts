@@ -85,7 +85,7 @@ export function handleTransfer(event: Transfer): void {
     event.logIndex,
     timestamp,
     event.address,
-    SettType.v1,
+    SettType.v1_5,
     from,
     to,
     value,
