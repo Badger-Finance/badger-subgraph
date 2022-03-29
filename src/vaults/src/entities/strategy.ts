@@ -6,7 +6,6 @@ import { BadgerStrategyV1_5 as BaseStrategyV1_5 } from '../../generated/template
 import { BadgerController } from '../../generated/templates/BadgerStrategy/BadgerController';
 import { ADDR_ZERO, NO_ADDR, ZERO } from '../constants';
 import { readValue } from './contracts';
-import { loadSettV1_5 } from './badger-sett-v1-5';
 
 export function loadStrategy(address: Address): Strategy {
   let id = address.toHexString();
@@ -41,10 +40,7 @@ export function loadStrategyV1_5(address: Address): Strategy {
   strategy.balance = readValue<BigInt>(contract.try_balanceOfPool(), ZERO);
   let vault = readValue<Address>(contract.try_vault(), ADDR_ZERO);
   if (vault != ADDR_ZERO) {
-    let sett = loadSettV1_5(vault)
-    sett.strategy = strategy.id
     strategy.sett = vault.toHexString();
-    sett.save()
   }
   strategy.save();
   return strategy;

@@ -27,6 +27,7 @@ import { loadBadgerTreeDistribution } from '../entities/badger-tree-distribution
 import { loadSettV1_5 } from '../entities/badger-sett-v1-5';
 import { loadHarvestV1_5 } from '../entities/harvest';
 import { loadStrategyV1_5 } from '../entities/strategy';
+import { Address } from '@graphprotocol/graph-ts';
 /* eslint-disable */
 export function handleApproval(event: Approval): void {}
 
@@ -59,7 +60,12 @@ export function handleSetPerformanceFeeStrategist(
 ): void {}
 
 export function handleSetStrategy(event: SetStrategy): void {
-  loadStrategyV1_5(event.address);
+  let strategy = loadStrategyV1_5(event.address);
+  if(strategy.sett)  {
+    let sett = loadSettV1_5(Address.fromString(strategy.sett))
+    sett.strategy = strategy.id
+    sett.save()
+  }
 }
 
 export function handleSetToEarnBps(event: SetToEarnBps): void {}
