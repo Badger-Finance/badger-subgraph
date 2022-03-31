@@ -25,6 +25,8 @@ import { loadBadgerTreeDistribution, loadSushiTreeDistribution } from '../entiti
 import { loadController } from '../entities/controller';
 import { loadHarvest } from '../entities/harvest';
 import { loadStrategy } from '../entities/strategy';
+import { BadgerSett } from '../../generated/templates/SettVault/BadgerSett';
+import { readValue } from '../entities/contracts';
 /**
  * TODO: Create subgraph repository tickets around all availabe events.
  * Correctly track all aspects of strategies within the subgraph including
@@ -81,6 +83,12 @@ export function handleTreeDistribution(event: TreeDistribution): void {
     event.transaction.hash,
     event.logIndex,
   );
+  // Handle case where tree distribution event is duplicated for v1.5 vaults
+  let maybeSett = BadgerSett.bind(event.address);
+  let maybeName = readValue<string>(maybeSett.try_name(), '');
+  if(maybeName.length > 0) {
+    return;
+  }
   let strategy = loadStrategy(event.address);
   distribution.strategy = strategy.id;
   distribution.sett = strategy.sett;
