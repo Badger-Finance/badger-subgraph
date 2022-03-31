@@ -163,7 +163,7 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
         - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
-          handler: handleTreeDistribution
+          handler: handleTreeDistributionV1_5
       file: ./src/handlers/sett-v1-5-handler.ts
   {{/badgerSetts}}
   {{#forwarder}}
@@ -488,7 +488,7 @@ templates:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
         - event: TreeDistribution(indexed address,uint256,indexed uint256,uint256)
-          handler: handleTreeDistribution
+          handler: handleTreeDistributionV1_5
         - event: UnpauseDeposits(indexed address)
           handler: handleUnpauseDeposits
         - event: Unpaused(address)
