@@ -17,7 +17,6 @@ export let ADDR_ZERO = Address.fromString(NO_ADDR);
 
 export const SETT_V1: string = "v1";
 export const SETT_V1_5: string = "v1.5";
-export const SETT_V2: string = "v2";
 
 // evaluated constants
 export let ZERO = BigInt.fromI32(0);
@@ -35,10 +34,10 @@ export const GEYSERS: string[] = [
   '0x0194b5fe9ab7e0c43a08acbb771516fc057402e7',
   '0x7f6fe274e172ac7d096a7b214c78584d99ca988b',
 ];
+
 export enum SettType {
   v1,
   v1_5,
-  v2,
   Affiliate
 }
 
