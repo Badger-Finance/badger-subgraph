@@ -2,7 +2,7 @@ import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Strategy } from '../../generated/schema';
 import { BadgerStrategy } from '../../generated/templates';
 import { BadgerStrategy as BaseStrategy } from '../../generated/templates/BadgerStrategy/BadgerStrategy';
-import { BadgerStrategyV1_5 as BaseStrategyV1_5 } from '../../generated/templates/BadgerStrategy/BadgerStrategyV1_5'
+import { BadgerStrategyV1_5 as BaseStrategyV1_5 } from '../../generated/templates/BadgerStrategy/BadgerStrategyV1_5';
 import { BadgerController } from '../../generated/templates/BadgerStrategy/BadgerController';
 import { ADDR_ZERO, NO_ADDR, ZERO } from '../constants';
 import { readValue } from './contracts';
@@ -29,11 +29,11 @@ export function loadStrategy(address: Address): Strategy {
   strategy.save();
   return strategy;
 }
+
 export function loadStrategyV1_5(address: Address): Strategy {
   let id = address.toHexString();
   let strategy = Strategy.load(id) as Strategy;
   if (strategy == null) {
-    BadgerStrategy.create(address);
     strategy = new Strategy(id);
   }
   let contract = BaseStrategyV1_5.bind(address);
