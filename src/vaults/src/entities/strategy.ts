@@ -29,6 +29,7 @@ export function loadStrategy(address: Address): Strategy {
   strategy.save();
   return strategy;
 }
+
 export function loadStrategyV1_5(address: Address): Strategy {
   let id = address.toHexString();
   let strategy = Strategy.load(id) as Strategy;

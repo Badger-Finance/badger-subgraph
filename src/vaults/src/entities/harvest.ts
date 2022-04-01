@@ -3,7 +3,8 @@ import { SettHarvest } from '../../generated/schema';
 import { Harvested } from '../../generated/templates/BadgerSettV1_5/BadgerSettV1_5';
 import { Harvest } from '../../generated/templates/BadgerStrategy/BadgerStrategy';
 import { loadSett } from './badger-sett';
-import { loadStrategy, loadStrategyV1_5 } from './strategy';
+import { loadSettV1_5 } from './badger-sett-v1-5';
+import { loadStrategy } from './strategy';
 
 export function loadHarvest(event: Harvest): SettHarvest {
   let id = event.transaction.hash
@@ -45,9 +46,9 @@ export function loadHarvestV1_5(event: Harvested): SettHarvest {
   harvest.timestamp = event.params.timestamp.toI32();
   harvest.blockNumber = event.params.blockNumber;
 
-  let strategy = loadStrategyV1_5(event.address);
-  harvest.strategy = strategy.id;
-  harvest.sett = strategy.sett;
+  let sett = loadSettV1_5(event.address);
+  harvest.sett = sett.id;
+  harvest.strategy = sett.strategy;
   harvest.amount = event.params.amount;
   harvest.token = event.params.token.toHexString();
   harvest.save();
