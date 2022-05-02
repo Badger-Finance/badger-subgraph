@@ -13,10 +13,10 @@ export const BADGER = '0x3472a5a71965499acd81997a54bba8d852c6e53d';
 export const DIGG = '0x798d1be841a82a273720ce31c822c61a67a601c3';
 export const XSUSHI = '0x8798249c2e607446efb7ad49ec89dd1865ff4272';
 export let ADDR_ZERO = Address.fromString(NO_ADDR);
+export const BVECVX = '0xfd05D3C7fe2924020620A8bE4961bBaA747e6305';
 
-
-export const SETT_V1: string = "v1";
-export const SETT_V1_5: string = "v1.5";
+export const SETT_V1 = 'v1';
+export const SETT_V1_5 = 'v1.5';
 
 // evaluated constants
 export let ZERO = BigInt.fromI32(0);
@@ -38,6 +38,5 @@ export const GEYSERS: string[] = [
 export enum SettType {
   v1,
   v1_5,
-  Affiliate
+  Affiliate,
 }
-
