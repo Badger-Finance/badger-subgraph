@@ -1,15 +1,18 @@
 import { TreeDistribution } from '../../generated/BribeProcessor/VotiumBribeProcessor';
-import { BadgerTreeDistribution } from '../../generated/schema';
-import { BVECVX } from '../constants';
+import { BVECVX, ADDR_ZERO } from '../constants';
+import { loadBadgerTreeDistribution } from '../entities/badger-tree-distribution';
 
 export function handleTreeDistribution(event: TreeDistribution): void {
-  let entity = new BadgerTreeDistribution(event.transaction.from.toHex());
+  let distribution = loadBadgerTreeDistribution(
+    event.params.timestamp,
+    event.params.blockNumber,
+    event.params.amount,
+    event.params.token,
+    event.transaction.hash,
+    event.logIndex,
+  );
+  distribution.sett = BVECVX;
+  distribution.strategy = ADDR_ZERO.toHexString();
 
-  entity.id = event.transaction.hash.toHex() + '-' + event.logIndex.toString();
-  entity.token = event.params.token.toHex();
-  entity.amount = event.params.amount;
-  entity.blockNumber = event.params.blockNumber;
-  entity.sett = BVECVX;
-
-  entity.save();
+  distribution.save();
 }
