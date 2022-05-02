@@ -4,6 +4,10 @@
     "address": "0xA84B663837D94ec41B0f99903f37e1d69af9Ed3E",
     "startBlock": 14366483
   },
+  "bribeProcessor": {
+    "address": "0xbeD8f323456578981952e33bBfbE80D23289246B",
+    "startBlock": 14661965
+  },
   "registry": {
     "address": "0xfda7eb6f8b7a9e9fcfd348042ae675d1d652454f",
     "startBlock": 13006329
