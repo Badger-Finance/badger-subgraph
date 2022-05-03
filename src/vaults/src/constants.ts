@@ -17,6 +17,7 @@ export const BVECVX = '0xfd05D3C7fe2924020620A8bE4961bBaA747e6305';
 
 export const SETT_V1 = 'v1';
 export const SETT_V1_5 = 'v1.5';
+export const AFFILIATE_SETT = 'affiliate';
 
 // evaluated constants
 export let ZERO = BigInt.fromI32(0);
