@@ -1,7 +1,7 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Sett } from '../../generated/schema';
 import { BadgerAffiliateSett } from '../../generated/templates/AffiliateSettVault/BadgerAffiliateSett';
-import { NO_ADDR, ZERO } from '../constants';
+import { AFFILIATE_SETT, NO_ADDR, ZERO } from '../constants';
 import { readValue } from './contracts';
 import { loadToken } from './token';
 
@@ -27,6 +27,7 @@ export function loadAffiliateSett(address: Address): Sett {
     sett.netShareDeposit = ZERO;
     sett.grossShareDeposit = ZERO;
     sett.grossShareWithdraw = ZERO;
+    sett.version = AFFILIATE_SETT;
   }
 
   sett.pricePerFullShare = readValue<BigInt>(

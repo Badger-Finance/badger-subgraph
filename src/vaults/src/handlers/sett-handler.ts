@@ -21,7 +21,16 @@ export function handleTransfer(event: Transfer): void {
   let value = event.params.value;
   let hash = event.transaction.hash;
   let index = event.logIndex;
-  handleSettTokenTransfer(hash, index, timestamp, event.address, SettType.v1, from, to, value);
+  handleSettTokenTransfer(
+    hash,
+    index,
+    timestamp,
+    event.address,
+    SettType.v1,
+    from,
+    to,
+    value,
+  );
 }
 
 export function depositSett(

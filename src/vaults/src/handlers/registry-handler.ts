@@ -1,6 +1,6 @@
 import { Address } from '@graphprotocol/graph-ts';
 import { Sett } from '../../generated/schema';
-import { SettVault, BadgerSettV1_5 } from '../../generated/templates';
+import { SettVault, BadgerSettV1_5, AffiliateSettVault } from '../../generated/templates';
 import { BadgerSett } from '../../generated/templates/SettVault/BadgerSett';
 import {
   AddKey,
@@ -11,7 +11,8 @@ import {
   RemoveVault,
   Set,
 } from '../../generated/VaultRegistry/VaultRegistry';
-import { SETT_V1, SETT_V1_5 } from '../constants';
+import { AFFILIATE_SETT, SETT_V1, SETT_V1_5 } from '../constants';
+import { loadAffiliateSett } from '../entities/affiliate-sett';
 import { loadSett } from '../entities/badger-sett';
 import { loadSettV1_5 } from '../entities/badger-sett-v1-5';
 import { readValue } from '../entities/contracts';
@@ -60,6 +61,10 @@ function handleVaultEvent(registry: Address, vault: Address, version: string): v
       if (version == SETT_V1) {
         SettVault.create(vault);
         loadSett(vault).save();
+      }
+      if (version == AFFILIATE_SETT) {
+        AffiliateSettVault.create(vault);
+        loadAffiliateSett(vault).save();
       }
     }
   }
