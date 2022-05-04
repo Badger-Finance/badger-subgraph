@@ -4,18 +4,22 @@ import {
   OwnerUpdate,
   Sweep,
 } from '../../generated/HarvestForwarder/HarvestForwarder';
-import { BadgerTreeDistribution } from '../../generated/schema';
+import { ADDR_ZERO } from '../constants';
+import { loadBadgerTreeDistribution } from '../entities/badger-tree-distribution';
 
 export function handleTreeDistribution(event: TreeDistribution): void {
-  let entity = new BadgerTreeDistribution(event.transaction.from.toHex());
+  let distribution = loadBadgerTreeDistribution(
+    event.params.block_timestamp,
+    event.params.block_number,
+    event.params.amount,
+    event.params.token,
+    event.transaction.hash,
+    event.logIndex,
+  );
+  distribution.sett = event.params.beneficiary.toHexString();
+  distribution.strategy = ADDR_ZERO.toHexString();
 
-  entity.id = event.transaction.hash.toHex() + '-' + event.logIndex.toString();
-  entity.token = event.params.token.toHex();
-  entity.amount = event.params.amount;
-  entity.blockNumber = event.params.block_number;
-  entity.sett = event.params.beneficiary.toHex();
-
-  entity.save();
+  distribution.save();
 }
 
 export function handleTreeUpdate(event: TreeUpdate): void {}
