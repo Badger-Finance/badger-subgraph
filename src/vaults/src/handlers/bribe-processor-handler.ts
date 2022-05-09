@@ -10,24 +10,15 @@ import {
 } from '../constants';
 import { loadBadgerTreeDistribution } from '../entities/badger-tree-distribution';
 
-interface BadgerSplit {
-  bveCVX: BigInt;
-  bveCVXLp: BigInt;
-}
-
-function determineBadgerSplit(totalAmount: BigInt): BadgerSplit {
-  const totalAmountDecimal = BigDecimal.fromString(totalAmount.toString());
-  const percentBadgerbveCVX = BigDecimal.fromString(
-    (1 - (1 / BADGER_SHARE) * OPS_FEE).toString(),
+function determineBadgerSplit(totalAmount: BigInt): BigInt[] {
+  let totalAmountDecimal = BigDecimal.fromString(totalAmount.toString());
+  let percentBadgerbveCVX = 1 - (1 / BADGER_SHARE) * OPS_FEE;
+  let decimalPercentBadgerbveCVX = BigDecimal.fromString(percentBadgerbveCVX.toString());
+  let bveCVXAmount = BigInt.fromString(
+    totalAmountDecimal.times(decimalPercentBadgerbveCVX).truncate(0).toString(),
   );
-  const bveCVXAmount = BigInt.fromString(
-    totalAmountDecimal.times(percentBadgerbveCVX).truncate(0).toString(),
-  );
-  const bveCVXLpAmount = totalAmount.minus(bveCVXAmount);
-  return {
-    bveCVX: bveCVXAmount,
-    bveCVXLp: bveCVXLpAmount,
-  };
+  let bveCVXLpAmount = totalAmount.minus(bveCVXAmount);
+  return [bveCVXAmount, bveCVXLpAmount];
 }
 
 export function handleTreeDistribution(event: TreeDistribution): void {
@@ -35,9 +26,9 @@ export function handleTreeDistribution(event: TreeDistribution): void {
   let splitAmount = BigInt.fromString('0');
 
   if (event.params.token === ADDR_BADGER) {
-    const totalBadgerAmounts = determineBadgerSplit(amount);
-    amount = totalBadgerAmounts.bveCVX;
-    splitAmount = totalBadgerAmounts.bveCVXLp;
+    let totalBadgerAmounts = determineBadgerSplit(amount);
+    amount = totalBadgerAmounts[0];
+    splitAmount = totalBadgerAmounts[1];
 
     let lpDistribution = loadBadgerTreeDistribution(
       event.params.timestamp,
