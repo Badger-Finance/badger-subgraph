@@ -14,11 +14,17 @@ export const DIGG = '0x798d1be841a82a273720ce31c822c61a67a601c3';
 export const XSUSHI = '0x8798249c2e607446efb7ad49ec89dd1865ff4272';
 export let ADDR_ZERO = Address.fromString(NO_ADDR);
 export const BVECVX = '0xfd05D3C7fe2924020620A8bE4961bBaA747e6305';
+export const BVECVX_LP = '0x937B8E917d0F36eDEBBA8E459C5FB16F3b315551';
 export let ADDR_BVECVX = Address.fromString(BVECVX);
+export let ADDR_BADGER = Address.fromString(BADGER);
+export let ADDR_BVECVX_LP = Address.fromString(BVECVX_LP);
 
 export const SETT_V1 = 'v1';
 export const SETT_V1_5 = 'v1.5';
 export const AFFILIATE_SETT = 'affiliate';
+
+export const BADGER_SHARE = 0.275;
+export const OPS_FEE = 0.05;
 
 // evaluated constants
 export let ZERO = BigInt.fromI32(0);
