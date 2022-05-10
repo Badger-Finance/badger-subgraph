@@ -22,7 +22,7 @@
 
     "deploy-studio:mainnet": "graph deploy --studio badger-dao-setts",
 
-    "deploy:mainnet": "graph deploy --product hosted-service mitche50/badger-vaults",
+    "deploy:mainnet": "graph deploy --product hosted-service badger-finance/badger-dao-setts",
     "deploy:fantom": "graph deploy --product hosted-service badger-finance/badger-dao-setts-fantom",
     "deploy:avalanche": "graph deploy --product hosted-service badger-finance/badger-dao-setts-avalanche",
     "deploy:matic": "graph deploy --product hosted-service badger-finance/badger-dao-setts-polygon",
