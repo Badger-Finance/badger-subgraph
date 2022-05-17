@@ -1,82 +1,91 @@
-import { Address, BigInt, Bytes, ethereum } from '@graphprotocol/graph-ts'
+import { Address, BigInt, Bytes, ethereum } from '@graphprotocol/graph-ts';
+import { BADGER_COMPTROLLER, BADGER_POOL_INDEX } from '../constants';
 import {
   FusePoolDirectory,
   FusePoolDirectory__poolsResult,
-  PoolRegistered
-} from '../types/FusePoolDirectory/FusePoolDirectory'
-import { Pool } from '../types/schema'
-import { Comptroller } from '../types/templates/Comptroller/Comptroller'
+  PoolRegistered,
+} from '../types/FusePoolDirectory/FusePoolDirectory';
+import { Pool } from '../types/schema';
+import { Comptroller } from '../types/templates/Comptroller/Comptroller';
 import {
   zeroBD,
   getAllMarketsInPool,
   // getTotalSupplyUSDInPool,
   // getTotalBorrowUSDInPool
-} from './helpers'
+} from './helpers';
 
 /**
  * @dev Creates FusePool entity
- * @param comptrollerAddress 
+ * @param comptrollerAddress
  * @returns pool A `FusePool` object
  */
-export function createPool(_comptrollerAddress: string, poolRegisteredEvent: PoolRegistered | null): Pool {
+export function createPool(
+  _comptrollerAddress: string,
+  poolRegisteredEvent: PoolRegistered | null,
+): Pool | null {
+  if (_comptrollerAddress !== BADGER_COMPTROLLER) return null;
   let pool: Pool,
-    comptrollerAddress: Address = Address.fromString(_comptrollerAddress)
+    comptrollerAddress: Address = Address.fromString(_comptrollerAddress);
 
-  let contract = Comptroller.bind(comptrollerAddress)
-  let admin = contract.try_admin()
+  let contract = Comptroller.bind(comptrollerAddress);
+  let admin = contract.try_admin();
 
-  pool = new Pool(_comptrollerAddress)
-  pool.index = poolRegisteredEvent.params.index
+  pool = new Pool(_comptrollerAddress);
+  pool.index = poolRegisteredEvent
+    ? poolRegisteredEvent.params.index
+    : BigInt.fromString('0');
+  if (pool.index !== BADGER_POOL_INDEX) return null;
 
   admin.reverted // pool.value1
-    ? pool.creator = Address.fromString('0x0000000000000000000000000000000000000000')
-    : pool.creator = admin.value
+    ? (pool.creator = Address.fromString('0x0000000000000000000000000000000000000000'))
+    : (pool.creator = admin.value);
 
-  pool.comptroller = contract._address
-  pool.name = contract._name
-  pool.blockPosted = BigInt.fromString('0')
-  pool.timestampPosted = BigInt.fromString('0')
+  pool.comptroller = contract._address;
+  pool.name = contract._name;
+  pool.blockPosted = BigInt.fromString('0');
+  pool.timestampPosted = BigInt.fromString('0');
 
-  pool.markets = getAllMarketsInPool(contract)
+  pool.markets = getAllMarketsInPool(contract);
   // pool.totalSupplyUSD = zeroBD
   // pool.totalBorrowUSD = zeroBD
 
-  return pool as Pool
+  return pool as Pool;
 }
 
 /**
- * @param fusePoolAddress 
+ * @param fusePoolAddress
  * @returns pool The Fuse pool at the given Comptroller address
  */
-export function updatePool(
-  fusePoolAddress: Address
-): Pool {
-  let poolID = fusePoolAddress.toHexString()
-  let pool = Pool.load(poolID)
+export function updatePool(fusePoolAddress: Address): Pool | null {
+  let poolID = fusePoolAddress.toHexString();
+  let pool = Pool.load(poolID);
+  if (pool.index !== BADGER_POOL_INDEX) return null;
 
-  let contractAddress = Address.fromString(pool.id)
-  let contract = Comptroller.bind(contractAddress)
+  let contractAddress = Address.fromString(pool.id);
+  let contract = Comptroller.bind(contractAddress);
 
-  pool.name = contract._name
-  pool.comptroller = contract._address
-  let admin = contract.try_admin()
-  let closeFactor = contract.try_closeFactorMantissa()
-  let liquidationIncentive = contract.try_liquidationIncentiveMantissa()
-  let oracle = contract.try_oracle()
-  let maxAssets = contract.try_maxAssets()
+  pool.name = contract._name;
+  pool.comptroller = contract._address;
+  let admin = contract.try_admin();
+  let closeFactor = contract.try_closeFactorMantissa();
+  let liquidationIncentive = contract.try_liquidationIncentiveMantissa();
+  let oracle = contract.try_oracle();
+  let maxAssets = contract.try_maxAssets();
 
-  pool.creator = admin.reverted ? new Bytes(0) : admin.value
-  pool.closeFactor = closeFactor.reverted ? new BigInt(0) : closeFactor.value
-  pool.liquidationIncentive = liquidationIncentive.reverted ? new BigInt(0) : liquidationIncentive.value
-  pool.priceOracle = oracle.reverted ? new Bytes(0) : oracle.value
-  pool.maxAssets = maxAssets.reverted ? new BigInt(0) : maxAssets.value
+  pool.creator = admin.reverted ? new Bytes(0) : admin.value;
+  pool.closeFactor = closeFactor.reverted ? new BigInt(0) : closeFactor.value;
+  pool.liquidationIncentive = liquidationIncentive.reverted
+    ? new BigInt(0)
+    : liquidationIncentive.value;
+  pool.priceOracle = oracle.reverted ? new Bytes(0) : oracle.value;
+  pool.maxAssets = maxAssets.reverted ? new BigInt(0) : maxAssets.value;
 
-  pool.markets = getAllMarketsInPool(contract)
+  pool.markets = getAllMarketsInPool(contract);
 
   // pool.totalSupplyUSD = getTotalSupplyUSDInPool(contract)
   // pool.totalBorrowUSD = getTotalBorrowUSDInPool(contract)
 
-  pool.save()
+  pool.save();
 
-  return pool as Pool
+  return pool as Pool;
 }

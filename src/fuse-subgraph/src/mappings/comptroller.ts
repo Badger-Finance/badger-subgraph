@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */ // to satisfy AS compiler
 
 /* External imports */
-import { Address } from '@graphprotocol/graph-ts'
+import { Address, BigInt } from '@graphprotocol/graph-ts';
 
 /* Internal imports */
 import {
@@ -11,40 +11,41 @@ import {
   NewCollateralFactor,
   NewLiquidationIncentive,
   NewPriceOracle,
-  MarketListed
-} from '../types/templates/Comptroller/Comptroller'
-import { CToken } from '../types/templates'
-import { Comptroller } from '../types/templates/Comptroller/Comptroller'
-import { Market, Account, Pool, Admin } from '../types/schema'
+  MarketListed,
+} from '../types/templates/Comptroller/Comptroller';
+import { CToken } from '../types/templates';
+import { Comptroller } from '../types/templates/Comptroller/Comptroller';
+import { Market, Account, Pool, Admin } from '../types/schema';
 import {
   mantissaFactorBD,
   updateCommonCTokenStats,
   createAccount,
   createAdmin,
   updateCommonPoolStats,
-  getAllMarketsInPool
-} from './helpers'
-import { createMarket, updateMarket } from './markets'
-import { updatePool } from './fusePools'
+  getAllMarketsInPool,
+} from './helpers';
+import { createMarket, updateMarket } from './markets';
+import { updatePool } from './fusePools';
+import { BADGER_COMPTROLLER, BADGER_POOL_INDEX } from '../constants';
 
 export function handleMarketListed(event: MarketListed): void {
   // Dynamically index all new listed tokens
-  CToken.create(event.params.cToken)
+  CToken.create(event.params.cToken);
   // Create the market for this token, since it's now been listed.
-  let market = createMarket(event.params.cToken.toHexString(), event)
-  market.save()
+  let market = createMarket(event.params.cToken.toHexString(), event);
+  market.save();
 }
 
 export function handleMarketEntered(event: MarketEntered): void {
-  let market = Market.load(event.params.cToken.toHexString())
+  let market = Market.load(event.params.cToken.toHexString());
   // Null check needed to avoid crashing on a new market added. Ideally when dynamic data
   // sources can source from the contract creation block and not the time the
   // comptroller adds the market, we can avoid this altogether
   if (market != null) {
-    let accountID = event.params.account.toHex()
-    let account = Account.load(accountID)
+    let accountID = event.params.account.toHex();
+    let account = Account.load(accountID);
     if (account == null) {
-      createAccount(accountID)
+      createAccount(accountID);
     }
 
     let cTokenStats = updateCommonCTokenStats(
@@ -55,22 +56,22 @@ export function handleMarketEntered(event: MarketEntered): void {
       event.block.timestamp,
       event.block.number,
       event.logIndex,
-    )
-    cTokenStats.enteredMarket = true
-    cTokenStats.save()
+    );
+    cTokenStats.enteredMarket = true;
+    cTokenStats.save();
   }
 }
 
 export function handleMarketExited(event: MarketExited): void {
-  let market = Market.load(event.params.cToken.toHexString())
+  let market = Market.load(event.params.cToken.toHexString());
   // Null check needed to avoid crashing on a new market added. Ideally when dynamic data
   // sources can source from the contract creation block and not the time the
   // comptroller adds the market, we can avoid this altogether
   if (market != null) {
-    let accountID = event.params.account.toHex()
-    let account = Account.load(accountID)
+    let accountID = event.params.account.toHex();
+    let account = Account.load(accountID);
     if (account == null) {
-      createAccount(accountID)
+      createAccount(accountID);
     }
 
     let cTokenStats = updateCommonCTokenStats(
@@ -81,18 +82,19 @@ export function handleMarketExited(event: MarketExited): void {
       event.block.timestamp,
       event.block.number,
       event.logIndex,
-    )
-    cTokenStats.enteredMarket = false
-    cTokenStats.save()
+    );
+    cTokenStats.enteredMarket = false;
+    cTokenStats.save();
   }
 }
 
 export function handleNewCloseFactor(event: NewCloseFactor): void {
-  let poolID = event.address.toHexString()
-  let pool = Pool.load(poolID)
+  let poolID = event.address.toHexString();
+  let pool = Pool.load(poolID);
 
   if (pool != null) {
-    pool = updatePool(event.address)
+    pool = updatePool(event.address);
+    if (pool.index !== BADGER_POOL_INDEX) return;
 
     let poolStats = updateCommonPoolStats(
       pool.id,
@@ -100,41 +102,42 @@ export function handleNewCloseFactor(event: NewCloseFactor): void {
       event.transaction.hash,
       event.block.timestamp,
       event.block.number,
-      event.logIndex
-    )
+      event.logIndex,
+    );
 
-    pool.closeFactor = event.params.newCloseFactorMantissa
-    poolStats.closeFactor = event.params.newCloseFactorMantissa
-    pool.name = pool.name
-    poolStats.name = pool.name
+    pool.closeFactor = event.params.newCloseFactorMantissa;
+    poolStats.closeFactor = event.params.newCloseFactorMantissa;
+    pool.name = pool.name;
+    poolStats.name = pool.name;
 
-    pool.save()
-    poolStats.save()
+    pool.save();
+    poolStats.save();
   }
 }
 
 export function handleNewCollateralFactor(event: NewCollateralFactor): void {
-  let market = Market.load(event.params.cToken.toHexString())
+  let market = Market.load(event.params.cToken.toHexString());
   // Null check needed to avoid crashing on a new market added. Ideally when dynamic data
   // sources can source from the contract creation block and not the time the
   // comptroller adds the market, we can avoid this altogether
   if (market != null) {
     market.collateralFactor = event.params.newCollateralFactorMantissa
       .toBigDecimal()
-      .div(mantissaFactorBD)
-    market.pool = event.address.toHexString()
+      .div(mantissaFactorBD);
+    market.pool = event.address.toHexString();
 
-    market.save()
+    market.save();
   }
 }
 
 // This should be the first event according to etherscan but it isn't.... price oracle is. weird
 export function handleNewLiquidationIncentive(event: NewLiquidationIncentive): void {
   let poolID = event.address.toHexString(),
-    pool = Pool.load(poolID)
+    pool = Pool.load(poolID);
 
-  if (pool != null) {
-    pool = updatePool(event.address)
+  if (pool !== null) {
+    pool = updatePool(event.address);
+    if (pool.index !== BADGER_POOL_INDEX) return;
 
     let poolStats = updateCommonPoolStats(
       pool.id,
@@ -142,27 +145,29 @@ export function handleNewLiquidationIncentive(event: NewLiquidationIncentive): v
       event.transaction.hash,
       event.block.timestamp,
       event.block.number,
-      event.logIndex
-    )
+      event.logIndex,
+    );
 
-    pool.liquidationIncentive = event.params.newLiquidationIncentiveMantissa
-    poolStats.liquidationIncentive = event.params.newLiquidationIncentiveMantissa
+    pool.liquidationIncentive = event.params.newLiquidationIncentiveMantissa;
+    poolStats.liquidationIncentive = event.params.newLiquidationIncentiveMantissa;
 
-    pool.save()
-    poolStats.save()
+    pool.save();
+    poolStats.save();
   }
 }
 
 export function handleNewPriceOracle(event: NewPriceOracle): void {
+  if (event.address.toHexString() !== BADGER_COMPTROLLER) return;
   let poolAddress = event.address,
     poolID = poolAddress.toHexString(),
-    pool = Pool.load(poolID)
+    pool = Pool.load(poolID);
 
-  let contract = Comptroller.bind(poolAddress)
+  let contract = Comptroller.bind(poolAddress);
 
   // This is the first event used in this mapping, so we use it to create the entity
   if (pool == null) {
-    pool = new Pool(poolID)
+    pool = new Pool(poolID);
+    if (pool == null) return;
   } else {
     let poolStats = updateCommonPoolStats(
       pool.id,
@@ -170,15 +175,15 @@ export function handleNewPriceOracle(event: NewPriceOracle): void {
       event.transaction.hash,
       event.block.timestamp,
       event.block.number,
-      event.logIndex
-    )
+      event.logIndex,
+    );
 
-    poolStats.priceOracle = event.params.newPriceOracle
-    pool.markets = getAllMarketsInPool(contract)
+    poolStats.priceOracle = event.params.newPriceOracle;
+    pool.markets = getAllMarketsInPool(contract);
 
-    poolStats.save()
+    poolStats.save();
   }
-  pool.priceOracle = event.params.newPriceOracle
+  pool.priceOracle = event.params.newPriceOracle;
 
-  pool.save()
+  pool.save();
 }
