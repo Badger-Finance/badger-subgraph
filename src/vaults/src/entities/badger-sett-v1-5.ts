@@ -1,7 +1,14 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Sett } from '../../generated/schema';
 import { BadgerSettV1_5 } from '../../generated/templates/BadgerSettV1_5/BadgerSettV1_5';
-import { ADDR_ZERO, NO_ADDR, SETT_V1_5, ZERO } from '../constants';
+import {
+  ADDR_ZERO,
+  METADATA_UNKNOWN,
+  NO_ADDR,
+  SETT_V1_5,
+  VAULT_STATUS_EXPERIMENTAL,
+  ZERO,
+} from '../constants';
 import { readValue } from './contracts';
 import { loadStrategyV1_5 } from './strategy';
 import { loadToken } from './token';
@@ -20,6 +27,7 @@ export function loadSettV1_5(address: Address): Sett {
     sett.token = loadToken(token).id;
     sett.pricePerFullShare = BigInt.fromI32(1);
     sett.strategy = NO_ADDR;
+    sett.author = NO_ADDR;
     sett.balance = ZERO;
     sett.totalSupply = ZERO;
     sett.available = ZERO;
@@ -29,7 +37,14 @@ export function loadSettV1_5(address: Address): Sett {
     sett.netShareDeposit = ZERO;
     sett.grossShareDeposit = ZERO;
     sett.grossShareWithdraw = ZERO;
+    sett.status = VAULT_STATUS_EXPERIMENTAL;
     sett.version = SETT_V1_5;
+    sett.isProduction = false;
+    sett.protocol = METADATA_UNKNOWN;
+    sett.behavior = METADATA_UNKNOWN;
+    sett.createdAt = new BigInt(Date.now());
+    sett.lastUpdatedAt = new BigInt(Date.now());
+    sett.releasedAt = new BigInt(0);
   }
 
   sett.available = readValue<BigInt>(contract.try_available(), sett.available);

@@ -51,6 +51,49 @@ dataSources:
           handler: handleSet
       file: ./src/handlers/registry-handler.ts
   {{/registry}}
+  {{#registryV2}}
+  - kind: ethereum/contract
+    name: VaultRegistryV2
+    network: {{ chain }}
+    source:
+      address: "{{ address }}"
+      abi: VaultRegistryV2
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Sett
+        - Token
+      abis:
+        - name: VaultRegistryV2
+          file: ./abis/VaultRegistryV2.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: BadgerSett
+          file: ./abis/BadgerSett.json
+        - name: BadgerController
+          file: ./abis/BadgerController.json
+        - name: BadgerStrategy
+          file: ./abis/BadgerStrategy.json
+        - name: BadgerSettV1_5
+          file: ./abis/BadgerSettV1_5.json
+        - name: BadgerStrategyV1_5
+          file: ./abis/BadgerStrategyV1_5.json
+      eventHandlers:
+        - event: NewVault(address,string,string,address)
+          handler: handleNewVault
+        - event: PromoteVault(address,string,string,address,uint8)
+          handler: handlePromoteVault
+        - event: PurgeVault(address,string,string,address,uint8)
+          handler: handlePurgeVault
+        - event: DemoteVault(address,string,string,address,uint8)
+          handler: handleDemoteVault
+        - event: Set(string,address)
+          handler: handleSet
+      file: ./src/handlers/registry-v2-handler.ts
+  {{/registryV2}}
   {{#setts}}
   - kind: ethereum/contract
     name: {{ name }}
@@ -201,7 +244,7 @@ dataSources:
           handler: handleTreeDistribution
       file: ./src/handlers/bribe-processor-handler.ts
   {{/bribeProcessor}}
-  
+
 templates:
   - kind: ethereum/contract
     name: SettVault

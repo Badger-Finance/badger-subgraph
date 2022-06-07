@@ -1,7 +1,13 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Sett } from '../../generated/schema';
 import { BadgerAffiliateSett } from '../../generated/templates/AffiliateSettVault/BadgerAffiliateSett';
-import { AFFILIATE_SETT, NO_ADDR, ZERO } from '../constants';
+import {
+  AFFILIATE_SETT,
+  METADATA_UNKNOWN,
+  NO_ADDR,
+  VAULT_STATUS_EXPERIMENTAL,
+  ZERO,
+} from '../constants';
 import { readValue } from './contracts';
 import { loadToken } from './token';
 
@@ -28,6 +34,14 @@ export function loadAffiliateSett(address: Address): Sett {
     sett.grossShareDeposit = ZERO;
     sett.grossShareWithdraw = ZERO;
     sett.version = AFFILIATE_SETT;
+    sett.isProduction = false;
+    sett.author = NO_ADDR;
+    sett.status = VAULT_STATUS_EXPERIMENTAL;
+    sett.protocol = METADATA_UNKNOWN;
+    sett.behavior = METADATA_UNKNOWN;
+    sett.createdAt = new BigInt(Date.now());
+    sett.lastUpdatedAt = new BigInt(Date.now());
+    sett.releasedAt = new BigInt(0);
   }
 
   sett.pricePerFullShare = readValue<BigInt>(
