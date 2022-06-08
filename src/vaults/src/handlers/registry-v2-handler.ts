@@ -25,34 +25,50 @@ import { loadRegistry } from '../entities/registry';
 import { loadVaultAuthor } from '../entities/author';
 
 export function handleNewVault(event: NewVault): void {
-  const registry = event.address;
-  const { vault, version, metadata, author } = event.params;
+  let registry = event.address;
+  let ep = event.params;
 
-  addOrPromoteVault(registry, vault, version, metadata, author);
+  addOrPromoteVault(
+    registry,
+    ep.vault,
+    ep.version,
+    ep.metadata,
+    event.block.timestamp,
+    ep.author,
+    VAULT_STATUS_EXPERIMENTAL,
+  );
 }
 
 export function handlePromoteVault(event: PromoteVault): void {
-  const registry = event.address;
-  const { vault, version, metadata, author, status } = event.params;
+  let registry = event.address;
+  let ep = event.params;
 
-  addOrPromoteVault(registry, vault, version, metadata, author, status);
+  addOrPromoteVault(
+    registry,
+    ep.vault,
+    ep.version,
+    ep.metadata,
+    event.block.timestamp,
+    ep.author,
+    ep.status,
+  );
 }
 
-function parseRegVaultMetadata(metadata: string): Record<string, string> {
-  const parsedMetaData: Record<string, string> = {
-    name: METADATA_UNKNOWN,
-    protocol: METADATA_UNKNOWN,
-    behavior: METADATA_UNKNOWN,
-  };
+function parseRegVaultMetadata(metadata: string): Map<string, string> {
+  let metaDataMap: Map<string, string> = new Map();
+  metaDataMap.set('name', METADATA_UNKNOWN);
+  metaDataMap.set('protocol', METADATA_UNKNOWN);
+  metaDataMap.set('behavior', METADATA_UNKNOWN);
 
-  if (!metadata) return parsedMetaData;
+  if (!metadata) return metaDataMap;
 
-  metadata.split(',').forEach((val) => {
-    const [key, value] = val.split('=');
-    parsedMetaData[key] = decodeURI(value);
-  });
+  let metaEntries = metadata.split(',');
+  for (let i = 0; i < metaEntries.length; i++) {
+    let keyValue = metaEntries[i].split('=');
+    metaDataMap.set(keyValue[0], keyValue[1]);
+  }
 
-  return parsedMetaData;
+  return metaDataMap;
 }
 
 // Both NewVault and PromoteVault events can create new VaultInfo in mappings
@@ -61,9 +77,10 @@ function addOrPromoteVault(
   vault: Address,
   version: string,
   metadata: string,
+  eventTime: BigInt,
   author: Address,
-  status = VAULT_STATUS_EXPERIMENTAL, // status: VaultStatus(1), for NewVault event
-) {
+  status: number, // status: VaultStatus(1), for NewVault event
+): void {
   let maybeName: string;
   loadRegistry(registry);
 
@@ -76,15 +93,15 @@ function addOrPromoteVault(
     if (maybeName.length > 0) {
       if (version == SETT_V1_5) {
         BadgerSettV1_5.create(vault);
-        sett = loadSettV1_5(vault);
+        sett = loadSettV1_5(vault, eventTime);
       }
       if (version == SETT_V1) {
         SettVault.create(vault);
-        sett = loadSett(vault);
+        sett = loadSett(vault, eventTime);
       }
       if (version == AFFILIATE_SETT) {
         AffiliateSettVault.create(vault);
-        sett = loadAffiliateSett(vault);
+        sett = loadAffiliateSett(vault, eventTime);
       }
     }
   }
@@ -93,31 +110,35 @@ function addOrPromoteVault(
   // but we still need to update entries
   if (sett == null || maybeName.length <= 0) return;
 
-  const vaultAuthor = loadVaultAuthor(author);
+  let vaultAuthor = loadVaultAuthor(author);
 
   sett.author = vaultAuthor.id;
 
   if (status != VAULT_STATUS_EXPERIMENTAL) {
-    sett.status = status;
-    if (sett.releasedAt.toI32() === 0) sett.releasedAt = new BigInt(Date.now());
+    sett.status = <i32>status;
+    if (sett.releasedAt.toI32() === 0) sett.releasedAt = eventTime;
   }
-  if ([VAULT_STATUS_OPEN, VAULT_STATUS_GUARDED].includes(status)) {
-    sett.isProduction = true;
+
+  switch (<i32>status) {
+    case VAULT_STATUS_OPEN:
+    case VAULT_STATUS_GUARDED:
+      sett.isProduction = true;
+      break;
   }
-  sett.lastUpdatedAt = new BigInt(Date.now());
 
-  const parsedMetadata = parseRegVaultMetadata(metadata);
+  sett.lastUpdatedAt = eventTime;
 
-  sett.name = parsedMetadata.name;
-  sett.protocol = parsedMetadata.protocol;
-  sett.behavior = parsedMetadata.behavior;
+  let parsedMetadata = parseRegVaultMetadata(metadata);
+
+  sett.name = <string>parsedMetadata.get('name');
+  sett.protocol = <string>parsedMetadata.get('protocol');
+  sett.behavior = <string>parsedMetadata.get('behavior');
 
   sett.save();
 }
 
 export function handlePurgeVault(event: RemoveVault): void {
-  const { vault } = event.params;
-  const sett = Sett.load(vault.toHexString());
+  let sett = Sett.load(event.params.vault.toHexString());
 
   if (sett === null) return;
 
@@ -128,13 +149,12 @@ export function handlePurgeVault(event: RemoveVault): void {
 }
 
 export function handleDemoteVault(event: DemoteVault): void {
-  const { vault, status } = event.params;
-  const sett = Sett.load(vault.toHexString());
+  let sett = Sett.load(event.params.vault.toHexString());
 
   if (sett === null) return;
 
-  sett.lastUpdatedAt = new BigInt(Date.now());
-  sett.status = status;
+  sett.lastUpdatedAt = event.block.timestamp;
+  sett.status = event.params.status;
   sett.isProduction = false;
   sett.save();
 }

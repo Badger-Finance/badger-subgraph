@@ -11,7 +11,10 @@ import {
 import { readValue } from './contracts';
 import { loadToken } from './token';
 
-export function loadAffiliateSett(address: Address): Sett {
+export function loadAffiliateSett(
+  address: Address,
+  eventTime: BigInt = BigInt.fromI32(0),
+): Sett {
   let contract = BadgerAffiliateSett.bind(address);
   let id = address.toHexString();
   let sett = Sett.load(id);
@@ -39,8 +42,8 @@ export function loadAffiliateSett(address: Address): Sett {
     sett.status = VAULT_STATUS_EXPERIMENTAL;
     sett.protocol = METADATA_UNKNOWN;
     sett.behavior = METADATA_UNKNOWN;
-    sett.createdAt = new BigInt(Date.now());
-    sett.lastUpdatedAt = new BigInt(Date.now());
+    sett.createdAt = eventTime;
+    sett.lastUpdatedAt = eventTime;
     sett.releasedAt = new BigInt(0);
   }
 

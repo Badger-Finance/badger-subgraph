@@ -90,8 +90,6 @@ dataSources:
           handler: handlePurgeVault
         - event: DemoteVault(address,string,string,address,uint8)
           handler: handleDemoteVault
-        - event: Set(string,address)
-          handler: handleSet
       file: ./src/handlers/registry-v2-handler.ts
   {{/registryV2}}
   {{#setts}}
