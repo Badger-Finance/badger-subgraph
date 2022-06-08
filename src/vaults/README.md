@@ -6,6 +6,9 @@
 This subgraph focuses on tracking sett vault tokens transfers for users of the Badger Protocol.
 This supgraph powers the [Badger API](http://docs.badger.finance/).
 
+## Sources
+- [RegistryV2.sol](https://github.com/Badger-Finance/badger-registry/blob/main/contracts/BadgerRegistry.sol)
+
 ## Initial Setup
 
 Generate graphql entities and contracts:
