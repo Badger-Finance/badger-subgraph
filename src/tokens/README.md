@@ -3,6 +3,19 @@
 Subgraph to track Sett metrics on Mainnet.
 Sett data based on [Yearn Vaults subgraph](https://github.com/iearn-finance/yearn-subgraph)
 
+## Deployed
+
+`Mainnet`:
+- `sequences`: https://thegraph.com/hosted-service/subgraph/badger-finance/badger-dao-tokens
+- `graphiql`: https://api.thegraph.com/subgraphs/name/badger-finance/badger-dao-tokens
+
+Subgraphs for other networks conform this pattern `badger-finance/badger-dao-tokens-<network>`,
+where `network` can be:
+- polygon
+- arbitrum
+- fantom
+- bsc
+
 ## Setup
 
 - Copy `.envrc.example` to `.envrc`.

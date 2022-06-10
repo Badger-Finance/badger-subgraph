@@ -2,6 +2,12 @@
 
 Subgraph to track Across protocol balances on Mainnet.
 
+## Deployed
+
+`Mainnet`:
+  - `sequences`: https://thegraph.com/hosted-service/subgraph/badger-finance/badger-across
+  - `graphiql`: https://api.thegraph.com/subgraphs/name/badger-finance/badger-across
+
 ## Setup
 
 - Copy `.envrc.example` to `.envrc`.

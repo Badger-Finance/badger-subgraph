@@ -4,6 +4,10 @@
     "address": "0xfda7eb6f8b7a9e9fcfd348042ae675d1d652454f",
     "startBlock": 17880441
   },
+  "registryV2": {
+    "address": "0xdc602965F3e5f1e7BAf2446d5564b407d5113A06",
+    "startBlock": 28999821
+  },
   "setts": [
     {
       "name": "QLP-USDC-WBTC",
