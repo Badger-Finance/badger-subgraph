@@ -76,9 +76,17 @@ type Sett implements ERC20 & Vault & VaultBalance @entity {
   grossShareWithdraw: BigInt!
   controller: Controller
   strategy: Strategy
+  author: Author
   treeDistributions: [BadgerTreeDistribution!]! @derivedFrom(field: "sett")
   harvests: [SettHarvest!]! @derivedFrom(field: "sett")
   version: String!
+  status: Int!
+  isProduction: Boolean!
+  protocol: String!
+  behavior: String!
+  createdAt: BigInt!
+  lastUpdatedAt: BigInt!
+  releasedAt: BigInt!
 }
 
 type SettSnapshot implements ERC20 & Vault & VaultBalance & Snapshot @entity {
@@ -129,6 +137,11 @@ type Transfer implements Snapshot @entity {
 type User @entity {
   id: ID!
   settBalances: [UserSettBalance!]! @derivedFrom(field: "user")
+}
+
+type Author @entity {
+  id: ID!
+  setts: [Sett!]! @derivedFrom(field: "author")
 }
 
 type BadgerTreeDistribution implements TokenDistribution @entity {

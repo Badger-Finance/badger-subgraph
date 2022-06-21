@@ -1,13 +1,19 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Sett } from '../../generated/schema';
 import { BadgerSett } from '../../generated/templates/SettVault/BadgerSett';
-import { NO_ADDR, SETT_V1, ZERO } from '../constants';
+import {
+  METADATA_UNKNOWN,
+  NO_ADDR,
+  SETT_V1,
+  VAULT_STATUS_EXPERIMENTAL,
+  ZERO,
+} from '../constants';
 import { readValue } from './contracts';
 import { loadController } from './controller';
 import { loadStrategyFromController } from './strategy';
 import { loadToken } from './token';
 
-export function loadSett(address: Address): Sett {
+export function loadSett(address: Address, eventTime: BigInt = BigInt.fromI32(0)): Sett {
   let contract = BadgerSett.bind(address);
   let id = address.toHexString();
   let sett = Sett.load(id);
@@ -29,7 +35,15 @@ export function loadSett(address: Address): Sett {
     sett.netShareDeposit = ZERO;
     sett.grossShareDeposit = ZERO;
     sett.grossShareWithdraw = ZERO;
-    sett.version = SETT_V1
+    sett.version = SETT_V1;
+    sett.isProduction = false;
+    sett.author = NO_ADDR;
+    sett.status = VAULT_STATUS_EXPERIMENTAL;
+    sett.protocol = METADATA_UNKNOWN;
+    sett.behavior = METADATA_UNKNOWN;
+    sett.createdAt = eventTime;
+    sett.lastUpdatedAt = eventTime;
+    sett.releasedAt = new BigInt(0);
   }
 
   sett.available = readValue<BigInt>(contract.try_available(), sett.available);

@@ -22,6 +22,15 @@ export const SETT_V1 = 'v1';
 export const SETT_V1_5 = 'v1.5';
 export const AFFILIATE_SETT = 'affiliate';
 
+// vaults statuses
+export const VAULT_STATUS_DEPRECATED = 0;
+export const VAULT_STATUS_EXPERIMENTAL = 1;
+export const VAULT_STATUS_GUARDED = 2;
+export const VAULT_STATUS_OPEN = 3;
+
+// unknown metadata
+export const METADATA_UNKNOWN = 'unknown';
+
 export const BADGER_SHARE = 0.275;
 export const OPS_FEE = 0.05;
 

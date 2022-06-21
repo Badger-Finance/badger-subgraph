@@ -4,6 +4,10 @@
     "address": "0xfda7eb6f8b7a9e9fcfd348042ae675d1d652454f",
     "startBlock": 265678
   },
+  "registryV2": {
+    "address": "0xdc602965F3e5f1e7BAf2446d5564b407d5113A06",
+    "startBlock": 13357506
+  },
   "setts": [
     {
       "name": "SLP-WETH-SUSHI",

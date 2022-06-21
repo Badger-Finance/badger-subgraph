@@ -1,7 +1,7 @@
 ![TheGraph Splash Image](./docs/images/thegraph.jpg)
 # Badger Subgraph
 
-The Badger Subgraph repository is a GraphQL based project focused on parsing on chain events into queryable data to enable off chain analysis. 
+The Badger Subgraph repository is a GraphQL based project focused on parsing on chain events into queryable data to enable off chain analysis.
 This project is built on top of [TheGraph](https://thegraph.com/docs/developer/quick-start) - a decentralized protocol for indexing and querying data from blockchains.
 
 The subgraphs focus on various aspects of the BadgerDAO protocol.
@@ -11,24 +11,14 @@ Each subgraph is delegated to the subgraphs workspace - this inherits all base p
 
 ## Available Subgraphs
 
-- **Badger Setts**
-  - Short description of the badger setts subgraph
-- **Badger Setts**
-  - Short description of the badger setts subgraph
-- **Badger Setts**
-  - Short description of the badger setts subgraph
-- **Badger Setts**
-  - Short description of the badger setts subgraph
-
-### Deployed Subgraphs
-
-- [BadgerDAO Ethereum](https://thegraph.com/legacy-explorer/subgraph/axejintao/badger-dao)
-- [BadgerDAO Polygon](https://thegraph.com/legacy-explorer/subgraph/axejintao/badger-dao-polygon)
-- [BadgerDAO Arbitrum](https://thegraph.com/legacy-explorer/subgraph/axejintao/badger-dao-arbitrum)
+- [Badger-across](src/badger-across)
+- [Badger-nfts](src/badger-nfts)
+- [Fuse-subgraph](src/fuse-subgraph)
+- [Tokens](src/tokens)
+- [Vaults](src/vaults)
 
 ## Deploying a Subgraph
 
 Badger subgraphs are written with the intention or serving cross chain implementations.
 Thus, deployment of subgraphs comprises of three steps to allow for this flexibility in cross chain deployments.
 
-...
