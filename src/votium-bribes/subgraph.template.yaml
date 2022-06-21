@@ -1,0 +1,48 @@
+specVersion: 0.0.3
+description: "Badger is a decentralized autonomous organization (DAO) with a single purpose: build the products and infrastructure necessary to accelerate Bitcoin as collateral across other blockchains."
+repository: https://github.com/Badger-Finance/badger-subgraph/tree/master/src/votium-bribes
+schema:
+  file: ./schema.graphql
+dataSources:
+  {{#votiumBribes}}
+  - kind: ethereum/contract
+    name: {{ name }}
+    network: {{ chain }}
+    source:
+      address: '{{ address }}'
+      abi: VotiumBribe
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Bribed
+      abis:
+        - name: VotiumBribe
+          file: ./abis/VotiumBribe.json
+      eventHandlers:
+        - event: Bribed(address,uint256,indexed bytes32,uint256)
+          handler: handleBribed
+      file: ./src/votium-bribe.ts
+  {{/votiumBribes}}
+
+templates:
+  - kind: ethereum/contract
+    name: VotiumBribe
+    network: {{ chain }}
+    source:
+      abi: VotiumBribe
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Bribed
+      abis:
+        - name: VotiumBribe
+          file: ./abis/VotiumBribe.json
+      eventHandlers:
+        - event: Bribed(address,uint256,indexed bytes32,uint256)
+          handler: handleBribed
+      file: ./src/votium-bribe.ts
