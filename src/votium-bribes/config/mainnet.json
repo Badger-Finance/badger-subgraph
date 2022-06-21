@@ -1,0 +1,10 @@
+{
+  "chain": "mainnet",
+  "votiumBribes": [
+    {
+      "name": "VotiumBribe",
+      "address": "0x19BBC3463Dd8d07f55438014b021Fb457EBD4595",
+      "startBlock": 0
+    }
+  ]
+}
