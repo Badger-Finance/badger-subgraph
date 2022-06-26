@@ -14,8 +14,6 @@ import {
   SETT_V1,
   SETT_V1_5,
   VAULT_STATUS_EXPERIMENTAL,
-  VAULT_STATUS_GUARDED,
-  VAULT_STATUS_OPEN,
 } from '../constants';
 import { loadAffiliateSett } from '../entities/affiliate-sett';
 import { loadSett } from '../entities/badger-sett';
@@ -36,6 +34,7 @@ export function handleNewVault(event: NewVault): void {
     event.block.timestamp,
     ep.author,
     VAULT_STATUS_EXPERIMENTAL,
+    false,
   );
 }
 
@@ -51,6 +50,7 @@ export function handlePromoteVault(event: PromoteVault): void {
     event.block.timestamp,
     ep.author,
     ep.status,
+    true,
   );
 }
 
@@ -80,6 +80,7 @@ function addOrPromoteVault(
   eventTime: BigInt,
   author: Address,
   status: number, // status: VaultStatus(1), for NewVault event
+  isProduction: boolean, // Promotion mean that it is 100% in production map
 ): void {
   let maybeName: string;
   loadRegistry(registry);
@@ -119,12 +120,7 @@ function addOrPromoteVault(
     if (sett.releasedAt.toI32() === 0) sett.releasedAt = eventTime;
   }
 
-  switch (<i32>status) {
-    case VAULT_STATUS_OPEN:
-    case VAULT_STATUS_GUARDED:
-      sett.isProduction = true;
-      break;
-  }
+  sett.isProduction = isProduction;
 
   sett.lastUpdatedAt = eventTime;
 
