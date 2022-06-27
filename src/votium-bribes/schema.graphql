@@ -1,5 +1,5 @@
 type Bribe @entity(immutable: true) {
-  id: Bytes!
+  id: ID!
   proposal: Bytes!
   token: Bytes!
   amount: BigInt!
