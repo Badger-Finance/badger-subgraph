@@ -1,0 +1,10 @@
+{
+  "chain": "mainnet",
+  "auraBribes": [
+    {
+      "name": "AuraBribe",
+      "address": "0x642c59937a62cf7dc92f70fd78a13cee0aa2bd9c",
+      "startBlock": 13603269
+    }
+  ]
+}
