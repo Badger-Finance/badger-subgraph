@@ -1,0 +1,9 @@
+type Bribe @entity(immutable: true) {
+  id: ID!
+  proposal: Bytes!
+  token: Bytes!
+  amount: BigInt!
+  bribeIdentifier: Bytes!
+  rewardIdentifier: Bytes!
+  briber: Bytes!
+}
