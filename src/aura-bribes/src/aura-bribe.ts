@@ -1,4 +1,4 @@
-import { DepositBribe, } from "../generated/BalancerBribe/BalancerBribe"
+import { DepositBribe, } from "../generated/AuraBribe/AuraBribe"
 import { Bribe } from "../generated/schema"
 
 export function handleDepositBribe(event: DepositBribe): void {
