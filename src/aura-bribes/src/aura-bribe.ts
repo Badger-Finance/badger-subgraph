@@ -2,7 +2,7 @@ import { DepositBribe, } from "../generated/AuraBribe/AuraBribe"
 import { Bribe } from "../generated/schema"
 
 export function handleDepositBribe(event: DepositBribe): void {
-  let bribe = new Bribe(event.transaction.hash.toHexString());
+  let bribe = new Bribe(event.transaction.hash.toHexString() + event.logIndex.toHexString());
 
   bribe.bribeIdentifier = event.params.bribeIdentifier;
   bribe.proposal = event.params.proposal;
