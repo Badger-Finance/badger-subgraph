@@ -1,4 +1,4 @@
-import { Address } from '@graphprotocol/graph-ts';
+import { Address, BigInt } from '@graphprotocol/graph-ts';
 import { Sett } from '../../generated/schema';
 import { SettVault, BadgerSettV1_5, AffiliateSettVault } from '../../generated/templates';
 import { BadgerSett } from '../../generated/templates/SettVault/BadgerSett';
@@ -26,13 +26,23 @@ export function handleAddVersion(event: AddVersion): void {}
 
 // TODO: consider how to differentiate on author
 export function handleNewVault(event: NewVault): void {
-  handleVaultEvent(event.address, event.params.vault, event.params.version);
+  handleVaultEvent(
+    event.address,
+    event.params.vault,
+    event.params.version,
+    event.block.timestamp,
+  );
 }
 
 // TODO: potentially use for upgrading vault state vs. registering new vaults
 // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
 export function handlePromoteVault(event: PromoteVault): void {
-  handleVaultEvent(event.address, event.params.vault, event.params.version);
+  handleVaultEvent(
+    event.address,
+    event.params.vault,
+    event.params.version,
+    event.block.timestamp,
+  );
 }
 
 // TODO: consider vault state (active, deprecated, guarded) via new / promote
@@ -46,7 +56,12 @@ export function handleDemoteVault(event: DemoteVault): void {}
 // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
 export function handleSet(event: Set): void {}
 
-function handleVaultEvent(registry: Address, vault: Address, version: string): void {
+function handleVaultEvent(
+  registry: Address,
+  vault: Address,
+  version: string,
+  eventTime: BigInt,
+): void {
   loadRegistry(registry);
   let sett = Sett.load(vault.toHexString());
   if (sett == null) {
@@ -56,15 +71,15 @@ function handleVaultEvent(registry: Address, vault: Address, version: string): v
     if (maybeName.length > 0) {
       if (version == SETT_V1_5) {
         BadgerSettV1_5.create(vault);
-        loadSettV1_5(vault).save();
+        loadSettV1_5(vault, eventTime).save();
       }
       if (version == SETT_V1) {
         SettVault.create(vault);
-        loadSett(vault).save();
+        loadSett(vault, eventTime).save();
       }
       if (version == AFFILIATE_SETT) {
         AffiliateSettVault.create(vault);
-        loadAffiliateSett(vault).save();
+        loadAffiliateSett(vault, eventTime).save();
       }
     }
   }
