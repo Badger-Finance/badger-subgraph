@@ -13,6 +13,7 @@ import { loadToken } from './token';
 
 export function loadAffiliateSett(
   address: Address,
+  eventBlock: BigInt = BigInt.fromI32(0),
   eventTime: BigInt = BigInt.fromI32(0),
 ): Sett {
   let contract = BadgerAffiliateSett.bind(address);
@@ -43,6 +44,7 @@ export function loadAffiliateSett(
     sett.protocol = METADATA_UNKNOWN;
     sett.behavior = METADATA_UNKNOWN;
     sett.createdAt = eventTime;
+    sett.createdAtBlock = eventBlock;
     sett.lastUpdatedAt = eventTime;
     sett.releasedAt = new BigInt(0);
   }

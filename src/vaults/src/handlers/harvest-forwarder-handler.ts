@@ -1,9 +1,4 @@
-import {
-  TreeDistribution,
-  TreeUpdate,
-  OwnerUpdate,
-  Sweep,
-} from '../../generated/HarvestForwarder/HarvestForwarder';
+import { TreeDistribution } from '../../generated/HarvestForwarder/HarvestForwarder';
 import { ADDR_ZERO } from '../constants';
 import { loadBadgerTreeDistribution } from '../entities/badger-tree-distribution';
 
@@ -22,8 +17,8 @@ export function handleTreeDistribution(event: TreeDistribution): void {
   distribution.save();
 }
 
-export function handleTreeUpdate(event: TreeUpdate): void {}
+// export function handleTreeUpdate(event: TreeUpdate): void {}
 
-export function handleOwnerUpdate(event: OwnerUpdate): void {}
+// export function handleOwnerUpdate(event: OwnerUpdate): void {}
 
-export function handleSweep(event: Sweep): void {}
+// export function handleSweep(event: Sweep): void {}

@@ -31,6 +31,7 @@ export function handleNewVault(event: NewVault): void {
     ep.vault,
     ep.version,
     ep.metadata,
+    event.block.number,
     event.block.timestamp,
     ep.author,
     VAULT_STATUS_EXPERIMENTAL,
@@ -47,6 +48,7 @@ export function handlePromoteVault(event: PromoteVault): void {
     ep.vault,
     ep.version,
     ep.metadata,
+    event.block.number,
     event.block.timestamp,
     ep.author,
     ep.status,
@@ -77,6 +79,7 @@ function addOrPromoteVault(
   vault: Address,
   version: string,
   metadata: string,
+  eventBlock: BigInt,
   eventTime: BigInt,
   author: Address,
   status: number, // status: VaultStatus(1), for NewVault event
@@ -94,15 +97,15 @@ function addOrPromoteVault(
     if (maybeName.length > 0) {
       if (version == SETT_V1_5) {
         BadgerSettV1_5.create(vault);
-        sett = loadSettV1_5(vault, eventTime);
+        sett = loadSettV1_5(vault, eventBlock, eventTime);
       }
       if (version == SETT_V1) {
         SettVault.create(vault);
-        sett = loadSett(vault, eventTime);
+        sett = loadSett(vault, eventBlock, eventTime);
       }
       if (version == AFFILIATE_SETT) {
         AffiliateSettVault.create(vault);
-        sett = loadAffiliateSett(vault, eventTime);
+        sett = loadAffiliateSett(vault, eventBlock, eventTime);
       }
     }
   }

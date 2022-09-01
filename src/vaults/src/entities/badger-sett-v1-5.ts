@@ -15,6 +15,7 @@ import { loadToken } from './token';
 
 export function loadSettV1_5(
   address: Address,
+  eventBlock: BigInt = BigInt.fromI32(0),
   eventTime: BigInt = BigInt.fromI32(0),
 ): Sett {
   let contract = BadgerSettV1_5.bind(address);
@@ -46,6 +47,7 @@ export function loadSettV1_5(
     sett.protocol = METADATA_UNKNOWN;
     sett.behavior = METADATA_UNKNOWN;
     sett.createdAt = eventTime;
+    sett.createdAtBlock = eventBlock;
     sett.lastUpdatedAt = eventTime;
     sett.releasedAt = new BigInt(0);
   }

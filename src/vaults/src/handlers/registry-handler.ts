@@ -30,6 +30,7 @@ export function handleNewVault(event: NewVault): void {
     event.address,
     event.params.vault,
     event.params.version,
+    event.block.number,
     event.block.timestamp,
   );
 }
@@ -41,6 +42,7 @@ export function handlePromoteVault(event: PromoteVault): void {
     event.address,
     event.params.vault,
     event.params.version,
+    event.block.number,
     event.block.timestamp,
   );
 }
@@ -60,6 +62,7 @@ function handleVaultEvent(
   registry: Address,
   vault: Address,
   version: string,
+  eventBlock: BigInt,
   eventTime: BigInt,
 ): void {
   loadRegistry(registry);
@@ -71,15 +74,15 @@ function handleVaultEvent(
     if (maybeName.length > 0) {
       if (version == SETT_V1_5) {
         BadgerSettV1_5.create(vault);
-        loadSettV1_5(vault, eventTime).save();
+        loadSettV1_5(vault, eventBlock, eventTime).save();
       }
       if (version == SETT_V1) {
         SettVault.create(vault);
-        loadSett(vault, eventTime).save();
+        loadSett(vault, eventBlock, eventTime).save();
       }
       if (version == AFFILIATE_SETT) {
         AffiliateSettVault.create(vault);
-        loadAffiliateSett(vault, eventTime).save();
+        loadAffiliateSett(vault, eventBlock, eventTime).save();
       }
     }
   }

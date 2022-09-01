@@ -21,7 +21,10 @@ import {
   WithdrawOther,
   WithdrawState,
 } from '../../generated/templates/BadgerStrategy/BadgerStrategy';
-import { loadBadgerTreeDistribution, loadSushiTreeDistribution } from '../entities/badger-tree-distribution';
+import {
+  loadBadgerTreeDistribution,
+  loadSushiTreeDistribution,
+} from '../entities/badger-tree-distribution';
 import { loadController } from '../entities/controller';
 import { loadHarvest } from '../entities/harvest';
 import { loadStrategy } from '../entities/strategy';
@@ -86,7 +89,7 @@ export function handleTreeDistribution(event: TreeDistribution): void {
   // Handle case where tree distribution event is duplicated for v1.5 vaults
   let maybeSett = BadgerSett.bind(event.address);
   let maybeName = readValue<string>(maybeSett.try_name(), '');
-  if(maybeName.length > 0) {
+  if (maybeName.length > 0) {
     return;
   }
   let strategy = loadStrategy(event.address);
