@@ -13,7 +13,11 @@ import { loadController } from './controller';
 import { loadStrategyFromController } from './strategy';
 import { loadToken } from './token';
 
-export function loadSett(address: Address, eventTime: BigInt = BigInt.fromI32(0)): Sett {
+export function loadSett(
+  address: Address,
+  eventBlock: BigInt = BigInt.fromI32(0),
+  eventTime: BigInt = BigInt.fromI32(0),
+): Sett {
   let contract = BadgerSett.bind(address);
   let id = address.toHexString();
   let sett = Sett.load(id);
@@ -42,6 +46,7 @@ export function loadSett(address: Address, eventTime: BigInt = BigInt.fromI32(0)
     sett.protocol = METADATA_UNKNOWN;
     sett.behavior = METADATA_UNKNOWN;
     sett.createdAt = eventTime;
+    sett.createdAtBlock = eventBlock;
     sett.lastUpdatedAt = eventTime;
     sett.releasedAt = new BigInt(0);
   }

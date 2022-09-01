@@ -84,6 +84,7 @@ type Sett implements ERC20 & Vault & VaultBalance @entity {
   isProduction: Boolean!
   protocol: String!
   behavior: String!
+  createdAtBlock: BigInt!
   createdAt: BigInt!
   lastUpdatedAt: BigInt!
   releasedAt: BigInt!
