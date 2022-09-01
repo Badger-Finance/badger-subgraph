@@ -15,7 +15,6 @@ import {
 } from '../entities/user-sett-balance';
 
 export function handleTransfer(event: Transfer): void {
-  let timestamp = event.block.timestamp.toI32();
   let from = event.params.from;
   let to = event.params.to;
   let value = event.params.value;
@@ -24,7 +23,8 @@ export function handleTransfer(event: Transfer): void {
   handleSettTokenTransfer(
     hash,
     index,
-    timestamp,
+    event.block.timestamp,
+    event.block.number,
     event.address,
     SettType.v1,
     from,
@@ -64,25 +64,27 @@ export function withdrawSett(
 export function handleSettTokenTransfer(
   hash: Bytes,
   index: BigInt,
-  timestamp: i32,
+  eventTime: BigInt,
+  block: BigInt,
   settAddress: Address,
   settType: SettType,
   fromAddress: Address,
   toAddress: Address,
   share: BigInt,
 ): void {
+  let timestamp = eventTime.toI32();
   // load appropriate sett
   let sett: Sett;
   switch (settType) {
     case SettType.Affiliate:
-      sett = loadAffiliateSett(settAddress);
+      sett = loadAffiliateSett(settAddress, block, eventTime);
       break;
     case SettType.v1_5:
-      sett = loadSettV1_5(settAddress);
+      sett = loadSettV1_5(settAddress, block, eventTime);
       break;
     case SettType.v1:
     default:
-      sett = loadSett(settAddress);
+      sett = loadSett(settAddress, block, eventTime);
   }
 
   loadTransfer(hash, index, timestamp, sett.id, fromAddress, toAddress, share);

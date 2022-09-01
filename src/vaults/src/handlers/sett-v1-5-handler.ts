@@ -69,7 +69,6 @@ export function handleSetTreasury(event: SetTreasury): void {}
 export function handleSetWithdrawalFee(event: SetWithdrawalFee): void {}
 
 export function handleTransfer(event: Transfer): void {
-  let timestamp = event.block.timestamp.toI32();
   let from = event.params.from;
   let to = event.params.to;
   let value = event.params.value;
@@ -77,7 +76,8 @@ export function handleTransfer(event: Transfer): void {
   handleSettTokenTransfer(
     hash,
     event.logIndex,
-    timestamp,
+    event.block.timestamp,
+    event.block.number,
     event.address,
     SettType.v1_5,
     from,
