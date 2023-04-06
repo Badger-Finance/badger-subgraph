@@ -3,8 +3,9 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 [![Build](https://github.com/axejintao/badger-dao/actions/workflows/build.yml/badge.svg)](https://github.com/axejintao/badger-dao/actions/workflows/build.yml)
 
-This subgraph focuses on tracking sett vault tokens transfers for users of the Badger Protocol.
-This supgraph powers the [Badger API](http://docs.badger.finance/).
+This subgraph focuses on tracking sett vault tokens transfers for users of the Badger protocol.
+
+This subgraph powers the [Badger API](https://api.badger.com/docs/).
 
 ## Deployed
 

@@ -59,8 +59,9 @@ export function loadSett(
   sett.balance = readValue<BigInt>(contract.try_balance(), sett.balance);
   sett.totalSupply = readValue<BigInt>(contract.try_totalSupply(), sett.totalSupply);
 
-  let defaultController = sett.controller
-    ? Address.fromString(sett.controller)
+  let settController = sett.controller
+  let defaultController = settController
+    ? Address.fromString(settController)
     : Address.fromString(NO_ADDR);
   let controller = readValue<Address>(contract.try_controller(), defaultController);
   sett.controller = loadController(controller).id;
