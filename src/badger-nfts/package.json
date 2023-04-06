@@ -22,9 +22,5 @@
     "deploy:arbitrum": "echo badger-nfts not support on arbitrum",
     "deploy:bsc": "echo badger-nfts not support on bsc",
     "deploy:xdai": "echo badger-nfts not support on xdai"
-  },
-  "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.20.0",
-    "@graphprotocol/graph-ts": "^0.20.0"
   }
 }
