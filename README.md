@@ -11,13 +11,15 @@ Each subgraph is delegated to the subgraphs workspace - this inherits all base p
 
 ## Available Subgraphs
 
-- [Badger-across](src/badger-across)
-- [Badger-nfts](src/badger-nfts)
-- [Fuse-subgraph](src/fuse-subgraph)
-- [Tokens](src/tokens)
-- [Vaults](src/vaults)
-- [Aura-bribes](src/aura-bribes/)
-- [Votium-bribes](src/votium-bribes/)
+| Name | Source | Hosted | Decentralised
+|-|-|-|-|
+| badger-across | [src/badger-across](src/badger-across) | [Dashboard](https://thegraph.com/hosted-service/subgraph/badger-finance/badger-across), [GraphiQL](https://api.thegraph.com/subgraphs/name/badger-finance/badger-across/graphql) | [`EHyQAM-YmsYbG`](https://thegraph.com/explorer/subgraphs/EHyQAMZk2gFBiK2peWQQVXdkfMHtPfVqMr17BgYmsYbG) (error)
+| badger-aura-bribes | [src/aura-bribes](src/aura-bribes) | [Dashboard](https://thegraph.com/hosted-service/subgraph/badger-finance/aura-bribes), [GraphiQL](https://api.thegraph.com/subgraphs/name/badger-finance/aura-bribes/graphql) | [`9yCNce—3cyLpR`](https://thegraph.com/explorer/subgraphs/9yCNceXTpxcNqkjsAhiWsf7YRNUqfCTh7KKZzJ3cyLpR) (synced) |
+| badger-fuse | [src/fuse-subgraph](src/fuse-subgraph) | [Dashboard](https://thegraph.com/hosted-service/subgraph/badger-finance/fuse-subgraph), [GraphiQL](https://api.thegraph.com/subgraphs/name/badger-finance/fuse-subgraph/graphql) | (uncompiled) |
+| badger-nfts | [src/badger-nfts](src/badger-nfts) | [Dashboard](https://thegraph.com/hosted-service/subgraph/badger-finance/badger-nfts), [GraphiQL](https://api.thegraph.com/subgraphs/name/badger-finance/badger-nfts/graphql) | [`DizwHg-osPESz`](https://thegraph.com/explorer/subgraphs/DizwHgs7HaymeRLAtR8d8DDCR7RAH8p9pGcng8osPESz) (synced) |
+| badger-tokens | [src/tokens](src/tokens) | [Dashboard](https://thegraph.com/hosted-service/subgraph/badger-finance/badger-dao-tokens), [GraphiQL](https://api.thegraph.com/subgraphs/name/badger-finance/badger-dao-tokens/graphql) | (error) |
+| badger-vaults | [src/vaults](src/vaults) | [Dashboard](https://thegraph.com/hosted-service/subgraph/badger-finance/badger-dao-setts), [GraphiQL](https://api.thegraph.com/subgraphs/name/badger-finance/badger-dao-setts/graphql) | (error) |
+| badger-votium-bribes | [src/votium-bribes](src/votium-bribes) | [Dashboard](https://thegraph.com/hosted-service/subgraph/badger-finance/votium-bribes) (undeployed) | [`4UN7Ge-f4ZNGX`](https://thegraph.com/explorer/subgraphs/4UN7GeL4iUzPGsh1twdBmHXA6ezrmo1bJya8FFf4ZNGX) (synced) |
 
 ## Deploying a Subgraph
 
