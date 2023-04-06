@@ -22,9 +22,5 @@
     "deploy:bsc": "echo badger-across not support on bsc",
     "deploy:xdai": "echo badger-across not support on xdai",
     "deploy-local": "graph deploy badger-finance/badger-across --ipfs http://localhost:5001 --node http://127.0.0.1:8020"
-  },
-  "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.20.0",
-    "@graphprotocol/graph-ts": "^0.20.0"
   }
 }
