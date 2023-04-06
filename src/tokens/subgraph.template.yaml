@@ -15,7 +15,7 @@ dataSources:
     mapping:
       kind: ethereum/events
       language: wasm/assemblyscript
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       entities:
         - TokenBalance
         - Token
@@ -38,7 +38,7 @@ dataSources:
     mapping:
       kind: ethereum/events
       language: wasm/assemblyscript
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       entities:
         - TokenBalance
         - Token
@@ -62,7 +62,7 @@ templates:
     mapping:
       kind: ethereum/events
       language: wasm/assemblyscript
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       entities:
         - TokenBalance
         - Token
@@ -81,7 +81,7 @@ templates:
     mapping:
       kind: ethereum/events
       language: wasm/assemblyscript
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       entities:
         - TokenBalance
         - Token
