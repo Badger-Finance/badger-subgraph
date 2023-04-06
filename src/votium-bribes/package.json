@@ -1,5 +1,6 @@
 {
   "name": "votium-bribes",
+  "version": "0.1.0",
   "license": "MIT",
   "scripts": {
     "create": "graph create badger-finance/votium-bribes --node https://api.thegraph.com/deploy/",
@@ -21,9 +22,5 @@
     "deploy:arbitrum": "echo votium-bribes not support on arbitrum",
     "deploy:bsc": "echo votium-bribes not support on bsc",
     "deploy:xdai": "echo votium-bribes not support on xdai"
-  },
-  "dependencies": {
-    "@graphprotocol/graph-cli": "0.30.4",
-    "@graphprotocol/graph-ts": "0.27.0"
   }
 }
