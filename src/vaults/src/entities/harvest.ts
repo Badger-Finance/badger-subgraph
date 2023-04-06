@@ -24,8 +24,9 @@ export function loadHarvest(event: Harvest): SettHarvest {
   harvest.sett = strategy.sett;
   harvest.amount = event.params.harvested;
 
-  if (strategy.sett) {
-    let sett = loadSett(Address.fromString(strategy.sett));
+  let strategySett = strategy.sett
+  if (strategySett) {
+    let sett = loadSett(Address.fromString(strategySett));
     harvest.token = sett.token;
   }
 
