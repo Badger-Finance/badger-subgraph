@@ -6,10 +6,10 @@ import { readValue } from './contracts';
 export function loadToken(address: Address): Token {
   let id = address.toHexString();
   // handle scenario where a sett is loaded as a deposit token, sett implements token
-  let token = Token.load(id) as Token;
+  let token = Token.load(id);
 
   if (token) {
-    return token;
+    return token as Token;
   }
 
   let contract = ERC20.bind(address);
