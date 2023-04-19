@@ -17,7 +17,7 @@ Each subgraph is delegated to the subgraphs workspace - this inherits all base p
 - [Tokens](src/tokens)
 - [Vaults](src/vaults)
 
-**NOTE**: find the decentralised subgraphs in the readme in their own branch here: [`tree/decentralized`](tree/decentralized)
+**NOTE**: find the decentralised subgraphs in the readme in their own branch here: [`tree/decentralized`](../../tree/decentralized)
 
 ## Deploying a Subgraph
 
