@@ -18,10 +18,13 @@ Each subgraph is delegated to the subgraphs workspace - this inherits all base p
 | badger-fuse | [src/fuse-subgraph](src/fuse-subgraph) | [fuse-subgraph](https://thegraph.com/hosted-service/subgraph/badger-finance/fuse-subgraph) ([GraphiQL](https://api.thegraph.com/subgraphs/name/badger-finance/fuse-subgraph/graphql)) | (deprecated) |
 | badger-nfts | [src/badger-nfts](src/badger-nfts) | [badger-nfts](https://thegraph.com/hosted-service/subgraph/badger-finance/badger-nfts) ([GraphiQL](https://api.thegraph.com/subgraphs/name/badger-finance/badger-nfts/graphql)) | [`DizwHg-osPESz`](https://thegraph.com/explorer/subgraphs/DizwHgs7HaymeRLAtR8d8DDCR7RAH8p9pGcng8osPESz) (synced) |
 | badger-tokens | [src/tokens](src/tokens) | [badger-dao-tokens](https://thegraph.com/hosted-service/subgraph/badger-finance/badger-dao-tokens) ([GraphiQL](https://api.thegraph.com/subgraphs/name/badger-finance/badger-dao-tokens/graphql)) | [4fGNcB-K3jnca](https://thegraph.com/explorer/subgraphs/4fGNcBzS8nvcSgnAt8QSsL7aVgC6xJBygN531HK3jnca) (synced) |
-| badger-vaults | [src/vaults](src/vaults) | [badger-dao-setts](https://thegraph.com/hosted-service/subgraph/badger-finance/badger-dao-setts) ([GraphiQL](https://api.thegraph.com/subgraphs/name/badger-finance/badger-dao-setts/graphql)) | [4fGNcB-K3jnca](https://thegraph.com/explorer/subgraphs/4fGNcBzS8nvcSgnAt8QSsL7aVgC6xJBygN531HK3jnca) (synced) |
+| badger-vaults | [src/vaults](src/vaults) | [badger-dao-setts](https://thegraph.com/hosted-service/subgraph/badger-finance/badger-dao-setts) ([GraphiQL](https://api.thegraph.com/subgraphs/name/badger-finance/badger-dao-setts/graphql)) | [xxx](https://thegraph.com/explorer/subgraphs/xxx) (bugged) |
 | badger-votium-bribes | [src/votium-bribes](src/votium-bribes) | [votium-bribes](https://thegraph.com/hosted-service/subgraph/badger-finance/votium-bribes) (undeployed) | [`4UN7Ge-f4ZNGX`](https://thegraph.com/explorer/subgraphs/4UN7GeL4iUzPGsh1twdBmHXA6ezrmo1bJya8FFf4ZNGX) (synced) |
 
-## Deploying a Subgraph
-
-Badger subgraphs are written with the intention of serving cross chain implementations.
-Thus, deployment of subgraphs comprises of three steps to allow for this flexibility in cross chain deployments.
+## Deploying a Decentralised Subgraph
+```
+graph auth --studio <api-key>
+cd <subgraph-dir>
+graph codegen && graph build
+graph deploy --studio <subgraph-slug>
+```
