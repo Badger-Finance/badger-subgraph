@@ -21,10 +21,29 @@ Each subgraph is delegated to the subgraphs workspace - this inherits all base p
 | badger-vaults | [src/vaults](src/vaults) | [badger-dao-setts](https://thegraph.com/hosted-service/subgraph/badger-finance/badger-dao-setts) ([GraphiQL](https://api.thegraph.com/subgraphs/name/badger-finance/badger-dao-setts/graphql)) | [xxx](https://thegraph.com/explorer/subgraphs/xxx) (bugged) |
 | badger-votium-bribes | [src/votium-bribes](src/votium-bribes) | [votium-bribes](https://thegraph.com/hosted-service/subgraph/badger-finance/votium-bribes) (undeployed) | [`4UN7Ge-f4ZNGX`](https://thegraph.com/explorer/subgraphs/4UN7GeL4iUzPGsh1twdBmHXA6ezrmo1bJya8FFf4ZNGX) (synced) |
 
+## Testing on a Local Graph Node
+Open a terminal and run a local blockchain fork for the graph node to connect to:
+```
+ganache -h 0.0.0.0 --fork https://eth-mainnet.g.alchemy.com/v2/***
+```
+
+Then in a second terminal, run a local graph node:
+```
+git clone git@github.com:graphprotocol/graph-node.git
+cd graph-node/docker
+rm -rf data && docker-compose up
+```
+
+Finally deploy the subgraph in question to the local node:
+```
+cd src/<subgraph-dir>
+yarn codegen && yarn build && yarn create-local && yarn deploy-local
+```
+
 ## Deploying a Decentralised Subgraph
 ```
 graph auth --studio <api-key>
-cd <subgraph-dir>
+cd src/<subgraph-dir>
 graph codegen && graph build
 graph deploy --studio <subgraph-slug>
 ```
