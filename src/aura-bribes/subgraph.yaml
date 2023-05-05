@@ -1,0 +1,46 @@
+specVersion: 0.0.4
+description: "Badger is a decentralized autonomous organization (DAO) with a single purpose: build the products and infrastructure necessary to accelerate Bitcoin as collateral across other blockchains."
+repository: https://github.com/Badger-Finance/badger-subgraph/tree/master/src/aura-bribes
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: AuraBribe
+    network: mainnet
+    source:
+      address: '0x642c59937a62cf7dc92f70fd78a13cee0aa2bd9c'
+      abi: AuraBribe
+      startBlock: 13603269
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - DepositBribe
+      abis:
+        - name: AuraBribe
+          file: ./abis/AuraBribe.json
+      eventHandlers:
+        - event: DepositBribe(indexed bytes32,indexed address,uint256,bytes32,bytes32,indexed address)
+          handler: handleDepositBribe
+      file: ./src/aura-bribe.ts
+
+templates:
+  - kind: ethereum/contract
+    name: AuraBribe
+    network: mainnet
+    source:
+      abi: AuraBribe
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - DepositBribe
+      abis:
+        - name: AuraBribe
+          file: ./abis/AuraBribe.json
+      eventHandlers:
+        - event: DepositBribe(indexed bytes32,indexed address,uint256,bytes32,bytes32,indexed address)
+          handler: handleDepositBribe
+      file: ./src/aura-bribe.ts
