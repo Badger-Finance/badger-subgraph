@@ -31,8 +31,9 @@ Then in a second terminal, run a local graph node:
 ```
 git clone git@github.com:graphprotocol/graph-node.git
 cd graph-node/docker
-rm -rf data && docker-compose up
+docker-compose up
 ```
+(might need to `rm -rf data` before running the docker in order to reset ipfs and postgres persistency)
 
 Finally deploy the subgraph in question to the local node:
 ```
