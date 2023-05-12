@@ -4,10 +4,10 @@ import { GEYSERS, NO_ADDR } from '../constants';
 
 export function loadUser(address: Address): User {
   let id = address.toHexString();
-  let user = User.load(id) as User;
+  let user = User.load(id);
 
   if (user) {
-    return user;
+    return user as User;
   }
 
   user = new User(id);

@@ -13,9 +13,9 @@ export function loadTransfer(
   amount: BigInt,
 ): Transfer {
   let id = hash.toHexString().concat('-').concat(index.toString());
-  let transfer = Transfer.load(id) as Transfer;
+  let transfer = Transfer.load(id);
   if (transfer) {
-    return transfer;
+    return transfer as Transfer;
   }
   transfer = new Transfer(id);
   transfer.timestamp = timestamp;
@@ -29,6 +29,6 @@ export function loadTransfer(
 }
 
 export function transferExists(hash: Bytes): boolean {
-  let transfer = Transfer.load(hash.toHexString()) as Transfer;
+  let transfer = Transfer.load(hash.toHexString());
   return transfer != null;
 }

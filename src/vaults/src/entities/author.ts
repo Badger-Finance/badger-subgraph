@@ -3,10 +3,10 @@ import { Author } from '../../generated/schema';
 
 export function loadVaultAuthor(address: Address): Author {
   let id = address.toHexString();
-  let author = Author.load(id) as Author;
+  let author = Author.load(id);
 
   if (author) {
-    return author;
+    return author as Author;
   }
 
   author = new Author(id);

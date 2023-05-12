@@ -3,9 +3,9 @@ import { Registry } from '../../generated/schema';
 
 export function loadRegistry(address: Address): Registry {
   let id = address.toHexString();
-  let registry = Registry.load(id) as Registry;
+  let registry = Registry.load(id);
   if (registry) {
-    return registry;
+    return registry as Registry;
   }
   registry = new Registry(id);
   registry.save();

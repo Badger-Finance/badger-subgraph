@@ -11,9 +11,9 @@ export function loadHarvest(event: Harvest): SettHarvest {
     .toHexString()
     .concat('-')
     .concat(event.logIndex.toString());
-  let harvest = SettHarvest.load(id) as SettHarvest;
+  let harvest = SettHarvest.load(id);
   if (harvest) {
-    return harvest;
+    return harvest as SettHarvest;
   }
   harvest = new SettHarvest(id);
   harvest.timestamp = event.block.timestamp.toI32();
@@ -39,9 +39,9 @@ export function loadHarvestV1_5(event: Harvested): SettHarvest {
     .toHexString()
     .concat('-')
     .concat(event.logIndex.toString());
-  let harvest = SettHarvest.load(id) as SettHarvest;
+  let harvest = SettHarvest.load(id);
   if (harvest) {
-    return harvest;
+    return harvest as SettHarvest;
   }
   harvest = new SettHarvest(id);
   harvest.timestamp = event.params.timestamp.toI32();
