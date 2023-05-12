@@ -22,8 +22,8 @@ export function loadAffiliateSett(
 
   if (sett == null) {
     sett = new Sett(id);
-    sett.name = readValue<string>(contract.try_name(), sett.name);
-    sett.symbol = readValue<string>(contract.try_symbol(), sett.symbol);
+    sett.name = readValue<string>(contract.try_name(), '');
+    sett.symbol = readValue<string>(contract.try_symbol(), '');
     sett.decimals = BigInt.fromI32(readValue<i32>(contract.try_decimals(), 18));
     let token = readValue<Address>(contract.try_token(), Address.fromString(NO_ADDR));
     sett.token = loadToken(token).id;
