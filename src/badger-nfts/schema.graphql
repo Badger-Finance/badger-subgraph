@@ -7,5 +7,5 @@ type NFTBalance @entity {
 
 type User @entity {
   id: ID!
-  nfts:[NFTBalance]! @derivedFrom(field:"owner")
+  nfts:[NFTBalance!]! @derivedFrom(field:"owner")
 }
