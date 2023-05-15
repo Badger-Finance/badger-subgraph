@@ -15,9 +15,9 @@ export function loadBadgerTreeDistribution(
 ): BadgerTreeDistribution {
   let id = txHash.toHexString().concat('-').concat(logIndex.toString());
 
-  let distribution = BadgerTreeDistribution.load(id) as BadgerTreeDistribution;
+  let distribution = BadgerTreeDistribution.load(id);
   if (distribution) {
-    return distribution;
+    return distribution as BadgerTreeDistribution;
   }
   distribution = new BadgerTreeDistribution(id);
   distribution.timestamp = timestamp.toI32();
@@ -33,9 +33,9 @@ export function loadSushiTreeDistribution(event: HarvestState): BadgerTreeDistri
     .toHexString()
     .concat('-')
     .concat(event.logIndex.toString());
-  let distribution = BadgerTreeDistribution.load(id) as BadgerTreeDistribution;
+  let distribution = BadgerTreeDistribution.load(id);
   if (distribution) {
-    return distribution;
+    return distribution as BadgerTreeDistribution;
   }
   distribution = new BadgerTreeDistribution(id);
   distribution.timestamp = event.params.timestamp.toI32();

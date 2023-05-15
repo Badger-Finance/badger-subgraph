@@ -9,11 +9,12 @@ import { readValue } from './contracts';
 
 export function loadStrategy(address: Address): Strategy {
   let id = address.toHexString();
-  let strategy = Strategy.load(id) as Strategy;
+  let strategy = Strategy.load(id);
   if (strategy == null) {
     BadgerStrategy.create(address);
     strategy = new Strategy(id);
   }
+  strategy = strategy as Strategy;
   let contract = BaseStrategy.bind(address);
   strategy.balance = readValue<BigInt>(contract.try_balanceOfPool(), ZERO);
   let controller = readValue<Address>(contract.try_controller(), ADDR_ZERO);
@@ -32,10 +33,11 @@ export function loadStrategy(address: Address): Strategy {
 
 export function loadStrategyV1_5(address: Address): Strategy {
   let id = address.toHexString();
-  let strategy = Strategy.load(id) as Strategy;
+  let strategy = Strategy.load(id);
   if (strategy == null) {
     strategy = new Strategy(id);
   }
+  strategy = strategy as Strategy;
   let contract = BaseStrategyV1_5.bind(address);
   strategy.balance = readValue<BigInt>(contract.try_balanceOfPool(), ZERO);
   let vault = readValue<Address>(contract.try_vault(), ADDR_ZERO);

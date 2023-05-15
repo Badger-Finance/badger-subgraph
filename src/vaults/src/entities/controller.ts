@@ -3,9 +3,9 @@ import { Controller } from '../../generated/schema';
 
 export function loadController(address: Address): Controller {
   let id = address.toHexString();
-  let controller = Controller.load(id) as Controller;
+  let controller = Controller.load(id);
   if (controller) {
-    return controller;
+    return controller as Controller;
   }
   controller = new Controller(id);
   controller.save();
