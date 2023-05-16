@@ -1,5 +1,5 @@
 specVersion: 0.0.4
-description: "Badger is a decentralized autonomous organization (DAO) with a single purpose: build the products and infrastructure necessary to accelerate Bitcoin as collateral across other blockchains."
+description: "Badger is a decentralized autonomous organization (DAO) with a single purpose: build the products and infrastructure necessary to accelerate Bitcoin as collateral across EVM blockchains."
 repository: https://github.com/Badger-Finance/badger-subgraph/tree/master/subgraphs/setts
 schema:
   file: ./schema.graphql
