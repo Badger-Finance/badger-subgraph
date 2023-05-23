@@ -124,7 +124,7 @@ export function createMarket(
     market = new Market(marketAddress)
     market.underlyingAddress = contract.underlying()
 
-    let underlyingContract = ERC20.bind(market.underlyingAddress as Address),
+    let underlyingContract = ERC20.bind(Address.fromBytes(market.underlyingAddress)),
       _decimals = underlyingContract.try_decimals(),
       noDecimals = 0,
       _name = underlyingContract.try_name(),
@@ -237,7 +237,7 @@ export function updateMarket(
           let tokenPriceUSD = getTokenPrice(
             blockNumber,
             contractAddress,
-            market.underlyingAddress as Address,
+            Address.fromBytes(market.underlyingAddress),
             market.underlyingDecimals,
           )
 
@@ -266,7 +266,7 @@ export function updateMarket(
           let tokenPriceEth = getTokenPrice(
             blockNumber,
             contractAddress,
-            market.underlyingAddress as Address,
+            Address.fromBytes(market.underlyingAddress),
             market.underlyingDecimals,
           )
           market.underlyingPrice = tokenPriceEth.truncate(market.underlyingDecimals)
