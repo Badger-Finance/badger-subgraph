@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */ // to satisfy AS compiler
 
 /* External imports */
-import { Address, BigInt } from '@graphprotocol/graph-ts';
+// import { Address, BigInt } from '@graphprotocol/graph-ts';
 
 /* Internal imports */
 import {
@@ -15,16 +15,24 @@ import {
 } from '../types/templates/Comptroller/Comptroller';
 import { CToken } from '../types/templates';
 import { Comptroller } from '../types/templates/Comptroller/Comptroller';
-import { Market, Account, Pool, Admin } from '../types/schema';
+import {
+  Market,
+  Account,
+  Pool,
+  // Admin
+} from '../types/schema';
 import {
   mantissaFactorBD,
   updateCommonCTokenStats,
   createAccount,
-  createAdmin,
+  // createAdmin,
   updateCommonPoolStats,
   getAllMarketsInPool,
 } from './helpers';
-import { createMarket, updateMarket } from './markets';
+import {
+  createMarket,
+  // updateMarket
+} from './markets';
 import { updatePool } from './fusePools';
 import { BADGER_COMPTROLLER, BADGER_POOL_INDEX } from '../constants';
 
@@ -94,24 +102,26 @@ export function handleNewCloseFactor(event: NewCloseFactor): void {
 
   if (pool != null) {
     pool = updatePool(event.address);
-    if (pool.index !== BADGER_POOL_INDEX) return;
+    if (pool != null) {
+      if (pool.index !== BADGER_POOL_INDEX) return;
 
-    let poolStats = updateCommonPoolStats(
-      pool.id,
-      pool.id,
-      event.transaction.hash,
-      event.block.timestamp,
-      event.block.number,
-      event.logIndex,
-    );
+      let poolStats = updateCommonPoolStats(
+        pool.id,
+        pool.id,
+        event.transaction.hash,
+        event.block.timestamp,
+        event.block.number,
+        event.logIndex,
+      );
 
-    pool.closeFactor = event.params.newCloseFactorMantissa;
-    poolStats.closeFactor = event.params.newCloseFactorMantissa;
-    pool.name = pool.name;
-    poolStats.name = pool.name;
+      pool.closeFactor = event.params.newCloseFactorMantissa;
+      poolStats.closeFactor = event.params.newCloseFactorMantissa;
+      pool.name = pool.name;
+      poolStats.name = pool.name;
 
-    pool.save();
-    poolStats.save();
+      pool.save();
+      poolStats.save();
+    }
   }
 }
 
@@ -137,22 +147,24 @@ export function handleNewLiquidationIncentive(event: NewLiquidationIncentive): v
 
   if (pool !== null) {
     pool = updatePool(event.address);
-    if (pool.index !== BADGER_POOL_INDEX) return;
+    if (pool !== null) {
+      if (pool.index !== BADGER_POOL_INDEX) return;
 
-    let poolStats = updateCommonPoolStats(
-      pool.id,
-      pool.id,
-      event.transaction.hash,
-      event.block.timestamp,
-      event.block.number,
-      event.logIndex,
-    );
+      let poolStats = updateCommonPoolStats(
+        pool.id,
+        pool.id,
+        event.transaction.hash,
+        event.block.timestamp,
+        event.block.number,
+        event.logIndex,
+      );
 
-    pool.liquidationIncentive = event.params.newLiquidationIncentiveMantissa;
-    poolStats.liquidationIncentive = event.params.newLiquidationIncentiveMantissa;
+      pool.liquidationIncentive = event.params.newLiquidationIncentiveMantissa;
+      poolStats.liquidationIncentive = event.params.newLiquidationIncentiveMantissa;
 
-    pool.save();
-    poolStats.save();
+      pool.save();
+      poolStats.save();
+    }
   }
 }
 
