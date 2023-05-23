@@ -118,7 +118,7 @@ export function createMarket(
     market.underlyingName = 'Ether'
     market.underlyingSymbol = 'ETH'
     market.underlyingPriceUSD = zeroBD
-    market.pool = marketListedEvent.address.toHexString()
+    market.pool = marketListedEvent!.address.toHexString()
     // It is all other CERC20 contracts
   } else {
     market = new Market(marketAddress)
@@ -151,7 +151,7 @@ export function createMarket(
       market.underlyingPriceUSD = BigDecimal.fromString('1')
     }
 
-    market.pool = marketListedEvent.address.toHexString()
+    market.pool = marketListedEvent!.address.toHexString()
   }
 
   let interestRateModelAddress = contract.try_interestRateModel()
@@ -184,7 +184,7 @@ export function createMarket(
   market.borrowIndex = zeroBD
   market.reserveFactor = reserveFactor.reverted ? BigInt.fromI32(0) : reserveFactor.value
 
-  market.pool = marketListedEvent.address.toHexString()
+  market.pool = marketListedEvent!.address.toHexString()
 
   return market
 }
