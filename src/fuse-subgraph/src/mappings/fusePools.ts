@@ -1,14 +1,19 @@
-import { Address, BigInt, Bytes, ethereum } from '@graphprotocol/graph-ts';
+import {
+  Address,
+  BigInt,
+  Bytes,
+  // ethereum
+} from '@graphprotocol/graph-ts';
 import { BADGER_COMPTROLLER, BADGER_POOL_INDEX } from '../constants';
 import {
-  FusePoolDirectory,
-  FusePoolDirectory__poolsResult,
+  // FusePoolDirectory,
+  // FusePoolDirectory__poolsResult,
   PoolRegistered,
 } from '../types/FusePoolDirectory/FusePoolDirectory';
 import { Pool } from '../types/schema';
 import { Comptroller } from '../types/templates/Comptroller/Comptroller';
 import {
-  zeroBD,
+  // zeroBD,
   getAllMarketsInPool,
   // getTotalSupplyUSDInPool,
   // getTotalBorrowUSDInPool
@@ -59,33 +64,36 @@ export function createPool(
 export function updatePool(fusePoolAddress: Address): Pool | null {
   let poolID = fusePoolAddress.toHexString();
   let pool = Pool.load(poolID);
-  if (pool.index !== BADGER_POOL_INDEX) return null;
+  if (pool !== null) {
+    if (pool.index !== BADGER_POOL_INDEX) return null;
 
-  let contractAddress = Address.fromString(pool.id);
-  let contract = Comptroller.bind(contractAddress);
+    let contractAddress = Address.fromString(pool.id);
+    let contract = Comptroller.bind(contractAddress);
 
-  pool.name = contract._name;
-  pool.comptroller = contract._address;
-  let admin = contract.try_admin();
-  let closeFactor = contract.try_closeFactorMantissa();
-  let liquidationIncentive = contract.try_liquidationIncentiveMantissa();
-  let oracle = contract.try_oracle();
-  let maxAssets = contract.try_maxAssets();
+    pool.name = contract._name;
+    pool.comptroller = contract._address;
+    let admin = contract.try_admin();
+    let closeFactor = contract.try_closeFactorMantissa();
+    let liquidationIncentive = contract.try_liquidationIncentiveMantissa();
+    let oracle = contract.try_oracle();
+    let maxAssets = contract.try_maxAssets();
 
-  pool.creator = admin.reverted ? new Bytes(0) : admin.value;
-  pool.closeFactor = closeFactor.reverted ? new BigInt(0) : closeFactor.value;
-  pool.liquidationIncentive = liquidationIncentive.reverted
-    ? new BigInt(0)
-    : liquidationIncentive.value;
-  pool.priceOracle = oracle.reverted ? new Bytes(0) : oracle.value;
-  pool.maxAssets = maxAssets.reverted ? new BigInt(0) : maxAssets.value;
+    pool.creator = admin.reverted ? new Bytes(0) : admin.value;
+    pool.closeFactor = closeFactor.reverted ? new BigInt(0) : closeFactor.value;
+    pool.liquidationIncentive = liquidationIncentive.reverted
+      ? new BigInt(0)
+      : liquidationIncentive.value;
+    pool.priceOracle = oracle.reverted ? new Bytes(0) : oracle.value;
+    pool.maxAssets = maxAssets.reverted ? new BigInt(0) : maxAssets.value;
 
-  pool.markets = getAllMarketsInPool(contract);
+    pool.markets = getAllMarketsInPool(contract);
 
-  // pool.totalSupplyUSD = getTotalSupplyUSDInPool(contract)
-  // pool.totalBorrowUSD = getTotalBorrowUSDInPool(contract)
+    // pool.totalSupplyUSD = getTotalSupplyUSDInPool(contract)
+    // pool.totalBorrowUSD = getTotalBorrowUSDInPool(contract)
 
-  pool.save();
+    pool.save();
 
-  return pool as Pool;
+    return pool as Pool;
+  }
+  return null;
 }
