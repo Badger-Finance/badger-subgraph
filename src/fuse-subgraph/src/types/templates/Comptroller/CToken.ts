@@ -523,6 +523,22 @@ export class CToken__getAccountSnapshotResult {
     map.set("value3", ethereum.Value.fromUnsignedBigInt(this.value3));
     return map;
   }
+
+  getValue0(): BigInt {
+    return this.value0;
+  }
+
+  getValue1(): BigInt {
+    return this.value1;
+  }
+
+  getValue2(): BigInt {
+    return this.value2;
+  }
+
+  getValue3(): BigInt {
+    return this.value3;
+  }
 }
 
 export class CToken extends ethereum.SmartContract {

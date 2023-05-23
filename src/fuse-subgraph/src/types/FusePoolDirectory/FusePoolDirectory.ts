@@ -50,7 +50,9 @@ export class PoolRegistered__Params {
   }
 
   get pool(): PoolRegisteredPoolStruct {
-    return this._event.parameters[1].value.toTuple() as PoolRegisteredPoolStruct;
+    return changetype<PoolRegisteredPoolStruct>(
+      this._event.parameters[1].value.toTuple()
+    );
   }
 }
 
@@ -106,6 +108,26 @@ export class FusePoolDirectory__poolsResult {
     map.set("value4", ethereum.Value.fromUnsignedBigInt(this.value4));
     return map;
   }
+
+  getName(): string {
+    return this.value0;
+  }
+
+  getCreator(): Address {
+    return this.value1;
+  }
+
+  getComptroller(): Address {
+    return this.value2;
+  }
+
+  getBlockPosted(): BigInt {
+    return this.value3;
+  }
+
+  getTimestampPosted(): BigInt {
+    return this.value4;
+  }
 }
 
 export class FusePoolDirectory__deployPoolResult {
@@ -122,6 +144,14 @@ export class FusePoolDirectory__deployPoolResult {
     map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
     map.set("value1", ethereum.Value.fromAddress(this.value1));
     return map;
+  }
+
+  getValue0(): BigInt {
+    return this.value0;
+  }
+
+  getValue1(): Address {
+    return this.value1;
   }
 }
 
@@ -187,6 +217,14 @@ export class FusePoolDirectory__getPublicPoolsResult {
     map.set("value1", ethereum.Value.fromTupleArray(this.value1));
     return map;
   }
+
+  getValue0(): Array<BigInt> {
+    return this.value0;
+  }
+
+  getValue1(): Array<FusePoolDirectory__getPublicPoolsResultValue1Struct> {
+    return this.value1;
+  }
 }
 
 export class FusePoolDirectory__getPoolsByAccountResultValue1Struct extends ethereum.Tuple {
@@ -228,6 +266,14 @@ export class FusePoolDirectory__getPoolsByAccountResult {
     map.set("value0", ethereum.Value.fromUnsignedBigIntArray(this.value0));
     map.set("value1", ethereum.Value.fromTupleArray(this.value1));
     return map;
+  }
+
+  getValue0(): Array<BigInt> {
+    return this.value0;
+  }
+
+  getValue1(): Array<FusePoolDirectory__getPoolsByAccountResultValue1Struct> {
+    return this.value1;
   }
 }
 

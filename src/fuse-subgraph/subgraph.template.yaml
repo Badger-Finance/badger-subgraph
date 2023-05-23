@@ -14,9 +14,9 @@ dataSources:
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
-      # Need to finish mappings for this 
+      # Need to finish mappings for this
       file: ./src/mappings/fusePoolDirectory.ts
       entities:
         # - FusePoolDirectory
@@ -39,7 +39,7 @@ templates:
       abi: Comptroller
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mappings/comptroller.ts
       entities:
@@ -81,7 +81,7 @@ templates:
       abi: CToken
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mappings/cToken.ts
       entities:
