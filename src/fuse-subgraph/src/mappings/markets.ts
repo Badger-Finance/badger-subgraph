@@ -6,11 +6,11 @@ import { Address, BigDecimal, BigInt, log } from '@graphprotocol/graph-ts'
 
 /* Internal imports */
 import { Market } from '../types/schema'
-import { PriceOracle } from '../types/templates/CToken/PriceOracle'
+// import { PriceOracle } from '../types/templates/CToken/PriceOracle'
 import { MasterPriceOracle } from '../types/templates/CToken/MasterPriceOracle'
 import { ERC20 } from '../types/templates/CToken/ERC20'
 import { CToken } from '../types/templates/CToken/CToken'
-import { Comptroller } from '../types/templates/Comptroller/Comptroller'
+// import { Comptroller } from '../types/templates/Comptroller/Comptroller'
 import {
   exponentToBigDecimal,
   mantissaFactor,
@@ -19,7 +19,7 @@ import {
   zeroBD,
   convertMantissaToAPY,
   convertMantissaToAPR,
-  fixed36
+  // fixed36
 } from './helpers'
 import { MarketListed } from '../types/templates/Comptroller/Comptroller'
 
@@ -210,169 +210,172 @@ export function updateMarket(
   marketAddress: Address,
   blockNumber: i32,
   blockTimestamp: i32,
-): Market {
+): Market | null {
   let marketID = marketAddress.toHexString()
   let market = Market.load(marketID)
 
-  // Only updateMarket if it has not been updated this block
-  if (market.accrualBlockNumber != blockNumber) {
-    let contractAddress = Address.fromString(market.id)
-    let contract = CToken.bind(contractAddress)
+  if (market !== null) {
+    // Only updateMarket if it has not been updated this block
+    if (market.accrualBlockNumber != blockNumber) {
+      let contractAddress = Address.fromString(market.id)
+      let contract = CToken.bind(contractAddress)
 
-    market.pool = contract._address.toHexString()
+      market.pool = contract._address.toHexString()
 
-    // After block 10678764 price is calculated based on USD instead of ETH
-    /**
-     * @dev Rari Fuse subgraph runs through this if/else check every time since
-     *      the `startBlock` specified in `subgraph.yaml` is 12059666.
-     */
-    if (blockNumber > 10678764) {
-      let ethPriceInUSD = getETHinUSD(blockNumber)
+      // After block 10678764 price is calculated based on USD instead of ETH
+      /**
+       * @dev Rari Fuse subgraph runs through this if/else check every time since
+       *      the `startBlock` specified in `subgraph.yaml` is 12059666.
+       */
+      if (blockNumber > 10678764) {
+        let ethPriceInUSD = getETHinUSD(blockNumber)
 
-      // if cETH, we only update USD price
-      if (market.id == cETHAddress) {
-        market.underlyingPriceUSD = ethPriceInUSD.truncate(market.underlyingDecimals)
-      } else {
-        let tokenPriceUSD = getTokenPrice(
-          blockNumber,
-          contractAddress,
-          market.underlyingAddress as Address,
-          market.underlyingDecimals,
-        )
-
-        ethPriceInUSD == BigDecimal.fromString('2080')
-          ? market.underlyingPrice = BigDecimal.fromString('0')
-          : market.underlyingPrice = tokenPriceUSD
-            .div(ethPriceInUSD)
-            .truncate(market.underlyingDecimals)
-
-        // if USDC, we only update ETH price
-        if (market.id != cUSDCAddress) {
-          market.underlyingPriceUSD = tokenPriceUSD.truncate(
-            market.underlyingDecimals
+        // if cETH, we only update USD price
+        if (market.id == cETHAddress) {
+          market.underlyingPriceUSD = ethPriceInUSD.truncate(market.underlyingDecimals)
+        } else {
+          let tokenPriceUSD = getTokenPrice(
+            blockNumber,
+            contractAddress,
+            market.underlyingAddress as Address,
+            market.underlyingDecimals,
           )
-        }
-      }
-    } else {
-      let usdPriceInEth = getUSDCpriceETH(blockNumber)
 
-      // if cETH, we only update USD price
-      if (market.id == cETHAddress) {
-        market.underlyingPriceUSD = market.underlyingPrice
-          .div(usdPriceInEth)
-          .truncate(market.underlyingDecimals)
+          ethPriceInUSD == BigDecimal.fromString('2080')
+            ? market.underlyingPrice = BigDecimal.fromString('0')
+            : market.underlyingPrice = tokenPriceUSD
+              .div(ethPriceInUSD)
+              .truncate(market.underlyingDecimals)
+
+          // if USDC, we only update ETH price
+          if (market.id != cUSDCAddress) {
+            market.underlyingPriceUSD = tokenPriceUSD.truncate(
+              market.underlyingDecimals
+            )
+          }
+        }
       } else {
-        let tokenPriceEth = getTokenPrice(
-          blockNumber,
-          contractAddress,
-          market.underlyingAddress as Address,
-          market.underlyingDecimals,
-        )
-        market.underlyingPrice = tokenPriceEth.truncate(market.underlyingDecimals)
-        // if USDC, we only update ETH price
-        if (market.id != cUSDCAddress) {
+        let usdPriceInEth = getUSDCpriceETH(blockNumber)
+
+        // if cETH, we only update USD price
+        if (market.id == cETHAddress) {
           market.underlyingPriceUSD = market.underlyingPrice
             .div(usdPriceInEth)
             .truncate(market.underlyingDecimals)
+        } else {
+          let tokenPriceEth = getTokenPrice(
+            blockNumber,
+            contractAddress,
+            market.underlyingAddress as Address,
+            market.underlyingDecimals,
+          )
+          market.underlyingPrice = tokenPriceEth.truncate(market.underlyingDecimals)
+          // if USDC, we only update ETH price
+          if (market.id != cUSDCAddress) {
+            market.underlyingPriceUSD = market.underlyingPrice
+              .div(usdPriceInEth)
+              .truncate(market.underlyingDecimals)
+          }
         }
       }
+
+      market.accrualBlockNumber = contract.accrualBlockNumber().toI32()
+      market.blockTimestamp = blockTimestamp
+
+      let totalSupply = contract
+        .totalSupply()
+        .toBigDecimal()
+        .div(cTokenDecimalsBD)
+
+      market.totalSupply = totalSupply
+
+      // /** @todo Returns with a value of `0` */
+      // market.totalSupplyUSD = totalSupply
+      //   .div(fixed36)
+      //   .times(market.underlyingPrice)
+      // .times(getETHinUSD(blockNumber))
+
+      /* Exchange rate explanation
+        In Practice
+          - If you call the cDAI contract on etherscan it comes back (2.0 * 10^26)
+          - If you call the cUSDC contract on etherscan it comes back (2.0 * 10^14)
+          - The real value is ~0.02. So cDAI is off by 10^28, and cUSDC 10^16
+        How to calculate for tokens with different decimals
+          - Must div by tokenDecimals, 10^market.underlyingDecimals
+          - Must multiply by ctokenDecimals, 10^8
+          - Must div by mantissa, 10^18
+      */
+      market.exchangeRate = contract
+        .exchangeRateStored()
+        .toBigDecimal()
+        .div(exponentToBigDecimal(market.underlyingDecimals))
+        .times(cTokenDecimalsBD)
+        .div(mantissaFactorBD)
+        .truncate(mantissaFactor)
+      market.borrowIndex = contract
+        .borrowIndex()
+        .toBigDecimal()
+        .div(mantissaFactorBD)
+        .truncate(mantissaFactor)
+
+      market.reserves = contract
+        .totalReserves()
+        .toBigDecimal()
+        .div(exponentToBigDecimal(market.underlyingDecimals))
+        .truncate(market.underlyingDecimals)
+
+      let totalBorrows = contract
+        .totalBorrows()
+        .toBigDecimal()
+        .div(exponentToBigDecimal(market.underlyingDecimals))
+        .truncate(market.underlyingDecimals)
+
+      market.totalBorrows = totalBorrows
+
+      // /** @todo Returns with a value of `0` */
+      // market.totalBorrowUSD = totalBorrows
+      //   .div(fixed36)
+      //   .times(market.underlyingPrice)
+      // .times(getETHinUSD(blockNumber))
+
+      market.cash = contract
+        .getCash()
+        .toBigDecimal()
+        .div(exponentToBigDecimal(market.underlyingDecimals))
+        .truncate(market.underlyingDecimals)
+
+      // Must convert to BigDecimal, and remove 10^18 that is used for Exp in Compound Solidity
+      let borrowRatePerBlock = contract.try_borrowRatePerBlock()
+      if (borrowRatePerBlock.reverted) {
+        log.info('***CALL FAILED*** : cERC20 borrowRatePerBlock() reverted', [])
+        market.borrowRate = BigInt.fromI32(0)
+      } else {
+        market.borrowRate = borrowRatePerBlock.value
+        // .toBigDecimal()
+        // .times(BigDecimal.fromString('2102400'))
+        // .div(mantissaFactorBD)
+        // .truncate(mantissaFactor)
+      }
+
+      // This fails on only the first call to cZRX. It is unclear why, but otherwise it works.
+      // So we handle it like this.
+      let supplyRatePerBlock = contract.try_supplyRatePerBlock()
+      if (supplyRatePerBlock.reverted) {
+        log.info('***CALL FAILED*** : cERC20 supplyRatePerBlock() reverted', [])
+        market.supplyRate = BigInt.fromI32(0)
+      } else {
+        market.supplyRate = supplyRatePerBlock.value
+        // .times(BigDecimal.fromString('2102400'))
+        // .div(mantissaFactorBD)
+        // .truncate(mantissaFactor)
+
+        market.supplyRateAPY = convertMantissaToAPY(supplyRatePerBlock.value, 365)
+        market.borrowRateAPR = convertMantissaToAPR(supplyRatePerBlock.value)
+      }
+
+      market.save()
     }
-
-    market.accrualBlockNumber = contract.accrualBlockNumber().toI32()
-    market.blockTimestamp = blockTimestamp
-
-    let totalSupply = contract
-      .totalSupply()
-      .toBigDecimal()
-      .div(cTokenDecimalsBD)
-
-    market.totalSupply = totalSupply
-
-    // /** @todo Returns with a value of `0` */
-    // market.totalSupplyUSD = totalSupply
-    //   .div(fixed36)
-    //   .times(market.underlyingPrice)
-    // .times(getETHinUSD(blockNumber))
-
-    /* Exchange rate explanation
-       In Practice
-        - If you call the cDAI contract on etherscan it comes back (2.0 * 10^26)
-        - If you call the cUSDC contract on etherscan it comes back (2.0 * 10^14)
-        - The real value is ~0.02. So cDAI is off by 10^28, and cUSDC 10^16
-       How to calculate for tokens with different decimals
-        - Must div by tokenDecimals, 10^market.underlyingDecimals
-        - Must multiply by ctokenDecimals, 10^8
-        - Must div by mantissa, 10^18
-     */
-    market.exchangeRate = contract
-      .exchangeRateStored()
-      .toBigDecimal()
-      .div(exponentToBigDecimal(market.underlyingDecimals))
-      .times(cTokenDecimalsBD)
-      .div(mantissaFactorBD)
-      .truncate(mantissaFactor)
-    market.borrowIndex = contract
-      .borrowIndex()
-      .toBigDecimal()
-      .div(mantissaFactorBD)
-      .truncate(mantissaFactor)
-
-    market.reserves = contract
-      .totalReserves()
-      .toBigDecimal()
-      .div(exponentToBigDecimal(market.underlyingDecimals))
-      .truncate(market.underlyingDecimals)
-
-    let totalBorrows = contract
-      .totalBorrows()
-      .toBigDecimal()
-      .div(exponentToBigDecimal(market.underlyingDecimals))
-      .truncate(market.underlyingDecimals)
-
-    market.totalBorrows = totalBorrows
-
-    // /** @todo Returns with a value of `0` */
-    // market.totalBorrowUSD = totalBorrows
-    //   .div(fixed36)
-    //   .times(market.underlyingPrice)
-    // .times(getETHinUSD(blockNumber))
-
-    market.cash = contract
-      .getCash()
-      .toBigDecimal()
-      .div(exponentToBigDecimal(market.underlyingDecimals))
-      .truncate(market.underlyingDecimals)
-
-    // Must convert to BigDecimal, and remove 10^18 that is used for Exp in Compound Solidity
-    let borrowRatePerBlock = contract.try_borrowRatePerBlock()
-    if (borrowRatePerBlock.reverted) {
-      log.info('***CALL FAILED*** : cERC20 borrowRatePerBlock() reverted', [])
-      market.borrowRate = BigInt.fromI32(0)
-    } else {
-      market.borrowRate = borrowRatePerBlock.value
-      // .toBigDecimal()
-      // .times(BigDecimal.fromString('2102400'))
-      // .div(mantissaFactorBD)
-      // .truncate(mantissaFactor)
-    }
-
-    // This fails on only the first call to cZRX. It is unclear why, but otherwise it works.
-    // So we handle it like this.
-    let supplyRatePerBlock = contract.try_supplyRatePerBlock()
-    if (supplyRatePerBlock.reverted) {
-      log.info('***CALL FAILED*** : cERC20 supplyRatePerBlock() reverted', [])
-      market.supplyRate = BigInt.fromI32(0)
-    } else {
-      market.supplyRate = supplyRatePerBlock.value
-      // .times(BigDecimal.fromString('2102400'))
-      // .div(mantissaFactorBD)
-      // .truncate(mantissaFactor)
-
-      market.supplyRateAPY = convertMantissaToAPY(supplyRatePerBlock.value, 365)
-      market.borrowRateAPR = convertMantissaToAPR(supplyRatePerBlock.value)
-    }
-
-    market.save()
+    return market as Market
   }
-  return market as Market
+  return null;
 }
