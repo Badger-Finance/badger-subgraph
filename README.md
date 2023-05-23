@@ -41,6 +41,13 @@ cd src/<subgraph-dir>
 yarn codegen && yarn build && yarn create-local && yarn deploy-local
 ```
 
+**NOTE**: find the decentralised subgraphs in the readme in their own branch here: [`tree/decentralized`](../../tree/decentralized)
+
+## Deploying a Subgraph
+
+Badger subgraphs are written with the intention or serving cross chain implementations.
+Thus, deployment of subgraphs comprises of three steps to allow for this flexibility in cross chain deployments.
+
 ## Deploying a Decentralised Subgraph
 ```
 graph auth --studio <api-key>
